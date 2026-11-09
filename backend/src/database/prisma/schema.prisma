@@ -1,0 +1,176 @@
+// ============================================================================
+// PRISMA SCHEMA — MXH_HSSV (Supabase PostgreSQL Online)
+// Phase 1: Foundation & Module 1 (Identity & Student Verification)
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserRole {
+  UNVERIFIED_USER
+  VERIFIED_STUDENT
+  MODERATOR
+  ADMIN
+
+  @@map("user_role")
+}
+
+enum UserStatus {
+  ACTIVE
+  WARNED
+  SUSPENDED
+  BANNED
+
+  @@map("user_status")
+}
+
+enum VerificationProvider {
+  EDU_OTP
+  SSO_OAUTH2
+
+  @@map("verification_provider")
+}
+
+enum SkillCategory {
+  TECHNICAL
+  LANGUAGE
+  SOFT_SKILL
+
+  @@map("skill_category")
+}
+
+enum SkillProficiency {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+
+  @@map("skill_proficiency")
+}
+
+model Faculty {
+  id          String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code        String            @unique @db.VarChar(20)
+  name        String            @db.VarChar(150)
+  description String?           @db.Text
+  createdAt   DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  courses     Course[]
+  profiles    AcademicProfile[]
+
+  @@map("faculties")
+}
+
+model Course {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code        String   @unique @db.VarChar(20)
+  name        String   @db.VarChar(200)
+  facultyId   String   @map("faculty_id") @db.Uuid
+  credits     Int      @default(3) @db.SmallInt
+  description String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  faculty     Faculty  @relation(fields: [facultyId], references: [id], onDelete: Restrict)
+
+  @@index([facultyId], map: "idx_courses_faculty_id")
+  @@map("courses")
+}
+
+model PrivilegeTier {
+  id                   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tierCode             String   @unique @map("tier_code") @db.VarChar(40)
+  minKarma             Int      @unique @map("min_karma")
+  dailyDownloadLimit   Int?     @map("daily_download_limit")
+  canCreateCustomGroup Boolean  @default(false) @map("can_create_custom_group")
+  badgeLabel           String   @map("badge_label") @db.VarChar(80)
+  createdAt            DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("privilege_tiers")
+}
+
+model User {
+  id                String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email             String                @unique @db.VarChar(255)
+  passwordHash      String?               @map("password_hash") @db.Text
+  role              UserRole              @default(UNVERIFIED_USER)
+  isVerifiedStudent Boolean               @default(false) @map("is_verified_student")
+  verifiedAt        DateTime?             @map("verified_at") @db.Timestamptz(6)
+  karmaPoints       Int                   @default(0) @map("karma_points")
+  status            UserStatus            @default(ACTIVE)
+  lastLoginAt       DateTime?             @map("last_login_at") @db.Timestamptz(6)
+  createdAt         DateTime              @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime              @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  verifications     StudentVerification[]
+  academicProfile   AcademicProfile?
+  skills            UserSkill[]
+
+  @@index([role], map: "idx_users_role")
+  @@index([karmaPoints(sort: Desc)], map: "idx_users_karma_points")
+  @@map("users")
+}
+
+model StudentVerification {
+  id           String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId       String               @map("user_id") @db.Uuid
+  eduEmail     String               @map("edu_email") @db.VarChar(255)
+  otpHash      String?              @map("otp_hash") @db.Text
+  provider     VerificationProvider @default(EDU_OTP)
+  ssoSubjectId String?              @map("sso_subject_id") @db.VarChar(255)
+  expiresAt    DateTime             @map("expires_at") @db.Timestamptz(6)
+  attempts     Int                  @default(0) @db.SmallInt
+  maxAttempts  Int                  @default(5) @map("max_attempts") @db.SmallInt
+  lastSentAt   DateTime             @default(now()) @map("last_sent_at") @db.Timestamptz(6)
+  verifiedAt   DateTime?            @map("verified_at") @db.Timestamptz(6)
+  createdAt    DateTime             @default(now()) @map("created_at") @db.Timestamptz(6)
+  user         User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "idx_student_verifications_user_id")
+  @@index([eduEmail], map: "idx_student_verifications_edu_email")
+  @@map("student_verifications")
+}
+
+model AcademicProfile {
+  userId                 String    @id @map("user_id") @db.Uuid
+  studentCode            String?   @unique @map("student_code") @db.VarChar(30)
+  fullName               String    @map("full_name") @db.VarChar(120)
+  avatarUrl              String?   @map("avatar_url") @db.Text
+  facultyId              String?   @map("faculty_id") @db.Uuid
+  major                  String?   @db.VarChar(150)
+  cohort                 String?   @db.VarChar(30)
+  className              String?   @map("class_name") @db.VarChar(80)
+  careerGoal             String?   @map("career_goal") @db.Text
+  bio                    String?   @db.Text
+  anonymousHandle        String    @unique @map("anonymous_handle") @db.VarChar(60)
+  anonymousAvatar        String?   @map("anonymous_avatar") @db.Text
+  anonymousLastChangedAt DateTime? @map("anonymous_last_changed_at") @db.Timestamptz(6)
+  createdAt              DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt              DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user                   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  faculty                Faculty?  @relation(fields: [facultyId], references: [id], onDelete: SetNull)
+
+  @@index([facultyId], map: "idx_academic_profiles_faculty_id")
+  @@index([cohort], map: "idx_academic_profiles_cohort")
+  @@map("academic_profiles")
+}
+
+model UserSkill {
+  id               String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId           String           @map("user_id") @db.Uuid
+  skillName        String           @map("skill_name") @db.VarChar(100)
+  category         SkillCategory    @default(TECHNICAL)
+  proficiencyLevel SkillProficiency @default(INTERMEDIATE) @map("proficiency_level")
+  createdAt        DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillName, category], map: "uq_user_skill")
+  @@index([userId], map: "idx_user_skills_user_id")
+  @@index([skillName], map: "idx_user_skills_skill_name")
+  @@map("user_skills")
+}

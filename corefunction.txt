@@ -1,0 +1,102 @@
+Hệ thống chức năng cốt lõi (Core Functions) cho nền tảng mạng xã hội sinh viên, được chuẩn hóa theo từng module nghiệp vụ để thiết kế cơ sở dữ liệu và triển khai backend/frontend:
+1. Identity & Student Verification (Định danh & Xác thực)
+Xác thực email trường (.edu / domain trường): Đăng ký/đăng nhập qua OTP email sinh viên hoặc SSO OAuth2 của trường để cấp huy hiệu "Verified Student".
+
+Hồ sơ học thuật (Academic Profile):
+
+Quản lý thông tin: MSSV, khóa, chuyên ngành, lớp sinh hoạt, mục tiêu nghề nghiệp, kỹ năng kỹ thuật/ngoại ngữ.
+
+Tùy chọn ẩn danh (Anonymous Handle) hiển thị trên một số không gian thảo luận nhạy cảm (như hỏi đáp học tập, review giảng viên).
+
+2. Academic Discussion & Feed (Bảng tin & Thảo luận học thuật)
+Luồng tin phân luồng (Contextual Feeds):
+
+Campus Feed: Toàn trường (thông báo, sự kiện, đời sống).
+
+Department / Major Feed: Bảng tin riêng theo ngành/viện để thảo luận kiến thức chuyên sâu.
+
+Course Feed: Bảng tin gắn trực tiếp với từng mã học phần.
+
+Tạo & Quản lý bài đăng (Post Engine):
+
+Hỗ trợ định dạng rich text, code snippet (hỗ trợ syntax highlighting), công thức LaTeX/MathJax, đính kèm file (PDF, slide bài giảng, ảnh).
+
+Tagging môn học (ví dụ: #IT3080, #Calculus3) để tự động gom bài vào bộ lọc học phần.
+
+Hệ thống tương tác (Engagement):
+
+Vote hệ thống Q&A (Upvote/Downvote hoặc Helpful/Endorse) thay vì chỉ bấm Like thông thường.
+
+Bình luận đa cấp (Nested Comments) và chức năng đánh dấu câu trả lời đúng ("Accepted Answer").
+
+3. Study Group & Team Matching (Tìm nhóm & Quản lý đồ án)
+Tìm kiếm thành viên làm đồ án (Teammate Matching):
+
+Đăng tin tuyển đồng đội theo môn học, vai trò (Backend, Frontend, Embedded, Leader, v.v.), kỹ năng yêu cầu và định hướng điểm số (A/B).
+
+Ứng tuyển vào nhóm kèm tóm tắt profile/portfolio và duyệt thành viên.
+
+Không gian nhóm kín (Group Workspace):
+
+Quản lý danh sách thành viên theo vai trò (Lead, Member).
+
+Mini-Kanban / Task Board để phân chia công việc trong nhóm.
+
+Lưu trữ tài liệu chung của nhóm đồ án.
+
+4. Course Review & Peer Q&A (Đánh giá học phần & Hỏi đáp)
+Kho review môn học & giảng viên:
+
+Đánh giá ẩn danh về độ nặng của bài tập lớn, tính công bằng khi chấm điểm, phương pháp giảng dạy.
+
+Thống kê tiêu chí: độ khó, lượng bài tập, tài liệu cần đọc (theo thang 1–5 sao).
+
+Diễn đàn hỏi bài theo môn (Subject-specific Forum):
+
+Tìm kiếm câu hỏi cũ theo mã học phần hoặc từ khóa lỗi.
+
+Tích hợp tìm kiếm toàn văn (Full-text search).
+
+5. Document & Resource Hub (Kho tài liệu mở)
+Tải lên & Phân loại tài liệu:
+
+Upload đề thi các năm, slide, tóm tắt lý thuyết, code mẫu bài tập lớn.
+
+Phân tầng dữ liệu: Khoa/Viện -> Mã môn học -> Kỳ học/Năm -> Loại tài liệu (Đề thi giữa kỳ, Cuối kỳ, BTL, Slide).
+
+Đánh giá chất lượng tài liệu:
+
+Tải xuống, preview trực tiếp (PDF), báo cáo vi phạm bản quyền/tài liệu sai.
+
+Đánh giá độ tin cậy của tài liệu bằng upvote/downvote.
+
+6. Campus Marketplace & Housing (Chợ sinh viên & Nhà trọ)
+Thanh lý đồ dùng học tập:
+
+Mua bán/tặng giáo trình cũ, máy tính cầm tay, kit vi điều khiển/linh kiện thực hành, đồ dùng phòng trọ.
+
+Bộ lọc giá sinh viên, tình trạng đồ (Mới, 90%, Hỏng nhẹ).
+
+Tìm bạn ở ghép & Trọ sinh viên:
+
+Đăng tin tìm phòng trọ/ở ghép gần trường, kèm ngân sách tối đa và thói quen sinh hoạt (giờ giấc, hút thuốc, nấu ăn).
+
+7. Realtime Communication (Giao tiếp thời gian thực)
+Direct Messaging (1-1): Nhắn tin trực tiếp giữa các sinh viên để trao đổi riêng.
+
+Group Chat học phần/nhóm làm bài: Chat nhóm theo từng Project/Môn học, hỗ trợ gửi file tài liệu trực tiếp.
+
+Realtime Notifications: Thông báo bài đăng có phản hồi, lời mời vào nhóm đồ án, cập nhật hạn nộp task.
+
+8. Moderation & Reputation System (Kiểm duyệt & Điểm uy tín)
+Hệ thống điểm uy tín (Academic Karma / Contribution Points):
+
+Tích điểm khi chia sẻ tài liệu hữu ích, câu trả lời được chấp nhận, hoàn thành tốt task nhóm.
+
+Mở khóa các đặc quyền (tải tài liệu không giới hạn, tạo group thảo luận riêng).
+
+Kiểm duyệt nội dung (Moderation Engine):
+
+Report vi phạm (tiêu cực, đề thi cấm leak, lừa đảo trọ).
+
+Dashboard cho Ban quản trị (Admin/Mod) duyệt bài bị report, khóa tài khoản hoặc xóa bài tự động khi đạt ngưỡng báo cáo.
