@@ -4,6 +4,7 @@ import { UserRole } from '../../../common/constants/roles.constant';
 import { sanitizeAnonymousAuthor } from '../../../common/middlewares/anonymous-context.middleware';
 import { AppError } from '../../../common/utils/response.util';
 import { academicKarmaService } from '../../moderation/services/academic-karma.service';
+import { realtimeNotificationService } from '../../communication/services/realtime-notification.service';
 import { CreateCommentInput } from '../feed.types';
 import { postEngineService } from './post-engine.service';
 
@@ -19,7 +20,7 @@ export class NestedCommentService {
   ) {
     const { data: post } = await supabase
       .from('posts')
-      .select('id, comment_count')
+      .select('id, title, author_id, comment_count')
       .eq('id', postId)
       .maybeSingle();
 
@@ -72,6 +73,17 @@ export class NestedCommentService {
       .from('posts')
       .update({ comment_count: (post.comment_count || 0) + 1 })
       .eq('id', postId);
+
+    if (post.author_id && post.author_id !== authorId) {
+      await realtimeNotificationService.dispatchNotification({
+        recipientId: post.author_id,
+        actorId: input.isAnonymous ? null : authorId,
+        type: 'POST_REPLY',
+        title: 'Có phản hồi mới trên bài thảo luận của bạn',
+        body: `Bài viết "${post.title}" vừa nhận được một bình luận mới.`,
+        referenceUrl: `/feed/posts/${postId}`,
+      });
+    }
 
     const { data: profile } = await supabase
       .from('academic_profiles')
@@ -238,6 +250,17 @@ export class NestedCommentService {
       referenceType: 'COMMENT',
       referenceId: commentId,
     });
+
+    if (comment.author_id !== requesterUserId) {
+      await realtimeNotificationService.dispatchNotification({
+        recipientId: comment.author_id,
+        actorId: requesterUserId,
+        type: 'ANSWER_ACCEPTED',
+        title: 'Câu trả lời của bạn được chọn là Accepted Answer! (+15 Karma)',
+        body: 'Cảm ơn đóng góp học thuật xuất sắc của bạn cho cộng đồng sinh viên.',
+        referenceUrl: `/feed/posts/${postId}`,
+      });
+    }
 
     return {
       postId,

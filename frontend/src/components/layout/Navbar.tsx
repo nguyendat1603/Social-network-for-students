@@ -4,6 +4,7 @@ import { APP_ROUTES } from '../../config/routes.config';
 import { useAuth } from '../../hooks/useAuth';
 import { VerifiedStudentBadge } from '../common/VerifiedStudentBadge';
 import { AnonymousSwitch } from '../common/AnonymousSwitch';
+import { RealtimeNotificationBell } from '../../features/communication/components/RealtimeNotificationBell';
 
 export const Navbar: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
@@ -31,7 +32,7 @@ export const Navbar: React.FC = () => {
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
         <Link
-          to={APP_ROUTES.ACADEMIC_PROFILE}
+          to={APP_ROUTES.CAMPUS_FEED}
           style={{
             fontSize: 18,
             fontWeight: 800,
@@ -56,7 +57,8 @@ export const Navbar: React.FC = () => {
       </div>
 
       {isAuthenticated && user ? (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <RealtimeNotificationBell />
           <AnonymousSwitch />
           <VerifiedStudentBadge
             isVerified={user.isVerifiedStudent}

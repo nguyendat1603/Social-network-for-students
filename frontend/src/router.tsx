@@ -11,11 +11,17 @@ import { CampusFeedPage } from './features/feed/pages/CampusFeedPage';
 import { CourseFeedPage } from './features/feed/pages/CourseFeedPage';
 import { DepartmentFeedPage } from './features/feed/pages/DepartmentFeedPage';
 import { PostDetailPage } from './features/feed/pages/PostDetailPage';
+import { TeammateMatchingPage } from './features/study-group/pages/TeammateMatchingPage';
+import { GroupWorkspacePage } from './features/study-group/pages/GroupWorkspacePage';
 import { CourseReviewDetailPage } from './features/course-review/pages/CourseReviewDetailPage';
 import { CourseReviewDirectoryPage } from './features/course-review/pages/CourseReviewDirectoryPage';
 import { SubjectQaForumPage } from './features/course-review/pages/SubjectQaForumPage';
 import { DocumentDetailPage } from './features/resource-hub/pages/DocumentDetailPage';
 import { ResourceHubPage } from './features/resource-hub/pages/ResourceHubPage';
+import { StudentMarketplacePage } from './features/marketplace/pages/StudentMarketplacePage';
+import { RoommateHousingPage } from './features/marketplace/pages/RoommateHousingPage';
+import { MessengerPage } from './features/communication/pages/MessengerPage';
+import { NotificationsPage } from './features/communication/pages/NotificationsPage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({
   children,
@@ -95,6 +101,24 @@ export const AppRouter: React.FC = () => {
           }
         />
 
+        {/* Module 3: Study Group & Team Matching */}
+        <Route
+          path={APP_ROUTES.STUDY_GROUPS}
+          element={
+            <ProtectedRoute>
+              <TeammateMatchingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={APP_ROUTES.GROUP_WORKSPACE}
+          element={
+            <ProtectedRoute>
+              <GroupWorkspacePage />
+            </ProtectedRoute>
+          }
+        />
+
         {/* Module 4: Course Review & Peer Q&A */}
         <Route
           path={APP_ROUTES.COURSE_REVIEWS}
@@ -135,6 +159,42 @@ export const AppRouter: React.FC = () => {
           element={
             <ProtectedRoute>
               <DocumentDetailPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Module 6: Campus Marketplace & Housing */}
+        <Route
+          path={APP_ROUTES.MARKETPLACE_ITEMS}
+          element={
+            <ProtectedRoute>
+              <StudentMarketplacePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={APP_ROUTES.HOUSING_FINDER}
+          element={
+            <ProtectedRoute>
+              <RoommateHousingPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Module 7: Realtime Communication */}
+        <Route
+          path={APP_ROUTES.MESSENGER}
+          element={
+            <ProtectedRoute>
+              <MessengerPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={APP_ROUTES.NOTIFICATIONS}
+          element={
+            <ProtectedRoute>
+              <NotificationsPage />
             </ProtectedRoute>
           }
         />

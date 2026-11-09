@@ -13,7 +13,11 @@ const MODULES_NAV = [
     to: APP_ROUTES.CAMPUS_FEED,
     status: 'ACTIVE',
   },
-  { label: '3. Tìm Nhóm & Đồ án', to: '#study-group', status: 'PHASE 3' },
+  {
+    label: '3. Tìm Nhóm & Đồ án',
+    to: APP_ROUTES.STUDY_GROUPS,
+    status: 'ACTIVE',
+  },
   {
     label: '4. Review Học phần & Q&A',
     to: APP_ROUTES.COURSE_REVIEWS,
@@ -24,8 +28,16 @@ const MODULES_NAV = [
     to: APP_ROUTES.RESOURCE_HUB,
     status: 'ACTIVE',
   },
-  { label: '6. Chợ Sinh viên & Trọ', to: '#marketplace', status: 'PHASE 3' },
-  { label: '7. Chat & Thông báo', to: '#chat', status: 'PHASE 3' },
+  {
+    label: '6. Chợ Sinh viên & Trọ',
+    to: APP_ROUTES.MARKETPLACE_ITEMS,
+    status: 'ACTIVE',
+  },
+  {
+    label: '7. Chat & Thông báo',
+    to: APP_ROUTES.MESSENGER,
+    status: 'ACTIVE',
+  },
   { label: '8. Điểm Uy tín (Karma)', to: '#karma', status: 'PHASE 4' },
 ];
 
