@@ -40,7 +40,7 @@ export class SubjectForumSearchService {
       .select(
         `
         *,
-        course:courses(id, code, name),
+        course:courses!posts_course_id_fkey(id, code, name),
         faculty:faculties(id, code, name)
       `,
         { count: 'exact' }

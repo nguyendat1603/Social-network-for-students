@@ -38,7 +38,7 @@ export class FeedRepository {
         `
         *,
         faculty:faculties(id, code, name),
-        course:courses(id, code, name),
+        course:courses!posts_course_id_fkey(id, code, name),
         attachments:post_attachments(id, file_url, file_name, file_type, file_size)
       `,
         { count: 'exact' }
@@ -159,7 +159,7 @@ export class FeedRepository {
         `
         *,
         faculty:faculties(id, code, name),
-        course:courses(id, code, name),
+        course:courses!posts_course_id_fkey(id, code, name),
         attachments:post_attachments(id, file_url, file_name, file_type, file_size)
       `
       )
@@ -177,7 +177,7 @@ export class FeedRepository {
 
     const { data } = await supabase
       .from('post_course_tags')
-      .select('post_id, course:courses(id, code, name)')
+      .select('post_id, course:courses!post_course_tags_course_id_fkey(id, code, name)')
       .in('post_id', postIds);
 
     const map = new Map<string, Array<{ id: string; code: string; name: string }>>();
