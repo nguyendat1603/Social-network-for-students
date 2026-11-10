@@ -31,4 +31,8 @@ export const APP_ROUTES = {
   // Module 7: Realtime Communication
   MESSENGER: '/messenger',
   NOTIFICATIONS: '/notifications',
+
+  // Module 8: Moderation & Reputation System
+  ACADEMIC_KARMA: '/karma',
+  MODERATION_DASHBOARD: '/admin/moderation',
 } as const;

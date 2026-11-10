@@ -22,6 +22,8 @@ import { StudentMarketplacePage } from './features/marketplace/pages/StudentMark
 import { RoommateHousingPage } from './features/marketplace/pages/RoommateHousingPage';
 import { MessengerPage } from './features/communication/pages/MessengerPage';
 import { NotificationsPage } from './features/communication/pages/NotificationsPage';
+import { AcademicKarmaPage } from './features/moderation/pages/AcademicKarmaPage';
+import { AdminModerationDashboardPage } from './features/moderation/pages/AdminModerationDashboardPage';
 
 const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({
   children,
@@ -195,6 +197,24 @@ export const AppRouter: React.FC = () => {
           element={
             <ProtectedRoute>
               <NotificationsPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Module 8: Moderation & Reputation System */}
+        <Route
+          path={APP_ROUTES.ACADEMIC_KARMA}
+          element={
+            <ProtectedRoute>
+              <AcademicKarmaPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={APP_ROUTES.MODERATION_DASHBOARD}
+          element={
+            <ProtectedRoute>
+              <AdminModerationDashboardPage />
             </ProtectedRoute>
           }
         />

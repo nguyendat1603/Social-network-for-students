@@ -10,6 +10,7 @@ import { courseReviewRoutes } from './modules/course-review/course-review.routes
 import { resourceHubRoutes } from './modules/resource-hub/resource-hub.routes';
 import { marketplaceRoutes } from './modules/marketplace/marketplace.routes';
 import { communicationRoutes } from './modules/communication/communication.routes';
+import { moderationRoutes } from './modules/moderation/moderation.routes';
 
 const app = express();
 
@@ -25,7 +26,7 @@ app.use(express.json({ limit: '10mb' }));
 app.get('/api/v1/health', (_req, res) => {
   sendSuccess(res, {
     service: 'mxh-hssv-backend',
-    phase: 'Phase 3 - Study Groups, Marketplace & Housing, Realtime Communication',
+    phase: 'Phase 4 - Complete 8-Module MVP with Moderation & Reputation System',
     database: 'Supabase Online PostgreSQL',
     timestamp: new Date().toISOString(),
   });
@@ -51,6 +52,9 @@ app.use('/api/v1/marketplace', marketplaceRoutes);
 
 // Module 7: Realtime Communication & Notifications
 app.use('/api/v1/communication', communicationRoutes);
+
+// Module 8: Moderation & Reputation System
+app.use('/api/v1/moderation', moderationRoutes);
 
 // Global Error Handler
 app.use(errorMiddleware);

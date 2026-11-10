@@ -38,7 +38,19 @@ const MODULES_NAV = [
     to: APP_ROUTES.MESSENGER,
     status: 'ACTIVE',
   },
-  { label: '8. Điểm Uy tín (Karma)', to: '#karma', status: 'PHASE 4' },
+  {
+    label: '8. Điểm Uy tín & Đặc quyền',
+    to: APP_ROUTES.ACADEMIC_KARMA,
+    status: 'ACTIVE',
+  },
+];
+
+const ADMIN_NAV = [
+  {
+    label: '🛡️ Dashboard Kiểm duyệt',
+    to: APP_ROUTES.MODERATION_DASHBOARD,
+    status: 'ADMIN',
+  },
 ];
 
 export const Sidebar: React.FC = () => {
@@ -96,6 +108,53 @@ export const Sidebar: React.FC = () => {
                     ? 'rgba(16, 185, 129, 0.2)'
                     : 'rgba(148, 163, 184, 0.12)',
                 color: item.status === 'ACTIVE' ? '#34d399' : '#94a3b8',
+              }}
+            >
+              {item.status}
+            </span>
+          </NavLink>
+        ))}
+
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            color: 'var(--text-muted)',
+            padding: '16px 10px 8px',
+            letterSpacing: '0.06em',
+            borderTop: '1px solid var(--border-color)',
+            marginTop: 10,
+          }}
+        >
+          Ban Quản Trị
+        </div>
+
+        {ADMIN_NAV.map((item) => (
+          <NavLink
+            key={item.label}
+            to={item.to}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '10px 12px',
+              borderRadius: 8,
+              fontSize: 13,
+              fontWeight: 600,
+              color: '#f87171',
+              backgroundColor: 'rgba(239, 68, 68, 0.12)',
+              border: '1px solid rgba(239, 68, 68, 0.25)',
+            }}
+          >
+            <span>{item.label}</span>
+            <span
+              style={{
+                fontSize: 10,
+                padding: '2px 6px',
+                borderRadius: 4,
+                backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                color: '#f87171',
               }}
             >
               {item.status}
