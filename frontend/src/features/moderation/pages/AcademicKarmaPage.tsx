@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { moderationService } from '../../../services/moderation.service';
 import {
@@ -54,7 +54,7 @@ export const AcademicKarmaPage: React.FC = () => {
           }}
         >
           <div>
-            <h1 style={{ margin: 0, fontSize: 22, color: '#fff' }}>
+            <h1 style={{ margin: 0, fontSize: 22, color: 'var(--text-primary)' }}>
               ⭐ Điểm Uy tín Học thuật & Đặc quyền Sinh viên (Academic Karma)
             </h1>
             <p
@@ -129,7 +129,7 @@ export const AcademicKarmaPage: React.FC = () => {
               padding: 22,
             }}
           >
-            <h3 style={{ margin: '0 0 6px', fontSize: 17, color: '#fff' }}>
+            <h3 style={{ margin: '0 0 6px', fontSize: 17, color: 'var(--text-primary)' }}>
               🌟 Top Sinh viên Đóng góp Học thuật Xuất sắc
             </h3>
             <p style={{ margin: '0 0 16px', fontSize: 13, color: 'var(--text-secondary)' }}>

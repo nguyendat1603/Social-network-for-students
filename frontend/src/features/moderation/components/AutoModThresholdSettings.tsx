@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   AutoModSettingItem,
   ReportReasonCode,
@@ -59,7 +59,7 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
       }}
     >
       <div>
-        <h3 style={{ margin: 0, fontSize: 16, color: '#fff' }}>
+        <h3 style={{ margin: 0, fontSize: 16, color: 'var(--text-primary)' }}>
           ⚙️ Cấu hình Ngưỡng Tự động Ẩn Nội dung (Auto-Moderation)
         </h3>
         <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--text-secondary)' }}>
@@ -107,7 +107,7 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
                         marginLeft: 6,
                         padding: '4px 6px',
                         borderRadius: 6,
-                        background: '#0f172a',
+                        background: '#ffffff',
                         border: '1px solid var(--border-color)',
                         color: '#fff',
                         fontSize: 12,

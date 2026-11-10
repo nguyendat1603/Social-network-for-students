@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { APP_ROUTES } from '../../../config/routes.config';
@@ -120,7 +120,7 @@ export const StudentMarketplacePage: React.FC = () => {
                 🏠 Tìm Bạn ở ghép & Trọ gần trường
               </Link>
             </div>
-            <h1 style={{ margin: 0, fontSize: 22, color: '#fff' }}>
+            <h1 style={{ margin: 0, fontSize: 22, color: 'var(--text-primary)' }}>
               🛒 Chợ Sinh viên — Thanh lý & Tặng Đồ dùng Học tập
             </h1>
             <p style={{ margin: '6px 0 0', fontSize: 13, color: 'var(--text-secondary)' }}>

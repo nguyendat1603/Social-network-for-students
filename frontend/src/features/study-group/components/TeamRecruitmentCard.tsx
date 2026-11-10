@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { StudyGroupItem } from '../../../types/study-group.types';
 
@@ -68,7 +68,7 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
               HK {group.semester}
             </span>
           </div>
-          <h3 style={{ margin: 0, fontSize: 17, color: '#fff' }}>
+          <h3 style={{ margin: 0, fontSize: 17, color: 'var(--text-primary)' }}>
             {group.group_name}
           </h3>
           {group.project_topic && (

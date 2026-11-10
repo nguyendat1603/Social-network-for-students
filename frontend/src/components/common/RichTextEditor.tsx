@@ -33,12 +33,13 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
             insertSnippet('```cpp\n// Nhập code tại đây\nint main() {\n  return 0;\n}\n```')
           }
           style={{
-            background: 'var(--bg-elevated)',
-            border: '1px solid var(--border-color)',
-            color: '#93c5fd',
+            background: 'rgba(24, 119, 242, 0.08)',
+            border: '1px solid rgba(24, 119, 242, 0.25)',
+            color: 'var(--brand-primary)',
             padding: '4px 10px',
             borderRadius: 6,
             fontSize: 12,
+            fontWeight: 600,
           }}
         >
           + Code Snippet (```)
@@ -49,12 +50,13 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
             insertSnippet('$$\\int_{0}^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$$')
           }
           style={{
-            background: 'var(--bg-elevated)',
-            border: '1px solid var(--border-color)',
-            color: '#c4b5fd',
+            background: 'rgba(139, 92, 246, 0.08)',
+            border: '1px solid rgba(139, 92, 246, 0.25)',
+            color: '#7c3aed',
             padding: '4px 10px',
             borderRadius: 6,
             fontSize: 12,
+            fontWeight: 600,
           }}
         >
           + Công thức LaTeX ($$)
@@ -63,12 +65,13 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
           type="button"
           onClick={() => insertSnippet('#IT3080 ')}
           style={{
-            background: 'var(--bg-elevated)',
-            border: '1px solid var(--border-color)',
-            color: '#34d399',
+            background: 'rgba(16, 185, 129, 0.08)',
+            border: '1px solid rgba(16, 185, 129, 0.25)',
+            color: '#059669',
             padding: '4px 10px',
             borderRadius: 6,
             fontSize: 12,
+            fontWeight: 600,
           }}
         >
           + Tag #IT3080
@@ -77,12 +80,13 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
           type="button"
           onClick={() => insertSnippet('#MI1131 ')}
           style={{
-            background: 'var(--bg-elevated)',
-            border: '1px solid var(--border-color)',
-            color: '#34d399',
+            background: 'rgba(16, 185, 129, 0.08)',
+            border: '1px solid rgba(16, 185, 129, 0.25)',
+            color: '#059669',
             padding: '4px 10px',
             borderRadius: 6,
             fontSize: 12,
+            fontWeight: 600,
           }}
         >
           + Tag #MI1131
@@ -93,10 +97,12 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
         rows={rows}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={
-          placeholder ||
-          'Nhập nội dung thảo luận, chèn công thức LaTeX ($...$), đoạn code (```) hoặc gắn thẻ mã học phần (#IT3080)...'
-        }
+        placeholder={placeholder || 'Nhập nội dung bài viết / câu hỏi của bạn...'}
+        style={{
+          fontFamily: 'inherit',
+          lineHeight: 1.6,
+          resize: 'vertical',
+        }}
       />
     </div>
   );

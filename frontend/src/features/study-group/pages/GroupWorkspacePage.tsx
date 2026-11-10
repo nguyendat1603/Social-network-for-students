@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { APP_ROUTES } from '../../../config/routes.config';
@@ -122,7 +122,7 @@ export const GroupWorkspacePage: React.FC = () => {
                   Mục tiêu: {workspace.group.target_grade}
                 </span>
               </div>
-              <h1 style={{ margin: 0, fontSize: 21, color: '#fff' }}>
+              <h1 style={{ margin: 0, fontSize: 21, color: 'var(--text-primary)' }}>
                 🛠️ {workspace.group.group_name}
               </h1>
               {workspace.group.project_topic && (

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import {
   ItemStatus,
   MarketplaceItem,
@@ -82,7 +82,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
           </span>
         </div>
 
-        <h3 style={{ margin: 0, fontSize: 16, color: '#fff' }}>{item.title}</h3>
+        <h3 style={{ margin: 0, fontSize: 16, color: 'var(--text-primary)' }}>{item.title}</h3>
 
         {item.course && (
           <div style={{ fontSize: 12, color: '#93c5fd' }}>
@@ -151,7 +151,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
             style={{
               padding: '6px 10px',
               borderRadius: 8,
-              background: '#0f172a',
+              background: '#ffffff',
               border: '1px solid var(--border-color)',
               color: '#fff',
               fontSize: 12,

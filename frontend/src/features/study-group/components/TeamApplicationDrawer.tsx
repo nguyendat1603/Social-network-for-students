@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { StudyGroupItem } from '../../../types/study-group.types';
 
 interface TeamApplicationDrawerProps {
@@ -72,7 +72,7 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h3 style={{ margin: 0, fontSize: 18, color: '#fff' }}>
+          <h3 style={{ margin: 0, fontSize: 18, color: 'var(--text-primary)' }}>
             📩 Ứng tuyển vào nhóm đồ án
           </h3>
           <button
@@ -133,7 +133,7 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
                 marginTop: 6,
                 padding: '10px 12px',
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
               }}
@@ -161,7 +161,7 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
                 marginTop: 6,
                 padding: 12,
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
                 resize: 'vertical',
@@ -183,7 +183,7 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
                 marginTop: 6,
                 padding: '10px 12px',
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
               }}

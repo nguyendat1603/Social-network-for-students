@@ -18,17 +18,18 @@ export const AnonymousSwitch: React.FC = () => {
         fontSize: 13,
         fontWeight: 600,
         border: isAnonymousActive
-          ? '1px solid rgba(139, 92, 246, 0.6)'
+          ? '1px solid rgba(139, 92, 246, 0.4)'
           : '1px solid var(--border-color)',
         background: isAnonymousActive
-          ? 'rgba(139, 92, 246, 0.18)'
-          : 'var(--bg-secondary)',
-        color: isAnonymousActive ? '#c4b5fd' : 'var(--text-secondary)',
+          ? 'rgba(139, 92, 246, 0.1)'
+          : '#ffffff',
+        color: isAnonymousActive ? '#7c3aed' : 'var(--text-secondary)',
+        cursor: 'pointer',
       }}
     >
-      <span>{isAnonymousActive ? '🎭 Đang Ẩn danh:' : '👤 Danh tính thật'}</span>
+      <span>{isAnonymousActive ? '🎭 Ẩn danh:' : '👤 Danh tính thật'}</span>
       {isAnonymousActive && (
-        <span style={{ color: '#fff', fontWeight: 700 }}>
+        <span style={{ color: '#6d28d9', fontWeight: 700 }}>
           @{anonymousHandle}
         </span>
       )}

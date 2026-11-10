@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   ModerationActionType,
   ModerationQueueItem,
@@ -80,7 +80,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-          <h3 style={{ margin: 0, fontSize: 18, color: '#fff' }}>
+          <h3 style={{ margin: 0, fontSize: 18, color: 'var(--text-primary)' }}>
             ⚖️ Thi hành Quyết định Kỷ luật & Chế tài
           </h3>
           <button
@@ -145,7 +145,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
                 marginTop: 6,
                 padding: '9px 12px',
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
                 fontSize: 13,
@@ -191,7 +191,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
                 marginTop: 6,
                 padding: 10,
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
                 fontSize: 13,

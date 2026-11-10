@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { useAuth } from '../../../hooks/useAuth';
@@ -80,7 +80,7 @@ export const MessengerPage: React.FC = () => {
           }}
         >
           <div>
-            <h4 style={{ margin: '0 0 8px', fontSize: 14, color: '#fff' }}>
+            <h4 style={{ margin: '0 0 8px', fontSize: 14, color: 'var(--text-primary)' }}>
               🛠️ Phòng Chat Nhóm Đồ án
             </h4>
             <ProjectGroupChatList
@@ -91,7 +91,7 @@ export const MessengerPage: React.FC = () => {
           </div>
 
           <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: 14 }}>
-            <h4 style={{ margin: '0 0 8px', fontSize: 14, color: '#fff' }}>
+            <h4 style={{ margin: '0 0 8px', fontSize: 14, color: 'var(--text-primary)' }}>
               💬 Tin nhắn Trực tiếp (1-1)
             </h4>
             <DirectMessageList

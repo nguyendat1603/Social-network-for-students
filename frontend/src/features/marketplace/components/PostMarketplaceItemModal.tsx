@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   ItemCategory,
   ItemCondition,
@@ -86,7 +86,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
-          <h3 style={{ margin: 0, fontSize: 18, color: '#fff' }}>
+          <h3 style={{ margin: 0, fontSize: 18, color: 'var(--text-primary)' }}>
             🛒 Đăng Thanh lý / Tặng Đồ dùng Học tập
           </h3>
           <button
@@ -145,7 +145,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                 marginTop: 4,
                 padding: '9px 12px',
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
               }}
@@ -163,7 +163,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                   marginTop: 4,
                   padding: '9px 10px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -185,7 +185,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                   marginTop: 4,
                   padding: '9px 10px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -211,7 +211,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                   marginTop: 4,
                   padding: '9px 10px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -238,7 +238,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                   marginTop: 4,
                   padding: '9px 12px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -277,7 +277,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                 marginTop: 4,
                 padding: '9px 12px',
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
               }}
@@ -297,7 +297,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                 marginTop: 4,
                 padding: 10,
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
               }}

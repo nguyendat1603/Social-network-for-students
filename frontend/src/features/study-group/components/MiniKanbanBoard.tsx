@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   GroupMemberItem,
   KanbanTaskItem,
@@ -83,7 +83,7 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
           style={{
             padding: '8px 12px',
             borderRadius: 8,
-            background: '#0f172a',
+            background: '#ffffff',
             border: '1px solid var(--border-color)',
             color: '#fff',
             fontSize: 13,
@@ -96,7 +96,7 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
           style={{
             padding: '8px 12px',
             borderRadius: 8,
-            background: '#0f172a',
+            background: '#ffffff',
             border: '1px solid var(--border-color)',
             color: '#fff',
             fontSize: 13,
@@ -108,7 +108,7 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
           style={{
             padding: '8px 10px',
             borderRadius: 8,
-            background: '#0f172a',
+            background: '#ffffff',
             border: '1px solid var(--border-color)',
             color: '#fff',
             fontSize: 13,
@@ -128,7 +128,7 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
           style={{
             padding: '8px 10px',
             borderRadius: 8,
-            background: '#0f172a',
+            background: '#ffffff',
             border: '1px solid var(--border-color)',
             color: '#fff',
             fontSize: 13,

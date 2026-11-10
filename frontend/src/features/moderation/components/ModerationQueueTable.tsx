@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import {
   ModerationQueueItem,
   ReportTargetType,
@@ -108,7 +108,7 @@ export const ModerationQueueTable: React.FC<ModerationQueueTableProps> = ({
                   </span>
                 </div>
 
-                <h4 style={{ margin: 0, fontSize: 16, color: '#fff' }}>
+                <h4 style={{ margin: 0, fontSize: 16, color: 'var(--text-primary)' }}>
                   {item.target_content?.title || `Nội dung ID: ${item.target_id}`}
                 </h4>
               </div>

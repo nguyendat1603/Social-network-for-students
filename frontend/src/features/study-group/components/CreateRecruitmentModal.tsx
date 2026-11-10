@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { TargetGradeGoal } from '../../../types/study-group.types';
 
 interface CreateRecruitmentModalProps {
@@ -105,7 +105,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-          <h3 style={{ margin: 0, fontSize: 18, color: '#fff' }}>
+          <h3 style={{ margin: 0, fontSize: 18, color: 'var(--text-primary)' }}>
             🚀 Đăng tin Tuyển đồng đội & Khởi tạo Workspace
           </h3>
           <button
@@ -150,7 +150,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                   marginTop: 4,
                   padding: '9px 12px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -172,7 +172,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                   marginTop: 4,
                   padding: '9px 12px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -192,7 +192,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                 marginTop: 4,
                 padding: '9px 12px',
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
               }}
@@ -212,7 +212,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                 marginTop: 4,
                 padding: '9px 12px',
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
               }}
@@ -232,7 +232,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                   marginTop: 4,
                   padding: '9px 12px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -258,7 +258,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                   marginTop: 4,
                   padding: '9px 12px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -309,7 +309,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                     style={{
                       padding: '8px 10px',
                       borderRadius: 8,
-                      background: '#0f172a',
+                      background: '#ffffff',
                       border: '1px solid var(--border-color)',
                       color: '#fff',
                       fontSize: 13,
@@ -326,7 +326,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                     style={{
                       padding: '8px 10px',
                       borderRadius: 8,
-                      background: '#0f172a',
+                      background: '#ffffff',
                       border: '1px solid var(--border-color)',
                       color: '#fff',
                       fontSize: 13,
@@ -345,7 +345,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                     style={{
                       padding: '8px 10px',
                       borderRadius: 8,
-                      background: '#0f172a',
+                      background: '#ffffff',
                       border: '1px solid var(--border-color)',
                       color: '#fff',
                       fontSize: 13,

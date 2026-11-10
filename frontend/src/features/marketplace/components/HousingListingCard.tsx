@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import {
   HousingListing,
   HousingStatus,
@@ -82,7 +82,7 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             )}
         </div>
 
-        <h3 style={{ margin: 0, fontSize: 16, color: '#fff' }}>{listing.title}</h3>
+        <h3 style={{ margin: 0, fontSize: 16, color: 'var(--text-primary)' }}>{listing.title}</h3>
 
         <div style={{ fontSize: 13, color: '#93c5fd' }}>
           Khu vực: <strong>{listing.address_district}</strong>

@@ -21,10 +21,11 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
   return (
     <article
       style={{
-        backgroundColor: 'var(--bg-card)',
+        backgroundColor: '#ffffff',
         border: '1px solid var(--border-color)',
         borderRadius: 'var(--radius-lg)',
-        padding: 20,
+        boxShadow: 'var(--shadow-card)',
+        padding: '20px 22px',
         display: 'flex',
         flexDirection: 'column',
         gap: 12,
@@ -48,21 +49,23 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
               borderRadius: 6,
               backgroundColor:
                 post.post_type === 'QUESTION'
-                  ? 'rgba(245, 158, 11, 0.18)'
+                  ? 'rgba(245, 158, 11, 0.12)'
                   : post.post_type === 'ANNOUNCEMENT'
-                  ? 'rgba(239, 68, 68, 0.18)'
-                  : 'rgba(59, 130, 246, 0.18)',
+                  ? 'rgba(239, 68, 68, 0.12)'
+                  : 'rgba(24, 119, 242, 0.1)',
               color:
                 post.post_type === 'QUESTION'
-                  ? '#fbbf24'
+                  ? '#b45309'
                   : post.post_type === 'ANNOUNCEMENT'
-                  ? '#f87171'
-                  : '#93c5fd',
+                  ? '#b91c1c'
+                  : 'var(--brand-primary)',
             }}
           >
             {post.post_type}
           </span>
-          <span style={{ fontSize: 13, fontWeight: 600 }}>{authorDisplay}</span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)' }}>
+            {authorDisplay}
+          </span>
           <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>
             · {new Date(post.created_at).toLocaleString('vi-VN')}
           </span>
@@ -76,8 +79,9 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
                 fontSize: 11,
                 padding: '2px 7px',
                 borderRadius: 4,
-                background: 'rgba(139, 92, 246, 0.18)',
-                color: '#c4b5fd',
+                background: 'rgba(139, 92, 246, 0.12)',
+                color: '#7c3aed',
+                fontWeight: 600,
               }}
             >
               ∑ LaTeX
@@ -89,8 +93,9 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
                 fontSize: 11,
                 padding: '2px 7px',
                 borderRadius: 4,
-                background: 'rgba(59, 130, 246, 0.18)',
-                color: '#93c5fd',
+                background: 'rgba(24, 119, 242, 0.1)',
+                color: 'var(--brand-primary)',
+                fontWeight: 600,
               }}
             >
               {'</> Code'}
@@ -101,7 +106,12 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
 
       <Link
         to={`/feed/posts/${post.id}`}
-        style={{ fontSize: 17, fontWeight: 700, color: '#fff' }}
+        style={{
+          fontSize: 17,
+          fontWeight: 700,
+          color: 'var(--text-primary)',
+          lineHeight: 1.4,
+        }}
       >
         {post.title}
       </Link>
@@ -137,7 +147,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
           style={{
             fontSize: 13,
             fontWeight: 600,
-            color: 'var(--text-secondary)',
+            color: 'var(--brand-primary)',
           }}
         >
           💬 {post.comment_count} bình luận / trả lời →

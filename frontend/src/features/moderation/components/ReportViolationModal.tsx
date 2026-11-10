@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   ReportReasonCode,
   ReportTargetType,
@@ -110,7 +110,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-          <h3 style={{ margin: 0, fontSize: 18, color: '#fff' }}>
+          <h3 style={{ margin: 0, fontSize: 18, color: 'var(--text-primary)' }}>
             🚩 Báo cáo Vi phạm Tiêu chuẩn Cộng đồng
           </h3>
           <button
@@ -260,7 +260,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
                   marginTop: 6,
                   padding: 10,
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                   fontSize: 13,

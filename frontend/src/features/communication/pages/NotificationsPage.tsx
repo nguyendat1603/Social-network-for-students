@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { communicationService } from '../../../services/communication.service';
@@ -44,7 +44,7 @@ export const NotificationsPage: React.FC = () => {
           }}
         >
           <div>
-            <h1 style={{ margin: 0, fontSize: 21, color: '#fff' }}>
+            <h1 style={{ margin: 0, fontSize: 21, color: 'var(--text-primary)' }}>
               🔔 Trung tâm Thông báo Thời gian thực
             </h1>
             <p style={{ margin: '6px 0 0', fontSize: 13, color: 'var(--text-secondary)' }}>

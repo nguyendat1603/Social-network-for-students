@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 interface InlinePdfPreviewProps {
   fileUrl: string;
@@ -15,7 +15,7 @@ export const InlinePdfPreview: React.FC<InlinePdfPreviewProps> = ({
         border: '1px solid var(--border-color)',
         borderRadius: 'var(--radius-lg)',
         overflow: 'hidden',
-        backgroundColor: '#0f172a',
+        backgroundColor: '#ffffff',
       }}
     >
       <div

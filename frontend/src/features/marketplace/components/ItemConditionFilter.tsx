@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import {
   ItemCategory,
   ItemCondition,
@@ -52,7 +52,7 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         style={{
           padding: '9px 12px',
           borderRadius: 8,
-          background: '#0f172a',
+          background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: '#fff',
           fontSize: 13,
@@ -65,7 +65,7 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         style={{
           padding: '9px 10px',
           borderRadius: 8,
-          background: '#0f172a',
+          background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: '#fff',
           fontSize: 13,
@@ -85,7 +85,7 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         style={{
           padding: '9px 10px',
           borderRadius: 8,
-          background: '#0f172a',
+          background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: '#fff',
           fontSize: 13,
@@ -107,7 +107,7 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         style={{
           padding: '9px 12px',
           borderRadius: 8,
-          background: '#0f172a',
+          background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: '#fff',
           fontSize: 13,

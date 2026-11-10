@@ -14,19 +14,19 @@ export const CourseTagPill: React.FC<CourseTagPillProps> = ({ code, name }) => {
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: 4,
+        gap: 5,
         padding: '3px 10px',
         borderRadius: 999,
         fontSize: 12,
         fontWeight: 700,
-        backgroundColor: 'rgba(59, 130, 246, 0.16)',
-        color: '#60a5fa',
-        border: '1px solid rgba(59, 130, 246, 0.35)',
+        backgroundColor: 'var(--brand-light)',
+        color: 'var(--brand-primary)',
+        border: '1px solid rgba(24, 119, 242, 0.25)',
       }}
     >
-      #{code}
+      <span>#{code}</span>
       {name && (
-        <span style={{ fontWeight: 400, color: '#93c5fd', fontSize: 11 }}>
+        <span style={{ fontWeight: 500, color: '#475569', fontSize: 11 }}>
           · {name}
         </span>
       )}

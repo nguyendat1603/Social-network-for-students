@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { moderationService } from '../../../services/moderation.service';
 import {
@@ -106,7 +106,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
                 Bảo vệ tính toàn vẹn học thuật & an toàn đời sống SV
               </span>
             </div>
-            <h1 style={{ margin: 0, fontSize: 22, color: '#fff' }}>
+            <h1 style={{ margin: 0, fontSize: 22, color: 'var(--text-primary)' }}>
               🛡️ Trung tâm Kiểm duyệt Nội dung & Quản trị Vi phạm
             </h1>
           </div>
@@ -193,7 +193,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
               style={{
                 padding: '7px 10px',
                 borderRadius: 6,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
                 fontSize: 12,
@@ -212,7 +212,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
               style={{
                 padding: '7px 10px',
                 borderRadius: 6,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
                 fontSize: 12,
@@ -235,7 +235,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
               style={{
                 padding: '7px 10px',
                 borderRadius: 6,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
                 fontSize: 12,
@@ -283,7 +283,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
               padding: 20,
             }}
           >
-            <h3 style={{ margin: '0 0 14px', fontSize: 16, color: '#fff' }}>
+            <h3 style={{ margin: '0 0 14px', fontSize: 16, color: 'var(--text-primary)' }}>
               📜 Lịch sử Chế tài & Kỷ luật Đã Thi hành
             </h3>
             {actions.length === 0 ? (

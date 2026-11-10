@@ -20,9 +20,9 @@ export const VerifiedStudentBadge: React.FC<VerifiedStudentBadgeProps> = ({
           borderRadius: 999,
           fontSize: size === 'sm' ? 11 : 12,
           fontWeight: 600,
-          backgroundColor: 'rgba(245, 158, 11, 0.15)',
-          color: '#fbbf24',
-          border: '1px solid rgba(245, 158, 11, 0.35)',
+          backgroundColor: 'rgba(245, 158, 11, 0.12)',
+          color: '#d97706',
+          border: '1px solid rgba(245, 158, 11, 0.3)',
         }}
       >
         ● Chưa xác thực .edu
@@ -41,9 +41,9 @@ export const VerifiedStudentBadge: React.FC<VerifiedStudentBadgeProps> = ({
         borderRadius: 999,
         fontSize: size === 'sm' ? 11 : 12,
         fontWeight: 600,
-        backgroundColor: 'rgba(16, 185, 129, 0.16)',
-        color: '#34d399',
-        border: '1px solid rgba(16, 185, 129, 0.4)',
+        backgroundColor: 'rgba(16, 185, 129, 0.12)',
+        color: '#059669',
+        border: '1px solid rgba(16, 185, 129, 0.35)',
       }}
     >
       ✓ Verified Student

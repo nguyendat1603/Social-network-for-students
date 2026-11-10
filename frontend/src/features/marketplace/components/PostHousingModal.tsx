@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   GenderPreference,
   HousingListingType,
@@ -98,7 +98,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 14 }}>
-          <h3 style={{ margin: 0, fontSize: 18, color: '#fff' }}>
+          <h3 style={{ margin: 0, fontSize: 18, color: 'var(--text-primary)' }}>
             🏠 Đăng Tin Tìm Bạn Ở Ghép / Phòng Trọ Sinh Viên
           </h3>
           <button
@@ -143,7 +143,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   marginTop: 4,
                   padding: '9px 10px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -166,7 +166,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   marginTop: 4,
                   padding: '9px 12px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -186,7 +186,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                 marginTop: 4,
                 padding: '9px 12px',
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
               }}
@@ -207,7 +207,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   marginTop: 4,
                   padding: '9px 12px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -227,7 +227,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   marginTop: 4,
                   padding: '9px 12px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -250,7 +250,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   marginTop: 4,
                   padding: '9px 10px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -274,7 +274,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   marginTop: 4,
                   padding: '9px 10px',
                   borderRadius: 8,
-                  background: '#0f172a',
+                  background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: '#fff',
                 }}
@@ -320,7 +320,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                 marginTop: 4,
                 padding: 10,
                 borderRadius: 8,
-                background: '#0f172a',
+                background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: '#fff',
               }}

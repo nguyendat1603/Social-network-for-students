@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { GroupDocumentItem } from '../../../types/study-group.types';
 
 interface GroupSharedDocumentsProps {
@@ -46,7 +46,7 @@ export const GroupSharedDocuments: React.FC<GroupSharedDocumentsProps> = ({
         gap: 14,
       }}
     >
-      <h4 style={{ margin: 0, fontSize: 15, color: '#fff' }}>
+      <h4 style={{ margin: 0, fontSize: 15, color: 'var(--text-primary)' }}>
         📂 Kho Tài liệu Nội bộ Nhóm Đồ án ({documents.length})
       </h4>
 
@@ -62,7 +62,7 @@ export const GroupSharedDocuments: React.FC<GroupSharedDocumentsProps> = ({
           style={{
             padding: '8px 10px',
             borderRadius: 8,
-            background: '#0f172a',
+            background: '#ffffff',
             border: '1px solid var(--border-color)',
             color: '#fff',
             fontSize: 13,
@@ -76,7 +76,7 @@ export const GroupSharedDocuments: React.FC<GroupSharedDocumentsProps> = ({
           style={{
             padding: '8px 10px',
             borderRadius: 8,
-            background: '#0f172a',
+            background: '#ffffff',
             border: '1px solid var(--border-color)',
             color: '#fff',
             fontSize: 13,

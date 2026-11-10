@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { KarmaSummaryResponse } from '../../../types/moderation.types';
 
 interface KarmaPointsSummaryProps {
@@ -140,7 +140,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
           padding: 20,
         }}
       >
-        <h3 style={{ margin: '0 0 14px', fontSize: 16, color: '#fff' }}>
+        <h3 style={{ margin: '0 0 14px', fontSize: 16, color: 'var(--text-primary)' }}>
           📜 Sổ cái Biến động Điểm Uy tín Gần đây
         </h3>
 

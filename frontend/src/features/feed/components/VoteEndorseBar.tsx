@@ -20,13 +20,13 @@ export const VoteEndorseBar: React.FC<VoteEndorseBarProps> = ({
         type="button"
         onClick={() => onVote('UPVOTE')}
         style={{
-          padding: '5px 10px',
+          padding: '5px 12px',
           borderRadius: 6,
-          background: 'rgba(59, 130, 246, 0.14)',
-          border: '1px solid rgba(59, 130, 246, 0.35)',
-          color: '#93c5fd',
+          background: 'var(--brand-light)',
+          border: '1px solid rgba(24, 119, 242, 0.25)',
+          color: 'var(--brand-primary)',
           fontSize: 12,
-          fontWeight: 600,
+          fontWeight: 700,
         }}
       >
         ▲ Upvote ({upvoteCount})
@@ -38,7 +38,7 @@ export const VoteEndorseBar: React.FC<VoteEndorseBarProps> = ({
         style={{
           padding: '5px 10px',
           borderRadius: 6,
-          background: 'rgba(148, 163, 184, 0.1)',
+          background: '#f1f5f9',
           border: '1px solid var(--border-color)',
           color: 'var(--text-secondary)',
           fontSize: 12,
@@ -51,16 +51,16 @@ export const VoteEndorseBar: React.FC<VoteEndorseBarProps> = ({
         type="button"
         onClick={() => onVote('HELPFUL')}
         style={{
-          padding: '5px 10px',
+          padding: '5px 12px',
           borderRadius: 6,
-          background: 'rgba(16, 185, 129, 0.14)',
-          border: '1px solid rgba(16, 185, 129, 0.35)',
-          color: '#34d399',
+          background: 'rgba(16, 185, 129, 0.1)',
+          border: '1px solid rgba(16, 185, 129, 0.25)',
+          color: '#059669',
           fontSize: 12,
-          fontWeight: 600,
+          fontWeight: 700,
         }}
       >
-        ★ Helpful / Endorse ({helpfulCount})
+        ⭐ Hữu ích ({helpfulCount})
       </button>
     </div>
   );

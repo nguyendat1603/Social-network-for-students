@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { studyGroupService } from '../../../services/study-group.service';
 import { resourceHubService } from '../../../services/resource-hub.service';
@@ -72,7 +72,7 @@ export const TeammateMatchingPage: React.FC = () => {
           }}
         >
           <div>
-            <h1 style={{ margin: 0, fontSize: 22, color: '#fff' }}>
+            <h1 style={{ margin: 0, fontSize: 22, color: 'var(--text-primary)' }}>
               🤝 Tìm Nhóm & Quản lý Đồ án (Teammate Matching)
             </h1>
             <p
@@ -124,7 +124,7 @@ export const TeammateMatchingPage: React.FC = () => {
             style={{
               padding: '9px 12px',
               borderRadius: 8,
-              background: '#0f172a',
+              background: '#ffffff',
               border: '1px solid var(--border-color)',
               color: '#fff',
               fontSize: 13,
@@ -139,7 +139,7 @@ export const TeammateMatchingPage: React.FC = () => {
             style={{
               padding: '9px 10px',
               borderRadius: 8,
-              background: '#0f172a',
+              background: '#ffffff',
               border: '1px solid var(--border-color)',
               color: '#fff',
               fontSize: 13,
@@ -159,7 +159,7 @@ export const TeammateMatchingPage: React.FC = () => {
             style={{
               padding: '9px 10px',
               borderRadius: 8,
-              background: '#0f172a',
+              background: '#ffffff',
               border: '1px solid var(--border-color)',
               color: '#fff',
               fontSize: 13,
@@ -180,7 +180,7 @@ export const TeammateMatchingPage: React.FC = () => {
             style={{
               padding: '9px 12px',
               borderRadius: 8,
-              background: '#0f172a',
+              background: '#ffffff',
               border: '1px solid var(--border-color)',
               color: '#fff',
               fontSize: 13,

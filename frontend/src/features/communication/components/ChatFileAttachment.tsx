@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 
 interface ChatFileAttachmentProps {
   onAttachFile: (payload: { fileName: string; fileUrl: string }) => Promise<void>;
@@ -39,7 +39,7 @@ export const ChatFileAttachment: React.FC<ChatFileAttachmentProps> = ({
         alignItems: 'center',
         padding: '8px 10px',
         borderRadius: 8,
-        background: '#0f172a',
+        background: '#ffffff',
         border: '1px solid var(--border-color)',
       }}
     >

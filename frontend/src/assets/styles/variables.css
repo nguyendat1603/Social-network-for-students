@@ -1,18 +1,54 @@
 :root {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-card: #1e293b;
-  --bg-elevated: #334155;
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --brand-primary: #3b82f6;
-  --brand-hover: #2563eb;
-  --accent-emerald: #10b981;
-  --accent-amber: #f59e0b;
-  --accent-purple: #8b5cf6;
+  /* Canvas & Card Surfaces (Figma Design.txt: Canvas #F8FAFC, Surface #FFFFFF) */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-elevated: #f1f5f9;
+  --bg-input: #f8fafc;
+  --bg-input-hover: #f1f5f9;
+
+  /* Typography / Content Colors (Figma Design.txt: #0F172A, #475569, #64748B) */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-white: #ffffff;
+
+  /* Facebook Blue Action Buttons & Brand */
+  --brand-primary: #1877f2;       /* Facebook Blue */
+  --brand-hover: #166fe5;         /* Facebook Blue Hover */
+  --brand-active: #0e5aab;        /* Facebook Blue Pressed */
+  --brand-light: #e7f3ff;         /* Facebook Blue Tint / Pill */
+  --brand-indigo: #4338ca;        /* Academic Indigo from Design.txt */
+
+  /* Instagram Vibrant Gradients & Accents */
+  --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  --ig-badge: linear-gradient(135deg, #405de6 0%, #5851db 20%, #833ab4 40%, #c13584 60%, #e1306c 80%, #fd1d1d 100%);
+  --ig-pink: #e1306c;
+  --ig-purple: #833ab4;
+  --ig-orange: #fd1d1d;
+  --ig-gold: #f09433;
+
+  /* Academic Semantic Badges (From Design.txt) */
+  --accent-emerald: #10b981;      /* Verified student tick / Accepted Answer */
+  --accent-amber: #f59e0b;        /* Academic Karma / Ratings */
+  --accent-rose: #f43f5e;         /* Moderation / Reports / Deadline */
+  --accent-sky: #0ea5e9;          /* Study Groups / Channels */
+  --accent-violet: #8b5cf6;       /* Honors / Special tags */
   --danger: #ef4444;
-  --border-color: #334155;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+
+  /* Borders, Outlines & Shadows (From Design.txt) */
+  --border-color: #e2e8f0;        /* Subtle border #E2E8F0 */
+  --border-subtle: #f1f5f9;
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+
+  /* Radius (From Design.txt: 6px, 8px, 10px, 12px, 16px, 9999px) */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
 }

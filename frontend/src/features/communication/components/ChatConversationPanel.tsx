@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ChatMessageItem,
@@ -243,7 +243,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
               flex: 1,
               padding: '10px 14px',
               borderRadius: 10,
-              background: '#0f172a',
+              background: '#ffffff',
               border: '1px solid var(--border-color)',
               color: '#fff',
               fontSize: 13,

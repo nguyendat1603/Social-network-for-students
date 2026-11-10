@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import {
   KanbanTaskItem,
   KanbanTaskStatus,
@@ -25,7 +25,7 @@ export const KanbanTaskCard: React.FC<KanbanTaskCardProps> = ({
   return (
     <div
       style={{
-        background: '#0f172a',
+        background: '#ffffff',
         border: '1px solid var(--border-color)',
         borderRadius: 10,
         padding: 12,

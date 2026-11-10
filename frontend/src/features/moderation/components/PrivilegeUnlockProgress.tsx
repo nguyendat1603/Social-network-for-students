@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { UserPrivilegesResponse } from '../../../types/moderation.types';
 
 interface PrivilegeUnlockProgressProps {
@@ -69,7 +69,7 @@ export const PrivilegeUnlockProgress: React.FC<PrivilegeUnlockProgressProps> = (
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <h3 style={{ margin: 0, fontSize: 17, color: '#fff' }}>
+          <h3 style={{ margin: 0, fontSize: 17, color: 'var(--text-primary)' }}>
             🏆 Tiến trình Mở khóa Đặc quyền Học thuật
           </h3>
           <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--text-secondary)' }}>

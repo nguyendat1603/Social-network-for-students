@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import {
   GroupApplicationItem,
   GroupMemberItem,
@@ -32,7 +32,7 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
           padding: 18,
         }}
       >
-        <h4 style={{ margin: '0 0 12px', fontSize: 15, color: '#fff' }}>
+        <h4 style={{ margin: '0 0 12px', fontSize: 15, color: 'var(--text-primary)' }}>
           👥 Thành viên Nhóm Đồ án ({members.length})
         </h4>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -92,7 +92,7 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
             padding: 18,
           }}
         >
-          <h4 style={{ margin: '0 0 12px', fontSize: 15, color: '#fff' }}>
+          <h4 style={{ margin: '0 0 12px', fontSize: 15, color: 'var(--text-primary)' }}>
             📥 Đơn Ứng tuyển đang chờ duyệt ({pendingApps.length})
           </h4>
           {pendingApps.length === 0 ? (
