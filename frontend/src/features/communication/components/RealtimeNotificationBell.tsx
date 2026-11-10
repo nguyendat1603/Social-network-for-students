@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../../config/routes.config';
-import { communicationService } from '../../../services/communication.service';
+import { communicationService, NOTIFICATIONS_READ_EVENT } from '../../../services/communication.service';
 
 export const RealtimeNotificationBell: React.FC = () => {
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
     let mounted = true;
+    let requestVersion = 0;
     const fetchCount = async () => {
+      const version = ++requestVersion;
       try {
         const res = await communicationService.listNotifications();
-        if (mounted) {
+        if (mounted && version === requestVersion) {
           setUnreadCount(res.unreadCount || 0);
         }
       } catch {
@@ -21,9 +23,11 @@ export const RealtimeNotificationBell: React.FC = () => {
 
     fetchCount();
     const timer = window.setInterval(fetchCount, 20000);
+    window.addEventListener(NOTIFICATIONS_READ_EVENT, fetchCount);
     return () => {
       mounted = false;
       window.clearInterval(timer);
+      window.removeEventListener(NOTIFICATIONS_READ_EVENT, fetchCount);
     };
   }, []);
 

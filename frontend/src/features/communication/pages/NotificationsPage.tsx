@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { communicationService } from '../../../services/communication.service';
@@ -8,13 +8,21 @@ export const NotificationsPage: React.FC = () => {
   const [items, setItems] = useState<NotificationItem[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<'all' | 'unread'>('all');
+  const [loadError, setLoadError] = useState(false);
+  const [actionError, setActionError] = useState('');
+  const [pendingId, setPendingId] = useState<string | null>(null);
+  const requestPending = useRef(false);
 
   const loadNotifications = async () => {
     setLoading(true);
+    setLoadError(false);
     try {
       const res = await communicationService.listNotifications();
       setItems(res.items || []);
       setUnreadCount(res.unreadCount || 0);
+    } catch {
+      setLoadError(true);
     } finally {
       setLoading(false);
     }
@@ -24,10 +32,30 @@ export const NotificationsPage: React.FC = () => {
     loadNotifications();
   }, []);
 
-  const handleMarkAllRead = async () => {
-    await communicationService.markNotificationsRead();
-    await loadNotifications();
+  const handleMarkRead = async (notificationId?: string) => {
+    if (requestPending.current || loading || loadError) return;
+    if (notificationId && !items.some((item) => item.id === notificationId && !item.is_read)) return;
+
+    requestPending.current = true;
+    setPendingId(notificationId || 'all');
+    setActionError('');
+    try {
+      const result = await communicationService.markNotificationsRead(notificationId);
+      if (!result.updated) throw new Error('Không thể cập nhật thông báo');
+      setItems((current) => current.map((item) =>
+        !notificationId || item.id === notificationId ? { ...item, is_read: true } : item
+      ));
+      setUnreadCount((current) => notificationId ? Math.max(0, current - 1) : 0);
+    } catch {
+      setActionError('Không thể đánh dấu đã đọc. Vui lòng thử lại.');
+    } finally {
+      requestPending.current = false;
+      setPendingId(null);
+    }
   };
+
+  const visibleItems = filter === 'unread' ? items.filter((item) => !item.is_read) : items;
+  const busy = pendingId !== null;
 
   return (
     <MainLayout>
@@ -41,6 +69,8 @@ export const NotificationsPage: React.FC = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 16,
           }}
         >
           <div>
@@ -54,7 +84,8 @@ export const NotificationsPage: React.FC = () => {
           {unreadCount > 0 && (
             <button
               type="button"
-              onClick={handleMarkAllRead}
+              onClick={() => handleMarkRead()}
+              disabled={busy || loading || loadError}
               style={{
                 padding: '8px 14px',
                 borderRadius: 8,
@@ -63,20 +94,50 @@ export const NotificationsPage: React.FC = () => {
                 color: '#60a5fa',
                 fontWeight: 600,
                 fontSize: 12,
-                cursor: 'pointer',
+                cursor: busy || loading || loadError ? 'not-allowed' : 'pointer',
               }}
             >
-              ✓ Đánh dấu tất cả đã đọc ({unreadCount})
+              {pendingId === 'all' ? 'Đang cập nhật...' : `✓ Đánh dấu tất cả đã đọc (${unreadCount})`}
             </button>
           )}
         </div>
 
+        <div role="group" aria-label="Lọc thông báo" style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+          {(['all', 'unread'] as const).map((value) => (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={filter === value}
+              onClick={() => setFilter(value)}
+              style={{
+                padding: '8px 14px', borderRadius: 8,
+                border: '1px solid var(--border-color)',
+                background: filter === value ? 'var(--brand-primary)' : 'var(--bg-secondary)',
+                color: filter === value ? '#fff' : 'var(--text-primary)', cursor: 'pointer',
+              }}
+            >
+              {value === 'all' ? 'Tất cả' : 'Chưa đọc'}
+            </button>
+          ))}
+          <span role="status" style={{ alignSelf: 'center', color: 'var(--text-secondary)' }}>
+            {!loading && !loadError && `${unreadCount} thông báo chưa đọc`}
+          </span>
+        </div>
+
+        {actionError && <div role="alert" style={{ color: 'var(--text-primary)' }}>{actionError}</div>}
+
         {loading ? (
-          <div style={{ padding: 36, textAlign: 'center', color: 'var(--text-muted)' }}>
+          <div role="status" style={{ padding: 36, textAlign: 'center', color: 'var(--text-muted)' }}>
             Đang tải thông báo...
           </div>
-        ) : items.length === 0 ? (
+        ) : loadError ? (
+          <div role="alert" style={{ padding: 24, color: 'var(--text-primary)' }}>
+            <p>Không thể tải thông báo. Vui lòng thử lại.</p>
+            <button type="button" onClick={loadNotifications}>Thử lại</button>
+          </div>
+        ) : visibleItems.length === 0 ? (
           <div
+            role="status"
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
@@ -86,11 +147,11 @@ export const NotificationsPage: React.FC = () => {
               color: 'var(--text-secondary)',
             }}
           >
-            Bạn chưa có thông báo mới nào.
+            {filter === 'unread' ? 'Bạn không có thông báo chưa đọc.' : 'Bạn chưa có thông báo mới nào.'}
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {items.map((n) => (
+            {visibleItems.map((n) => (
               <div
                 key={n.id}
                 style={{
@@ -106,10 +167,12 @@ export const NotificationsPage: React.FC = () => {
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   gap: 12,
+                  flexWrap: 'wrap',
+                  overflowWrap: 'anywhere',
                 }}
               >
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: 14, color: '#fff' }}>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--text-primary)' }}>
                     {n.title}
                   </div>
                   <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 4 }}>
@@ -120,23 +183,41 @@ export const NotificationsPage: React.FC = () => {
                   </div>
                 </div>
 
-                {n.reference_url && (
-                  <Link
-                    to={n.reference_url}
-                    onClick={() => communicationService.markNotificationsRead(n.id)}
-                    style={{
-                      padding: '7px 12px',
-                      borderRadius: 8,
-                      background: 'var(--brand-primary)',
-                      color: '#fff',
-                      fontSize: 12,
-                      fontWeight: 600,
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    Xem chi tiết →
-                  </Link>
-                )}
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+                  {!n.is_read && (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => handleMarkRead(n.id)}
+                      aria-label={`Đánh dấu đã đọc: ${n.title}`}
+                      style={{
+                        padding: '7px 12px', borderRadius: 8,
+                        border: '1px solid var(--border-color)',
+                        background: 'var(--bg-secondary)', color: 'var(--text-primary)',
+                        cursor: busy ? 'not-allowed' : 'pointer', fontSize: 12,
+                      }}
+                    >
+                      {pendingId === n.id ? 'Đang cập nhật...' : 'Đánh dấu đã đọc'}
+                    </button>
+                  )}
+                  {n.reference_url && (
+                    <Link
+                      to={n.reference_url}
+                      onClick={() => { if (!n.is_read) void handleMarkRead(n.id); }}
+                      style={{
+                        padding: '7px 12px',
+                        borderRadius: 8,
+                        background: 'var(--brand-primary)',
+                        color: '#fff',
+                        fontSize: 12,
+                        fontWeight: 600,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      Xem chi tiết →
+                    </Link>
+                  )}
+                </div>
               </div>
             ))}
           </div>
