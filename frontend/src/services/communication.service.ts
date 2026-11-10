@@ -6,6 +6,8 @@ import {
   NotificationItem,
 } from '../types/communication.types';
 
+export const NOTIFICATIONS_READ_EVENT = 'mxh-hssv:notifications-read';
+
 export const communicationService = {
   listConversations() {
     return apiRequest<ConversationItem[]>('/communication/conversations');
@@ -53,10 +55,12 @@ export const communicationService = {
     );
   },
 
-  markNotificationsRead(notificationId?: string) {
-    return apiRequest<{ updated: boolean }>('/communication/notifications/read', {
+  async markNotificationsRead(notificationId?: string) {
+    const result = await apiRequest<{ updated: boolean }>('/communication/notifications/read', {
       method: 'PATCH',
       body: JSON.stringify(notificationId ? { notificationId } : {}),
     });
+    if (result.updated) window.dispatchEvent(new Event(NOTIFICATIONS_READ_EVENT));
+    return result;
   },
 };
