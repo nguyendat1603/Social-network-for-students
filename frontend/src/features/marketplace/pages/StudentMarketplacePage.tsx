@@ -84,7 +84,7 @@ export const StudentMarketplacePage: React.FC = () => {
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 14,
+            borderRadius: 20,
             padding: 20,
             display: 'flex',
             justifyContent: 'space-between',
@@ -97,9 +97,9 @@ export const StudentMarketplacePage: React.FC = () => {
                 to={APP_ROUTES.MARKETPLACE_ITEMS}
                 style={{
                   padding: '6px 12px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: 'var(--brand-primary)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                   fontSize: 12,
                   fontWeight: 700,
                 }}
@@ -110,8 +110,8 @@ export const StudentMarketplacePage: React.FC = () => {
                 to={APP_ROUTES.HOUSING_FINDER}
                 style={{
                   padding: '6px 12px',
-                  borderRadius: 8,
-                  background: 'rgba(148, 163, 184, 0.14)',
+                  borderRadius: 20,
+                  background: 'var(--color-fog-mist)',
                   color: 'var(--text-secondary)',
                   fontSize: 12,
                   fontWeight: 600,
@@ -133,10 +133,10 @@ export const StudentMarketplacePage: React.FC = () => {
             onClick={() => setIsPostModalOpen(true)}
             style={{
               padding: '10px 18px',
-              borderRadius: 10,
+              borderRadius: 20,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontWeight: 700,
               fontSize: 13,
               cursor: 'pointer',
@@ -169,7 +169,7 @@ export const StudentMarketplacePage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 14,
+              borderRadius: 20,
               padding: 36,
               textAlign: 'center',
               color: 'var(--text-secondary)',

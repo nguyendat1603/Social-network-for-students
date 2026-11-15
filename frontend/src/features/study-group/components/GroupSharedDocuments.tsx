@@ -39,7 +39,7 @@ export const GroupSharedDocuments: React.FC<GroupSharedDocumentsProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 12,
+        borderRadius: 20,
         padding: 18,
         display: 'flex',
         flexDirection: 'column',
@@ -61,10 +61,10 @@ export const GroupSharedDocuments: React.FC<GroupSharedDocumentsProps> = ({
           onChange={(e) => setTitle(e.target.value)}
           style={{
             padding: '8px 10px',
-            borderRadius: 8,
+            borderRadius: 20,
             background: '#ffffff',
             border: '1px solid var(--border-color)',
-            color: '#fff',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 13,
           }}
         />
@@ -75,10 +75,10 @@ export const GroupSharedDocuments: React.FC<GroupSharedDocumentsProps> = ({
           onChange={(e) => setFileUrl(e.target.value)}
           style={{
             padding: '8px 10px',
-            borderRadius: 8,
+            borderRadius: 20,
             background: '#ffffff',
             border: '1px solid var(--border-color)',
-            color: '#fff',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 13,
           }}
         />
@@ -87,10 +87,10 @@ export const GroupSharedDocuments: React.FC<GroupSharedDocumentsProps> = ({
           disabled={uploading}
           style={{
             padding: '8px 14px',
-            borderRadius: 8,
+            borderRadius: 20,
             background: 'var(--brand-primary)',
             border: 'none',
-            color: '#fff',
+            color: 'var(--color-charcoal-ink)',
             fontWeight: 600,
             fontSize: 12,
             cursor: 'pointer',
@@ -114,13 +114,13 @@ export const GroupSharedDocuments: React.FC<GroupSharedDocumentsProps> = ({
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '10px 12px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: 'rgba(15, 23, 42, 0.55)',
                 border: '1px solid var(--border-color)',
               }}
             >
               <div>
-                <div style={{ fontWeight: 600, fontSize: 13, color: '#fff' }}>
+                <div style={{ fontWeight: 600, fontSize: 13, color: 'var(--color-charcoal-ink)' }}>
                   📄 {doc.title}
                 </div>
                 <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>
@@ -134,9 +134,9 @@ export const GroupSharedDocuments: React.FC<GroupSharedDocumentsProps> = ({
                 rel="noreferrer"
                 style={{
                   padding: '6px 12px',
-                  borderRadius: 6,
-                  background: 'rgba(59, 130, 246, 0.16)',
-                  color: '#60a5fa',
+                  borderRadius: 20,
+                  background: 'var(--color-fog-mist)',
+                  color: 'var(--color-charcoal-ink)',
                   fontSize: 12,
                   fontWeight: 600,
                 }}

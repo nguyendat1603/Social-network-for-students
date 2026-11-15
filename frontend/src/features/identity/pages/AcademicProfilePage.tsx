@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { VerifiedStudentBadge } from '../../../components/common/VerifiedStudentBadge';
 import { useAuth } from '../../../hooks/useAuth';
@@ -123,12 +123,12 @@ export const AcademicProfilePage: React.FC = () => {
                 style={{
                   fontSize: 12,
                   padding: '5px 10px',
-                  borderRadius: 6,
+                  borderRadius: 20,
                   background: 'var(--bg-primary)',
                   border: '1px solid var(--border-color)',
                 }}
               >
-                <strong style={{ color: '#60a5fa' }}>#{c.code}</strong> —{' '}
+                <strong style={{ color: 'var(--color-charcoal-ink)' }}>#{c.code}</strong> —{' '}
                 {c.name} ({c.credits} TC)
               </span>
             ))}

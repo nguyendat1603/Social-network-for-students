@@ -46,7 +46,7 @@ export const AcademicKarmaPage: React.FC = () => {
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 14,
+            borderRadius: 20,
             padding: 22,
             display: 'flex',
             justifyContent: 'space-between',
@@ -74,7 +74,7 @@ export const AcademicKarmaPage: React.FC = () => {
               onClick={() => setActiveTab('OVERVIEW')}
               style={{
                 padding: '9px 16px',
-                borderRadius: 8,
+                borderRadius: 20,
                 border: '1px solid var(--border-color)',
                 background:
                   activeTab === 'OVERVIEW'
@@ -93,7 +93,7 @@ export const AcademicKarmaPage: React.FC = () => {
               onClick={() => setActiveTab('LEADERBOARD')}
               style={{
                 padding: '9px 16px',
-                borderRadius: 8,
+                borderRadius: 20,
                 border: '1px solid var(--border-color)',
                 background:
                   activeTab === 'LEADERBOARD'
@@ -125,7 +125,7 @@ export const AcademicKarmaPage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 14,
+              borderRadius: 20,
               padding: 22,
             }}
           >
@@ -157,16 +157,16 @@ export const AcademicKarmaPage: React.FC = () => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       padding: '12px 16px',
-                      borderRadius: 10,
+                      borderRadius: 20,
                       background: isTop1
-                        ? 'rgba(245, 158, 11, 0.12)'
+                        ? 'var(--color-sand-wash)'
                         : isTop2
-                        ? 'rgba(148, 163, 184, 0.12)'
+                        ? 'var(--color-fog-mist)'
                         : isTop3
                         ? 'rgba(180, 83, 9, 0.12)'
                         : 'rgba(15, 23, 42, 0.55)',
                       border: isTop1
-                        ? '1px solid rgba(245, 158, 11, 0.45)'
+                        ? '1px solid var(--color-sand-wash)'
                         : '1px solid var(--border-color)',
                     }}
                   >
@@ -185,7 +185,7 @@ export const AcademicKarmaPage: React.FC = () => {
 
                       <div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <strong style={{ fontSize: 14, color: '#fff' }}>
+                          <strong style={{ fontSize: 14, color: 'var(--color-charcoal-ink)' }}>
                             {item.fullName}
                           </strong>
                           {item.studentCode && (
@@ -199,8 +199,8 @@ export const AcademicKarmaPage: React.FC = () => {
                               fontWeight: 700,
                               padding: '2px 8px',
                               borderRadius: 999,
-                              background: 'rgba(59, 130, 246, 0.18)',
-                              color: '#60a5fa',
+                              background: 'var(--color-fog-mist)',
+                              color: 'var(--color-charcoal-ink)',
                             }}
                           >
                             {item.badgeLabel}
@@ -215,7 +215,7 @@ export const AcademicKarmaPage: React.FC = () => {
                     </div>
 
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: 16, fontWeight: 800, color: '#34d399' }}>
+                      <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--color-charcoal-ink)' }}>
                         +{item.karmaPoints} Karma
                       </div>
                     </div>

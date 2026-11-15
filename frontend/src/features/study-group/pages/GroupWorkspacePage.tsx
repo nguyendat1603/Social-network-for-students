@@ -49,13 +49,13 @@ export const GroupWorkspacePage: React.FC = () => {
         <div
           style={{
             background: 'var(--bg-secondary)',
-            border: '1px solid rgba(239, 68, 68, 0.4)',
-            borderRadius: 14,
+            border: '1px solid var(--color-fog-mist)',
+            borderRadius: 20,
             padding: 32,
             textAlign: 'center',
           }}
         >
-          <h3 style={{ color: '#f87171', marginTop: 0 }}>🔒 Không thể truy cập Workspace</h3>
+          <h3 style={{ color: 'var(--color-charcoal-ink)', marginTop: 0 }}>🔒 Không thể truy cập Workspace</h3>
           <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>{error}</p>
           <Link
             to={APP_ROUTES.STUDY_GROUPS}
@@ -63,9 +63,9 @@ export const GroupWorkspacePage: React.FC = () => {
               display: 'inline-block',
               marginTop: 12,
               padding: '9px 16px',
-              borderRadius: 8,
+              borderRadius: 20,
               background: 'var(--brand-primary)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontWeight: 600,
               fontSize: 13,
             }}
@@ -80,7 +80,7 @@ export const GroupWorkspacePage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 14,
+              borderRadius: 20,
               padding: 20,
               display: 'flex',
               justifyContent: 'space-between',
@@ -91,7 +91,7 @@ export const GroupWorkspacePage: React.FC = () => {
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                 <Link
                   to={APP_ROUTES.STUDY_GROUPS}
-                  style={{ fontSize: 12, color: '#60a5fa' }}
+                  style={{ fontSize: 12, color: 'var(--color-charcoal-ink)' }}
                 >
                   ← Danh sách nhóm
                 </Link>
@@ -100,9 +100,9 @@ export const GroupWorkspacePage: React.FC = () => {
                     style={{
                       fontSize: 12,
                       padding: '2px 8px',
-                      borderRadius: 6,
-                      background: 'rgba(59, 130, 246, 0.16)',
-                      color: '#60a5fa',
+                      borderRadius: 20,
+                      background: 'var(--color-fog-mist)',
+                      color: 'var(--color-charcoal-ink)',
                       fontWeight: 700,
                     }}
                   >
@@ -113,9 +113,9 @@ export const GroupWorkspacePage: React.FC = () => {
                   style={{
                     fontSize: 12,
                     padding: '2px 8px',
-                    borderRadius: 6,
-                    background: 'rgba(16, 185, 129, 0.16)',
-                    color: '#34d399',
+                    borderRadius: 20,
+                    background: 'var(--color-highlight-yellow)',
+                    color: 'var(--color-charcoal-ink)',
                     fontWeight: 700,
                   }}
                 >
@@ -138,10 +138,10 @@ export const GroupWorkspacePage: React.FC = () => {
                   to={`${APP_ROUTES.MESSENGER}?convId=${workspace.conversationId}`}
                   style={{
                     padding: '9px 16px',
-                    borderRadius: 8,
-                    background: 'rgba(59, 130, 246, 0.18)',
-                    border: '1px solid rgba(59, 130, 246, 0.45)',
-                    color: '#60a5fa',
+                    borderRadius: 20,
+                    background: 'var(--color-fog-mist)',
+                    border: '1px solid var(--color-fog-mist)',
+                    color: 'var(--color-charcoal-ink)',
                     fontWeight: 600,
                     fontSize: 13,
                   }}
@@ -173,7 +173,7 @@ export const GroupWorkspacePage: React.FC = () => {
                 }
                 style={{
                   padding: '9px 16px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   border: '1px solid var(--border-color)',
                   background:
                     activeTab === tab.key

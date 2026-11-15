@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../../config/routes.config';
 import { communicationService, NOTIFICATIONS_READ_EVENT } from '../../../services/communication.service';
@@ -38,10 +38,10 @@ export const RealtimeNotificationBell: React.FC = () => {
         title="Tin nhắn & Phòng Chat Nhóm"
         style={{
           padding: '6px 10px',
-          borderRadius: 8,
-          background: 'rgba(59, 130, 246, 0.12)',
-          border: '1px solid rgba(59, 130, 246, 0.3)',
-          color: '#60a5fa',
+          borderRadius: 20,
+          background: 'var(--color-fog-mist)',
+          border: '1px solid var(--color-fog-mist)',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 13,
           fontWeight: 600,
         }}
@@ -55,10 +55,10 @@ export const RealtimeNotificationBell: React.FC = () => {
         style={{
           position: 'relative',
           padding: '6px 10px',
-          borderRadius: 8,
-          background: 'rgba(148, 163, 184, 0.12)',
+          borderRadius: 20,
+          background: 'var(--color-fog-mist)',
           border: '1px solid var(--border-color)',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 13,
           fontWeight: 600,
         }}
@@ -71,7 +71,7 @@ export const RealtimeNotificationBell: React.FC = () => {
               padding: '1px 6px',
               borderRadius: 999,
               background: '#ef4444',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 11,
               fontWeight: 700,
             }}

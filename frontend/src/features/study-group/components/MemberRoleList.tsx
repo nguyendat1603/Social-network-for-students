@@ -28,7 +28,7 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
         style={{
           background: 'var(--bg-secondary)',
           border: '1px solid var(--border-color)',
-          borderRadius: 12,
+          borderRadius: 20,
           padding: 18,
         }}
       >
@@ -44,13 +44,13 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '10px 12px',
-                borderRadius: 10,
+                borderRadius: 20,
                 background: 'rgba(15, 23, 42, 0.55)',
                 border: '1px solid var(--border-color)',
               }}
             >
               <div>
-                <div style={{ fontWeight: 700, fontSize: 14, color: '#fff' }}>
+                <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--color-charcoal-ink)' }}>
                   {m.user?.full_name || 'Sinh viên'}
                   {m.member_role === 'LEAD' && (
                     <span
@@ -58,9 +58,9 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
                         marginLeft: 8,
                         fontSize: 11,
                         padding: '2px 7px',
-                        borderRadius: 6,
-                        background: 'rgba(245, 158, 11, 0.2)',
-                        color: '#fbbf24',
+                        borderRadius: 20,
+                        background: 'var(--color-sand-wash)',
+                        color: 'var(--color-charcoal-ink)',
                       }}
                     >
                       👑 LEAD
@@ -74,7 +74,7 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
                 </div>
               </div>
               {m.user?.karma_points !== undefined && (
-                <span style={{ fontSize: 12, color: '#34d399', fontWeight: 600 }}>
+                <span style={{ fontSize: 12, color: 'var(--color-charcoal-ink)', fontWeight: 600 }}>
                   {m.user.karma_points} Karma
                 </span>
               )}
@@ -88,7 +88,7 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 12,
+            borderRadius: 20,
             padding: 18,
           }}
         >
@@ -106,7 +106,7 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
                   key={app.id}
                   style={{
                     padding: 12,
-                    borderRadius: 10,
+                    borderRadius: 20,
                     background: 'rgba(15, 23, 42, 0.6)',
                     border: '1px solid var(--border-color)',
                   }}
@@ -118,16 +118,16 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
                       alignItems: 'center',
                     }}
                   >
-                    <strong style={{ color: '#fff', fontSize: 14 }}>
+                    <strong style={{ color: 'var(--color-charcoal-ink)', fontSize: 14 }}>
                       {app.applicant?.full_name || 'Ứng viên'}
                     </strong>
                     <span
                       style={{
                         fontSize: 11,
                         padding: '2px 8px',
-                        borderRadius: 6,
-                        background: 'rgba(59, 130, 246, 0.16)',
-                        color: '#60a5fa',
+                        borderRadius: 20,
+                        background: 'var(--color-fog-mist)',
+                        color: 'var(--color-charcoal-ink)',
                       }}
                     >
                       Ứng tuyển: {app.slot?.role_name}
@@ -147,7 +147,7 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
                       href={app.portfolio_url}
                       target="_blank"
                       rel="noreferrer"
-                      style={{ fontSize: 12, color: '#60a5fa', display: 'inline-block', marginBottom: 8 }}
+                      style={{ fontSize: 12, color: 'var(--color-charcoal-ink)', display: 'inline-block', marginBottom: 8 }}
                     >
                       🔗 Xem Portfolio / GitHub
                     </a>
@@ -158,10 +158,10 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
                       onClick={() => onReviewApplication(app.id, 'APPROVED')}
                       style={{
                         padding: '6px 12px',
-                        borderRadius: 6,
-                        background: 'rgba(16, 185, 129, 0.2)',
-                        border: '1px solid rgba(16, 185, 129, 0.45)',
-                        color: '#34d399',
+                        borderRadius: 20,
+                        background: 'var(--color-highlight-yellow)',
+                        border: '1px solid var(--color-highlight-yellow)',
+                        color: 'var(--color-charcoal-ink)',
                         fontSize: 12,
                         fontWeight: 600,
                         cursor: 'pointer',
@@ -174,10 +174,10 @@ export const MemberRoleList: React.FC<MemberRoleListProps> = ({
                       onClick={() => onReviewApplication(app.id, 'REJECTED')}
                       style={{
                         padding: '6px 12px',
-                        borderRadius: 6,
-                        background: 'rgba(239, 68, 68, 0.16)',
-                        border: '1px solid rgba(239, 68, 68, 0.35)',
-                        color: '#f87171',
+                        borderRadius: 20,
+                        background: 'var(--color-fog-mist)',
+                        border: '1px solid var(--color-fog-mist)',
+                        color: 'var(--color-charcoal-ink)',
                         fontSize: 12,
                         cursor: 'pointer',
                       }}

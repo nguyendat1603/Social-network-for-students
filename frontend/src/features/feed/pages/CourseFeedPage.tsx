@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+﻿import React, { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { feedService } from '../../../services/feed.service';
@@ -73,28 +73,30 @@ export const CourseFeedPage: React.FC = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 12,
           }}
         >
           <div>
-            <h1 style={{ fontSize: 22, fontWeight: 800 }}>
-              📘 Course Feed — Bảng tin Học phần #{selectedCourseCode}
+            <h1
+              style={{
+                fontFamily: 'var(--font-cahuenga)',
+                fontSize: 28,
+                fontWeight: 500,
+                color: 'var(--color-ink)',
+                lineHeight: 1.24,
+              }}
+            >
+              Chuyên đề Học phần #{selectedCourseCode}
             </h1>
-            <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>
-              Tự động gom mọi bài đăng & câu hỏi có gắn thẻ #{selectedCourseCode}.
+            <p style={{ fontSize: 14, color: 'var(--color-stone)', marginTop: 4 }}>
+              Tự động gom mọi bài giảng, đề cương &amp; câu hỏi gắn thẻ #{selectedCourseCode}.
             </p>
           </div>
           <button
             type="button"
             onClick={() => setShowComposer(true)}
-            style={{
-              background: 'var(--brand-primary)',
-              color: '#fff',
-              border: 'none',
-              padding: '10px 18px',
-              borderRadius: 8,
-              fontWeight: 700,
-              fontSize: 13,
-            }}
+            className="substack-btn-primary"
           >
             + Đặt câu hỏi cho #{selectedCourseCode}
           </button>

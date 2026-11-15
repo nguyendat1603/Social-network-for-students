@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 interface PdfViewerModalProps {
   title: string;
@@ -54,9 +54,9 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
               rel="noreferrer"
               style={{
                 padding: '5px 12px',
-                borderRadius: 6,
+                borderRadius: 20,
                 background: 'var(--brand-primary)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontSize: 12,
                 fontWeight: 600,
               }}
@@ -71,7 +71,7 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
                 border: '1px solid var(--border-color)',
                 color: 'var(--text-secondary)',
                 padding: '5px 12px',
-                borderRadius: 6,
+                borderRadius: 20,
                 fontSize: 12,
               }}
             >

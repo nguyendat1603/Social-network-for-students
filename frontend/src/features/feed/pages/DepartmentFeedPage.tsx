@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+﻿import React, { useCallback, useEffect, useState } from 'react';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { useAuth } from '../../../hooks/useAuth';
 import { feedService } from '../../../services/feed.service';
@@ -71,30 +71,32 @@ export const DepartmentFeedPage: React.FC = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 12,
           }}
         >
           <div>
-            <h1 style={{ fontSize: 22, fontWeight: 800 }}>
-              🏛️ Department / Major Feed — Thảo luận theo Khoa/Viện
+            <h1
+              style={{
+                fontFamily: 'var(--font-cahuenga)',
+                fontSize: 28,
+                fontWeight: 500,
+                color: 'var(--color-ink)',
+                lineHeight: 1.24,
+              }}
+            >
+              Chuyên mục theo Trường / Viện ĐHBK
             </h1>
-            <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>
-              Không gian trao đổi học thuật chuyên sâu theo từng trường/khoa/viện.
+            <p style={{ fontSize: 14, color: 'var(--color-stone)', marginTop: 4 }}>
+              Không gian trao đổi học thuật chuyên sâu theo từng Trường, Khoa, Viện đào tạo.
             </p>
           </div>
           <button
             type="button"
             onClick={() => setShowComposer(true)}
-            style={{
-              background: 'var(--brand-primary)',
-              color: '#fff',
-              border: 'none',
-              padding: '10px 18px',
-              borderRadius: 8,
-              fontWeight: 700,
-              fontSize: 13,
-            }}
+            className="substack-btn-primary"
           >
-            + Đăng bài trong Khoa/Viện
+            + Viết bài trong Khoa/Viện
           </button>
         </div>
 

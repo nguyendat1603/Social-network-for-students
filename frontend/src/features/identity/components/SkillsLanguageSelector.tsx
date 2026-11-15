@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   SkillCategory,
   SkillProficiency,
@@ -90,10 +90,10 @@ export const SkillsLanguageSelector: React.FC<SkillsLanguageSelectorProps> = ({
           onClick={handleAddSkill}
           style={{
             background: 'var(--bg-elevated)',
-            color: '#fff',
+            color: 'var(--color-charcoal-ink)',
             border: '1px solid var(--border-color)',
             padding: '0 16px',
-            borderRadius: 8,
+            borderRadius: 20,
             fontWeight: 600,
           }}
         >
@@ -119,10 +119,10 @@ export const SkillsLanguageSelector: React.FC<SkillsLanguageSelectorProps> = ({
               fontSize: 12,
               background:
                 s.category === 'TECHNICAL'
-                  ? 'rgba(59, 130, 246, 0.16)'
+                  ? 'var(--color-fog-mist)'
                   : s.category === 'LANGUAGE'
-                  ? 'rgba(16, 185, 129, 0.16)'
-                  : 'rgba(139, 92, 246, 0.16)',
+                  ? 'var(--color-highlight-yellow)'
+                  : 'var(--color-highlight-cyan)',
               border: '1px solid var(--border-color)',
             }}
           >
@@ -134,7 +134,7 @@ export const SkillsLanguageSelector: React.FC<SkillsLanguageSelectorProps> = ({
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#f87171',
+                color: 'var(--color-charcoal-ink)',
                 fontWeight: 700,
               }}
             >

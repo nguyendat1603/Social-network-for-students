@@ -32,7 +32,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
         style={{
           background: 'var(--bg-secondary)',
           border: '1px solid var(--border-color)',
-          borderRadius: 14,
+          borderRadius: 20,
           padding: 40,
           display: 'flex',
           alignItems: 'center',
@@ -75,7 +75,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 14,
+        borderRadius: 20,
         display: 'flex',
         flexDirection: 'column',
         minHeight: 520,
@@ -93,7 +93,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
         }}
       >
         <div>
-          <div style={{ fontWeight: 700, fontSize: 15, color: '#fff' }}>
+          <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--color-charcoal-ink)' }}>
             {headerTitle}
           </div>
           <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>
@@ -108,9 +108,9 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
             to={`/study-groups/${conversation.study_group_id}/workspace`}
             style={{
               padding: '6px 12px',
-              borderRadius: 8,
-              background: 'rgba(16, 185, 129, 0.16)',
-              color: '#34d399',
+              borderRadius: 20,
+              background: 'var(--color-highlight-yellow)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 12,
               fontWeight: 600,
             }}
@@ -142,7 +142,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
                   fontSize: 11,
                   padding: '4px 12px',
                   borderRadius: 999,
-                  background: 'rgba(148, 163, 184, 0.12)',
+                  background: 'var(--color-fog-mist)',
                   color: 'var(--text-secondary)',
                 }}
               >
@@ -158,12 +158,12 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
                 alignSelf: isMine ? 'flex-end' : 'flex-start',
                 maxWidth: '72%',
                 padding: '10px 14px',
-                borderRadius: 12,
+                borderRadius: 20,
                 background: isMine
                   ? 'var(--brand-primary)'
                   : 'rgba(15, 23, 42, 0.85)',
                 border: isMine ? 'none' : '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
               }}
             >
               {!isMine && (
@@ -171,7 +171,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
                   style={{
                     fontSize: 11,
                     fontWeight: 700,
-                    color: '#93c5fd',
+                    color: 'var(--color-charcoal-ink)',
                     marginBottom: 4,
                   }}
                 >
@@ -188,7 +188,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
                     display: 'inline-block',
                     marginTop: 6,
                     padding: '5px 10px',
-                    borderRadius: 6,
+                    borderRadius: 20,
                     background: 'rgba(2, 6, 23, 0.35)',
                     color: '#bfdbfe',
                     fontSize: 12,
@@ -242,10 +242,10 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
             style={{
               flex: 1,
               padding: '10px 14px',
-              borderRadius: 10,
+              borderRadius: 20,
               background: '#ffffff',
               border: '1px solid var(--border-color)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           />
@@ -254,10 +254,10 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
             disabled={sending}
             style={{
               padding: '10px 18px',
-              borderRadius: 10,
+              borderRadius: 20,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontWeight: 700,
               fontSize: 13,
               cursor: 'pointer',

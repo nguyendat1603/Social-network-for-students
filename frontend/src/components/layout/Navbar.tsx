@@ -6,6 +6,14 @@ import { VerifiedStudentBadge } from '../common/VerifiedStudentBadge';
 import { AnonymousSwitch } from '../common/AnonymousSwitch';
 import { RealtimeNotificationBell } from '../../features/communication/components/RealtimeNotificationBell';
 
+const PEER_AVATARS = [
+  { initials: 'MA', bg: '#e2ceb8', title: 'Minh Anh (K65 CNTT)' },
+  { initials: 'LC', bg: '#c7f6ff', title: 'Linh Chi (K66 ĐTVT)' },
+  { initials: 'ĐH', bg: '#f9f5a2', title: 'Đức Huy (K65 KHMT)' },
+  { initials: 'HN', bg: '#ededed', title: 'Hoàng Nam (K64 Cơ khí)' },
+  { initials: 'TH', bg: '#d6d2c4', title: 'Thu Hà (K66 Kinh tế)' },
+];
+
 export const Navbar: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
@@ -18,167 +26,175 @@ export const Navbar: React.FC = () => {
   return (
     <header
       style={{
-        height: 64,
-        backgroundColor: '#ffffff',
-        borderBottom: '1px solid var(--border-color)',
-        boxShadow: 'var(--shadow-sm)',
+        backgroundColor: 'var(--color-concrete-gray)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 28px',
+        padding: '18px 24px 10px',
         position: 'sticky',
         top: 0,
         zIndex: 50,
+        maxWidth: 1440,
+        width: '100%',
+        margin: '0 auto',
+        flexWrap: 'wrap',
+        gap: 12,
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+      {/* Left side: Status toggle pill with count badge + Highlighted-Letter Game */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <Link
           to={APP_ROUTES.CAMPUS_FEED}
           style={{
-            fontSize: 20,
-            fontWeight: 800,
-            letterSpacing: '-0.02em',
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
-            gap: 8,
+            gap: 10,
+            backgroundColor: 'var(--color-paper-white)',
+            color: 'var(--color-charcoal-ink)',
+            padding: '8px 20px',
+            borderRadius: 'var(--radius-buttons)',
+            boxShadow: 'var(--shadow-sm-2)',
+            fontSize: 'var(--text-body-sm)',
+            fontWeight: 400,
           }}
         >
-          <span className="ig-story-ring" style={{ padding: 2 }}>
-            <span
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: 28,
-                height: 28,
-                background: '#ffffff',
-                borderRadius: '50%',
-                fontSize: 16,
-              }}
-            >
-              🎓
-            </span>
+          <span>
+            (<span className="hl-yellow">y</span>)our campus desktop.
           </span>
-          <span className="text-ig-gradient">UniSphere</span>
-          <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)' }}>
-            · MXH_HSSV
+          <span
+            style={{
+              backgroundColor: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
+              padding: '2px 10px',
+              borderRadius: 'var(--radius-badges)',
+              fontSize: 'var(--text-caption)',
+            }}
+          >
+            8 modules
           </span>
         </Link>
 
         <span
           style={{
-            fontSize: 11,
-            fontWeight: 600,
-            padding: '3px 10px',
-            borderRadius: '9999px',
-            background: 'rgba(16, 185, 129, 0.1)',
-            color: '#059669',
-            border: '1px solid rgba(16, 185, 129, 0.25)',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 5,
+            fontSize: 'var(--text-caption)',
+            padding: '6px 14px',
+            borderRadius: 'var(--radius-badges)',
+            backgroundColor: 'var(--color-fog-mist)',
+            color: 'var(--color-graphite)',
           }}
         >
-          <span
-            style={{
-              width: 6,
-              height: 6,
-              borderRadius: '50%',
-              backgroundColor: '#10b981',
-              display: 'inline-block',
-            }}
-          />
-          Supabase Connected
+          [supabase: connected]
         </span>
       </div>
 
-      {isAuthenticated && user ? (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <RealtimeNotificationBell />
-          <AnonymousSwitch />
-          <VerifiedStudentBadge
-            isVerified={user.isVerifiedStudent}
-            size="sm"
-          />
-          <Link
-            to={APP_ROUTES.ACADEMIC_PROFILE}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              color: 'var(--text-primary)',
-              fontWeight: 600,
-              fontSize: 14,
-              padding: '6px 10px',
-              borderRadius: 8,
-              background: 'var(--bg-elevated)',
-            }}
-          >
+      {/* Right side: Row of 5 circular avatar thumbnails + user controls */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            backgroundColor: 'var(--color-paper-white)',
+            padding: '5px 12px',
+            borderRadius: 'var(--radius-buttons)',
+            boxShadow: 'var(--shadow-sm-2)',
+          }}
+          title="Sinh viên đang trực tuyến trên mặt bàn học thuật"
+        >
+          {PEER_AVATARS.map((peer) => (
             <span
+              key={peer.initials}
+              title={peer.title}
               style={{
                 width: 26,
                 height: 26,
                 borderRadius: '50%',
-                background: 'var(--brand-primary)',
-                color: '#fff',
+                backgroundColor: peer.bg,
+                color: 'var(--color-charcoal-ink)',
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 12,
-                fontWeight: 700,
+                fontSize: 10,
+                fontWeight: 400,
               }}
             >
-              {user.fullName ? user.fullName[0].toUpperCase() : 'U'}
+              {peer.initials}
             </span>
-            <span>
-              {user.fullName}{' '}
-              {user.studentCode ? `(${user.studentCode})` : ''}
-            </span>
-          </Link>
-          <button
-            type="button"
-            onClick={handleLogout}
-            style={{
-              background: '#f1f5f9',
-              border: '1px solid var(--border-color)',
-              color: 'var(--text-secondary)',
-              padding: '7px 14px',
-              borderRadius: 8,
-              fontSize: 13,
-              fontWeight: 600,
-            }}
-          >
-            Đăng xuất
-          </button>
+          ))}
         </div>
-      ) : (
-        <div style={{ display: 'flex', gap: 10 }}>
-          <Link
-            to={APP_ROUTES.LOGIN}
-            style={{
-              padding: '8px 16px',
-              borderRadius: 8,
-              border: '1px solid var(--border-color)',
-              background: '#f8fafc',
-              color: 'var(--text-primary)',
-              fontSize: 13,
-              fontWeight: 600,
-            }}
-          >
-            Đăng nhập
-          </Link>
-          <Link
-            to={APP_ROUTES.REGISTER_EDU}
-            className="btn-facebook-primary"
-            style={{
-              padding: '8px 18px',
-              fontSize: 13,
-            }}
-          >
-            Đăng ký .edu
-          </Link>
-        </div>
-      )}
+
+        {isAuthenticated && user ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <RealtimeNotificationBell />
+            <AnonymousSwitch />
+            <VerifiedStudentBadge
+              isVerified={user.isVerifiedStudent}
+              size="sm"
+            />
+            <Link
+              to={APP_ROUTES.ACADEMIC_PROFILE}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                color: 'var(--color-charcoal-ink)',
+                fontSize: 'var(--text-body-sm)',
+                padding: '7px 16px',
+                borderRadius: 'var(--radius-buttons)',
+                backgroundColor: 'var(--color-paper-white)',
+                boxShadow: 'var(--shadow-sm-2)',
+              }}
+            >
+              <span>
+                {user.fullName}{' '}
+                {user.studentCode ? `(${user.studentCode})` : ''}
+              </span>
+            </Link>
+            <button
+              type="button"
+              onClick={handleLogout}
+              style={{
+                backgroundColor: 'var(--color-fog-mist)',
+                color: 'var(--color-charcoal-ink)',
+                padding: '7px 16px',
+                borderRadius: 'var(--radius-buttons)',
+                fontSize: 'var(--text-caption)',
+              }}
+            >
+              exit
+            </button>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Link
+              to={APP_ROUTES.LOGIN}
+              style={{
+                padding: '8px 20px',
+                borderRadius: 'var(--radius-buttons)',
+                backgroundColor: 'var(--color-fog-mist)',
+                color: 'var(--color-charcoal-ink)',
+                fontSize: 'var(--text-body-sm)',
+              }}
+            >
+              login
+            </Link>
+            <Link
+              to={APP_ROUTES.REGISTER_EDU}
+              className="school-verify-btn"
+              style={{
+                padding: '8px 20px',
+                borderRadius: 'var(--radius-buttons)',
+                backgroundColor: 'var(--color-paper-white)',
+                color: 'var(--color-charcoal-ink)',
+                fontSize: 'var(--text-body-sm)',
+                boxShadow: 'var(--shadow-sm-2)',
+              }}
+            >
+              VERIFY .EDU
+            </Link>
+          </div>
+        )}
+      </div>
     </header>
   );
 };

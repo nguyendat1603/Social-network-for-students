@@ -27,7 +27,7 @@ export const KanbanTaskCard: React.FC<KanbanTaskCardProps> = ({
       style={{
         background: '#ffffff',
         border: '1px solid var(--border-color)',
-        borderRadius: 10,
+        borderRadius: 20,
         padding: 12,
         display: 'flex',
         flexDirection: 'column',
@@ -35,7 +35,7 @@ export const KanbanTaskCard: React.FC<KanbanTaskCardProps> = ({
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}>
-        <div style={{ fontWeight: 600, fontSize: 13, color: '#fff' }}>
+        <div style={{ fontWeight: 600, fontSize: 13, color: 'var(--color-charcoal-ink)' }}>
           {task.title}
         </div>
         <button
@@ -86,8 +86,8 @@ export const KanbanTaskCard: React.FC<KanbanTaskCardProps> = ({
             onClick={() => onStatusChange(task.id, prevStatus)}
             style={{
               padding: '4px 8px',
-              borderRadius: 6,
-              background: 'rgba(148, 163, 184, 0.12)',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
               border: 'none',
               color: 'var(--text-secondary)',
               fontSize: 11,
@@ -106,11 +106,11 @@ export const KanbanTaskCard: React.FC<KanbanTaskCardProps> = ({
             onClick={() => onStatusChange(task.id, nextStatus)}
             style={{
               padding: '4px 8px',
-              borderRadius: 6,
+              borderRadius: 20,
               background:
                 nextStatus === 'DONE'
-                  ? 'rgba(16, 185, 129, 0.2)'
-                  : 'rgba(59, 130, 246, 0.18)',
+                  ? 'var(--color-highlight-yellow)'
+                  : 'var(--color-fog-mist)',
               border: 'none',
               color: nextStatus === 'DONE' ? '#34d399' : '#60a5fa',
               fontSize: 11,

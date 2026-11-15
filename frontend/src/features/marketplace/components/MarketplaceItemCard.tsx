@@ -40,7 +40,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 14,
+        borderRadius: 20,
         padding: 18,
         display: 'flex',
         flexDirection: 'column',
@@ -62,9 +62,9 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
               fontSize: 11,
               fontWeight: 700,
               padding: '3px 8px',
-              borderRadius: 6,
-              background: 'rgba(59, 130, 246, 0.14)',
-              color: '#60a5fa',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
             }}
           >
             {CATEGORY_LABELS[item.category] || item.category}
@@ -73,8 +73,8 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
             style={{
               fontSize: 11,
               padding: '3px 8px',
-              borderRadius: 6,
-              background: 'rgba(148, 163, 184, 0.14)',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
               color: 'var(--text-secondary)',
             }}
           >
@@ -85,7 +85,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
         <h3 style={{ margin: 0, fontSize: 16, color: 'var(--text-primary)' }}>{item.title}</h3>
 
         {item.course && (
-          <div style={{ fontSize: 12, color: '#93c5fd' }}>
+          <div style={{ fontSize: 12, color: 'var(--color-charcoal-ink)' }}>
             Gắn môn học: <strong>#{item.course.code}</strong> — {item.course.name}
           </div>
         )}
@@ -133,7 +133,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ fontSize: 12, color: '#fff', fontWeight: 600 }}>
+          <div style={{ fontSize: 12, color: 'var(--color-charcoal-ink)', fontWeight: 600 }}>
             {item.seller?.full_name || 'Sinh viên'}
           </div>
           <VerifiedStudentBadge
@@ -150,10 +150,10 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
             }
             style={{
               padding: '6px 10px',
-              borderRadius: 8,
+              borderRadius: 20,
               background: '#ffffff',
               border: '1px solid var(--border-color)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 12,
             }}
           >
@@ -167,10 +167,10 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
             onClick={() => onMessageSeller(item.seller_id, item.title)}
             style={{
               padding: '7px 14px',
-              borderRadius: 8,
+              borderRadius: 20,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontWeight: 600,
               fontSize: 12,
               cursor: 'pointer',
@@ -183,8 +183,8 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
             style={{
               fontSize: 12,
               padding: '5px 10px',
-              borderRadius: 6,
-              background: 'rgba(148, 163, 184, 0.14)',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
               color: 'var(--text-muted)',
             }}
           >

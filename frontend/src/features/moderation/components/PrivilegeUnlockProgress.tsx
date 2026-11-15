@@ -11,7 +11,7 @@ const TIERS = [
     name: 'Tài khoản Giới hạn',
     minKarma: -999,
     description: 'Karma âm (< 0). Chặn tạo bài đăng mới & tải tài liệu.',
-    color: '#f87171',
+    color: 'var(--color-charcoal-ink)',
     perks: ['Cần tích lũy lại Karma bằng các câu trả lời hữu ích'],
   },
   {
@@ -19,7 +19,7 @@ const TIERS = [
     name: 'Verified Student',
     minKarma: 0,
     description: 'Sinh viên đã xác thực email trường (.edu).',
-    color: '#60a5fa',
+    color: 'var(--color-charcoal-ink)',
     perks: [
       'Đăng bài, bình luận, hỏi đáp học tập',
       'Tham gia & tuyển nhóm đồ án',
@@ -31,7 +31,7 @@ const TIERS = [
     name: 'Active Contributor',
     minKarma: 50,
     description: 'Đóng góp tích cực (từ 50 Karma trở lên).',
-    color: '#34d399',
+    color: 'var(--color-charcoal-ink)',
     perks: [
       'Mở khóa tải tài liệu KHÔNG GIỚI HẠN',
       'Huy hiệu Active Contributor trên hồ sơ',
@@ -43,7 +43,7 @@ const TIERS = [
     name: 'Trusted Scholar',
     minKarma: 150,
     description: 'Học giả uy tín hàng đầu (từ 150 Karma trở lên).',
-    color: '#fbbf24',
+    color: 'var(--color-charcoal-ink)',
     perks: [
       'Đặc quyền tạo nhóm thảo luận chuyên đề riêng',
       'Huy hiệu Trusted Scholar vinh danh trên diễn đàn',
@@ -60,7 +60,7 @@ export const PrivilegeUnlockProgress: React.FC<PrivilegeUnlockProgressProps> = (
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 14,
+        borderRadius: 20,
         padding: 22,
         display: 'flex',
         flexDirection: 'column',
@@ -81,14 +81,14 @@ export const PrivilegeUnlockProgress: React.FC<PrivilegeUnlockProgressProps> = (
         <div
           style={{
             padding: '8px 14px',
-            borderRadius: 10,
-            background: 'rgba(59, 130, 246, 0.14)',
-            border: '1px solid rgba(59, 130, 246, 0.35)',
+            borderRadius: 20,
+            background: 'var(--color-fog-mist)',
+            border: '1px solid var(--color-fog-mist)',
             textAlign: 'right',
           }}
         >
           <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Lượt tải tài liệu hôm nay:</div>
-          <div style={{ fontSize: 14, fontWeight: 700, color: '#60a5fa' }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--color-charcoal-ink)' }}>
             {privileges.dailyDownloadLimit === null
               ? 'Không giới hạn (Unlimited)'
               : `${privileges.downloadsUsedToday} / ${privileges.dailyDownloadLimit} (Còn ${privileges.remainingDownloadsToday})`}
@@ -115,7 +115,7 @@ export const PrivilegeUnlockProgress: React.FC<PrivilegeUnlockProgressProps> = (
             <div
               key={tier.code}
               style={{
-                borderRadius: 12,
+                borderRadius: 20,
                 padding: 16,
                 background: isCurrent
                   ? 'rgba(30, 41, 59, 0.95)'

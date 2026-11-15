@@ -131,7 +131,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
         {submittedResult ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14, textAlign: 'center', padding: '16px 0' }}>
             <div style={{ fontSize: 32 }}>✅</div>
-            <div style={{ fontSize: 16, fontWeight: 700, color: '#34d399' }}>
+            <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-charcoal-ink)' }}>
               Báo cáo của bạn đã được ghi nhận!
             </div>
             <p style={{ fontSize: 13, color: 'var(--text-secondary)', margin: 0 }}>
@@ -142,10 +142,10 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
               <div
                 style={{
                   padding: 10,
-                  borderRadius: 8,
-                  background: 'rgba(245, 158, 11, 0.16)',
-                  border: '1px solid rgba(245, 158, 11, 0.4)',
-                  color: '#fbbf24',
+                  borderRadius: 20,
+                  background: 'var(--color-sand-wash)',
+                  border: '1px solid var(--color-sand-wash)',
+                  color: 'var(--color-charcoal-ink)',
                   fontSize: 12,
                 }}
               >
@@ -158,10 +158,10 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
               style={{
                 marginTop: 10,
                 padding: '9px 18px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontWeight: 600,
                 cursor: 'pointer',
               }}
@@ -175,14 +175,14 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
               <div
                 style={{
                   padding: 10,
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: 'rgba(15, 23, 42, 0.6)',
                   border: '1px solid var(--border-color)',
                   fontSize: 12,
                   color: 'var(--text-secondary)',
                 }}
               >
-                Đối tượng: <strong style={{ color: '#fff' }}>{targetTitle}</strong> ({targetType})
+                Đối tượng: <strong style={{ color: 'var(--color-charcoal-ink)' }}>{targetTitle}</strong> ({targetType})
               </div>
             )}
 
@@ -190,9 +190,9 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
               <div
                 style={{
                   padding: 10,
-                  borderRadius: 8,
-                  background: 'rgba(239, 68, 68, 0.16)',
-                  color: '#f87171',
+                  borderRadius: 20,
+                  background: 'var(--color-fog-mist)',
+                  color: 'var(--color-charcoal-ink)',
                   fontSize: 13,
                 }}
               >
@@ -213,14 +213,14 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
                       alignItems: 'flex-start',
                       gap: 8,
                       padding: 10,
-                      borderRadius: 8,
+                      borderRadius: 20,
                       background:
                         reasonCode === r.code
-                          ? 'rgba(59, 130, 246, 0.16)'
+                          ? 'var(--color-fog-mist)'
                           : 'rgba(15, 23, 42, 0.4)',
                       border:
                         reasonCode === r.code
-                          ? '1px solid rgba(59, 130, 246, 0.5)'
+                          ? '1px solid var(--color-fog-mist)'
                           : '1px solid var(--border-color)',
                       cursor: 'pointer',
                     }}
@@ -234,7 +234,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
                       style={{ marginTop: 2 }}
                     />
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 600, color: '#fff' }}>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-charcoal-ink)' }}>
                         {r.label}
                       </div>
                       <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>
@@ -259,10 +259,10 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
                   width: '100%',
                   marginTop: 6,
                   padding: 10,
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                   fontSize: 13,
                 }}
               />
@@ -274,7 +274,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
                 onClick={onClose}
                 style={{
                   padding: '9px 16px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: 'transparent',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-secondary)',
@@ -288,10 +288,10 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
                 disabled={submitting}
                 style={{
                   padding: '9px 18px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ef4444',
                   border: 'none',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                   fontWeight: 700,
                   cursor: 'pointer',
                 }}

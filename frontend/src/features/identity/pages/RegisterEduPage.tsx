@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { APP_ROUTES } from '../../../config/routes.config';
 import { identityService } from '../../../services/identity.service';
@@ -80,7 +80,7 @@ export const RegisterEduPage: React.FC = () => {
         </h1>
         <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 6 }}>
           Xác thực email trường (.edu / .edu.vn) để nhận huy hiệu{' '}
-          <strong style={{ color: '#34d399' }}>Verified Student</strong> và mở khóa toàn bộ không gian học thuật.
+          <strong style={{ color: 'var(--color-charcoal-ink)' }}>Verified Student</strong> và mở khóa toàn bộ không gian học thuật.
         </p>
 
         {error && (
@@ -88,9 +88,9 @@ export const RegisterEduPage: React.FC = () => {
             style={{
               marginTop: 16,
               padding: '10px 14px',
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.15)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -219,10 +219,10 @@ export const RegisterEduPage: React.FC = () => {
             style={{
               marginTop: 8,
               background: 'var(--brand-primary)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               border: 'none',
               padding: '12px',
-              borderRadius: 8,
+              borderRadius: 20,
               fontWeight: 700,
               fontSize: 14,
             }}

@@ -108,9 +108,9 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
           style={{
             padding: 10,
             marginBottom: 14,
-            borderRadius: 8,
-            background: 'rgba(16, 185, 129, 0.12)',
-            color: '#34d399',
+            borderRadius: 20,
+            background: 'var(--color-highlight-yellow)',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 12,
           }}
         >
@@ -122,9 +122,9 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
             style={{
               padding: 10,
               marginBottom: 12,
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.16)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -144,10 +144,10 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                 width: '100%',
                 marginTop: 4,
                 padding: '9px 12px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
               }}
             />
           </div>
@@ -162,10 +162,10 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               >
                 <option value="TEXTBOOK">📚 Giáo trình cũ</option>
@@ -184,10 +184,10 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               >
                 <option value="NEW">Mới 100%</option>
@@ -210,10 +210,10 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               >
                 <option value="">-- Không gắn môn --</option>
@@ -237,10 +237,10 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               />
             </div>
@@ -252,7 +252,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
               alignItems: 'center',
               gap: 8,
               fontSize: 13,
-              color: '#34d399',
+              color: 'var(--color-charcoal-ink)',
               fontWeight: 600,
               cursor: 'pointer',
             }}
@@ -276,10 +276,10 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                 width: '100%',
                 marginTop: 4,
                 padding: '9px 12px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
               }}
             />
           </div>
@@ -296,10 +296,10 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                 width: '100%',
                 marginTop: 4,
                 padding: 10,
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
               }}
             />
           </div>
@@ -310,7 +310,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
               onClick={onClose}
               style={{
                 padding: '9px 16px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: 'transparent',
                 border: '1px solid var(--border-color)',
                 color: 'var(--text-secondary)',
@@ -324,10 +324,10 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
               disabled={submitting}
               style={{
                 padding: '9px 18px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontWeight: 700,
                 cursor: 'pointer',
               }}

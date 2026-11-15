@@ -102,13 +102,13 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
           <div
             style={{
               padding: 12,
-              borderRadius: 10,
+              borderRadius: 20,
               background: 'rgba(15, 23, 42, 0.65)',
               border: '1px solid var(--border-color)',
               marginBottom: 14,
             }}
           >
-            <div style={{ fontSize: 13, color: '#fff', fontWeight: 600 }}>
+            <div style={{ fontSize: 13, color: 'var(--color-charcoal-ink)', fontWeight: 600 }}>
               Sinh viên vi phạm: {author.full_name}
             </div>
             <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 2 }}>
@@ -121,9 +121,9 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
           <div
             style={{
               padding: 10,
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.16)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
               marginBottom: 12,
             }}
@@ -144,10 +144,10 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
                 width: '100%',
                 marginTop: 6,
                 padding: '9px 12px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontSize: 13,
               }}
             >
@@ -164,7 +164,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
               alignItems: 'center',
               gap: 8,
               fontSize: 13,
-              color: '#f87171',
+              color: 'var(--color-charcoal-ink)',
               fontWeight: 600,
               cursor: 'pointer',
             }}
@@ -190,10 +190,10 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
                 width: '100%',
                 marginTop: 6,
                 padding: 10,
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontSize: 13,
               }}
             />
@@ -205,7 +205,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
               onClick={onClose}
               style={{
                 padding: '9px 16px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: 'transparent',
                 border: '1px solid var(--border-color)',
                 color: 'var(--text-secondary)',
@@ -219,10 +219,10 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
               disabled={submitting}
               style={{
                 padding: '9px 18px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ef4444',
                 border: 'none',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontWeight: 700,
                 cursor: 'pointer',
               }}

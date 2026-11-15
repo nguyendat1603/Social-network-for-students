@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+﻿import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { RichTextEditor } from '../../../components/common/RichTextEditor';
@@ -106,7 +106,7 @@ export const PostDetailPage: React.FC = () => {
                 alignItems: 'center',
                 gap: 8,
                 fontSize: 13,
-                color: '#c4b5fd',
+                color: 'var(--color-charcoal-ink)',
               }}
             >
               <input
@@ -122,9 +122,9 @@ export const PostDetailPage: React.FC = () => {
               style={{
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 padding: '9px 18px',
-                borderRadius: 8,
+                borderRadius: 20,
                 fontWeight: 700,
               }}
             >

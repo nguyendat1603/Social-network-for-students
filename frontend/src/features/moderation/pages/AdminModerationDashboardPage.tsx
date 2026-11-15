@@ -81,7 +81,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 14,
+            borderRadius: 20,
             padding: 22,
             display: 'flex',
             justifyContent: 'space-between',
@@ -95,9 +95,9 @@ export const AdminModerationDashboardPage: React.FC = () => {
                   fontSize: 11,
                   fontWeight: 700,
                   padding: '3px 8px',
-                  borderRadius: 6,
-                  background: 'rgba(239, 68, 68, 0.16)',
-                  color: '#f87171',
+                  borderRadius: 20,
+                  background: 'var(--color-fog-mist)',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               >
                 ADMIN / MODERATOR
@@ -118,7 +118,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
               onClick={() => setActiveTab('QUEUE')}
               style={{
                 padding: '9px 16px',
-                borderRadius: 8,
+                borderRadius: 20,
                 border: '1px solid var(--border-color)',
                 background:
                   activeTab === 'QUEUE'
@@ -137,7 +137,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
               onClick={() => setActiveTab('SETTINGS')}
               style={{
                 padding: '9px 16px',
-                borderRadius: 8,
+                borderRadius: 20,
                 border: '1px solid var(--border-color)',
                 background:
                   activeTab === 'SETTINGS'
@@ -156,7 +156,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
               onClick={() => setActiveTab('ACTIONS')}
               style={{
                 padding: '9px 16px',
-                borderRadius: 8,
+                borderRadius: 20,
                 border: '1px solid var(--border-color)',
                 background:
                   activeTab === 'ACTIONS'
@@ -179,7 +179,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 12,
+              borderRadius: 20,
               padding: 12,
               display: 'flex',
               gap: 12,
@@ -192,10 +192,10 @@ export const AdminModerationDashboardPage: React.FC = () => {
               onChange={(e) => setFilterStatus(e.target.value as ReportStatus)}
               style={{
                 padding: '7px 10px',
-                borderRadius: 6,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontSize: 12,
               }}
             >
@@ -211,10 +211,10 @@ export const AdminModerationDashboardPage: React.FC = () => {
               }
               style={{
                 padding: '7px 10px',
-                borderRadius: 6,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontSize: 12,
               }}
             >
@@ -234,10 +234,10 @@ export const AdminModerationDashboardPage: React.FC = () => {
               }
               style={{
                 padding: '7px 10px',
-                borderRadius: 6,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontSize: 12,
               }}
             >
@@ -279,7 +279,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 14,
+              borderRadius: 20,
               padding: 20,
             }}
           >
@@ -300,7 +300,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       padding: '12px 14px',
-                      borderRadius: 10,
+                      borderRadius: 20,
                       background: 'rgba(15, 23, 42, 0.55)',
                       border: '1px solid var(--border-color)',
                     }}
@@ -312,12 +312,12 @@ export const AdminModerationDashboardPage: React.FC = () => {
                             fontSize: 11,
                             fontWeight: 700,
                             padding: '2px 8px',
-                            borderRadius: 6,
+                            borderRadius: 20,
                             background:
                               act.action_taken === 'PERMANENT_BAN' ||
                               act.action_taken === 'TEMPORARY_BAN'
-                                ? 'rgba(239, 68, 68, 0.2)'
-                                : 'rgba(245, 158, 11, 0.2)',
+                                ? 'var(--color-fog-mist)'
+                                : 'var(--color-sand-wash)',
                             color:
                               act.action_taken === 'PERMANENT_BAN' ||
                               act.action_taken === 'TEMPORARY_BAN'
@@ -327,7 +327,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
                         >
                           {act.action_taken}
                         </span>
-                        <strong style={{ fontSize: 13, color: '#fff' }}>
+                        <strong style={{ fontSize: 13, color: 'var(--color-charcoal-ink)' }}>
                           Đối tượng: {act.target_type} ({act.target_id.slice(0, 8)}...)
                         </strong>
                         {act.target_user && (

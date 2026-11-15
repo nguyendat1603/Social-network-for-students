@@ -8,10 +8,10 @@ interface TeamRecruitmentCardProps {
 }
 
 const GRADE_COLORS: Record<string, { bg: string; color: string }> = {
-  'A+': { bg: 'rgba(16, 185, 129, 0.16)', color: '#34d399' },
-  A: { bg: 'rgba(59, 130, 246, 0.16)', color: '#60a5fa' },
-  'B+': { bg: 'rgba(245, 158, 11, 0.16)', color: '#fbbf24' },
-  PASS: { bg: 'rgba(148, 163, 184, 0.16)', color: '#cbd5e1' },
+  'A+': { bg: 'var(--color-highlight-yellow)', color: 'var(--color-charcoal-ink)' },
+  A: { bg: 'var(--color-fog-mist)', color: 'var(--color-charcoal-ink)' },
+  'B+': { bg: 'var(--color-sand-wash)', color: 'var(--color-charcoal-ink)' },
+  PASS: { bg: 'var(--color-fog-mist)', color: 'var(--color-charcoal-ink)' },
 };
 
 export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
@@ -25,7 +25,7 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 14,
+        borderRadius: 20,
         padding: 20,
         display: 'flex',
         flexDirection: 'column',
@@ -48,9 +48,9 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
                   fontSize: 12,
                   fontWeight: 700,
                   padding: '3px 8px',
-                  borderRadius: 6,
-                  background: 'rgba(59, 130, 246, 0.15)',
-                  color: '#60a5fa',
+                  borderRadius: 20,
+                  background: 'var(--color-fog-mist)',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               >
                 #{group.course.code} — {group.course.name}
@@ -60,8 +60,8 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
               style={{
                 fontSize: 11,
                 padding: '3px 8px',
-                borderRadius: 6,
-                background: 'rgba(148, 163, 184, 0.12)',
+                borderRadius: 20,
+                background: 'var(--color-fog-mist)',
                 color: 'var(--text-secondary)',
               }}
             >
@@ -116,7 +116,7 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
                 key={slot.id}
                 style={{
                   padding: '8px 12px',
-                  borderRadius: 10,
+                  borderRadius: 20,
                   border: '1px solid var(--border-color)',
                   background: isFull
                     ? 'rgba(15, 23, 42, 0.45)'
@@ -155,8 +155,8 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
                           fontSize: 11,
                           padding: '2px 6px',
                           borderRadius: 4,
-                          background: 'rgba(59, 130, 246, 0.12)',
-                          color: '#93c5fd',
+                          background: 'var(--color-fog-mist)',
+                          color: 'var(--color-charcoal-ink)',
                         }}
                       >
                         {skill}
@@ -182,11 +182,11 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
       >
         <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
           Nhóm trưởng:{' '}
-          <strong style={{ color: '#fff' }}>
+          <strong style={{ color: 'var(--color-charcoal-ink)' }}>
             {group.leader?.full_name || 'Sinh viên'}
           </strong>
           {group.leader?.karma_points !== undefined && (
-            <span style={{ marginLeft: 6, color: '#fbbf24' }}>
+            <span style={{ marginLeft: 6, color: 'var(--color-charcoal-ink)' }}>
               ★ {group.leader.karma_points} Karma
             </span>
           )}
@@ -198,10 +198,10 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
               to={`/study-groups/${group.id}/workspace`}
               style={{
                 padding: '8px 14px',
-                borderRadius: 8,
-                background: 'rgba(16, 185, 129, 0.2)',
-                border: '1px solid rgba(16, 185, 129, 0.45)',
-                color: '#34d399',
+                borderRadius: 20,
+                background: 'var(--color-highlight-yellow)',
+                border: '1px solid var(--color-highlight-yellow)',
+                color: 'var(--color-charcoal-ink)',
                 fontWeight: 600,
                 fontSize: 13,
               }}
@@ -212,9 +212,9 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
             <span
               style={{
                 padding: '8px 14px',
-                borderRadius: 8,
-                background: 'rgba(245, 158, 11, 0.16)',
-                color: '#fbbf24',
+                borderRadius: 20,
+                background: 'var(--color-sand-wash)',
+                color: 'var(--color-charcoal-ink)',
                 fontSize: 13,
                 fontWeight: 600,
               }}
@@ -227,10 +227,10 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
               onClick={() => onApplyClick(group)}
               style={{
                 padding: '8px 16px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontWeight: 600,
                 fontSize: 13,
                 cursor: 'pointer',
@@ -242,8 +242,8 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
             <span
               style={{
                 padding: '8px 12px',
-                borderRadius: 8,
-                background: 'rgba(148, 163, 184, 0.12)',
+                borderRadius: 20,
+                background: 'var(--color-fog-mist)',
                 color: 'var(--text-muted)',
                 fontSize: 12,
               }}

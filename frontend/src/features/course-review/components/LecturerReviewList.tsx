@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { CourseReviewItem } from '../../../types/course-review.types';
 
 interface LecturerReviewListProps {
@@ -54,8 +54,8 @@ export const LecturerReviewList: React.FC<LecturerReviewListProps> = ({
                 style={{
                   padding: '4px 10px',
                   borderRadius: 999,
-                  background: 'rgba(139, 92, 246, 0.16)',
-                  color: '#c4b5fd',
+                  background: 'var(--color-highlight-cyan)',
+                  color: 'var(--color-charcoal-ink)',
                   fontSize: 12,
                   fontWeight: 700,
                 }}
@@ -66,7 +66,7 @@ export const LecturerReviewList: React.FC<LecturerReviewListProps> = ({
                 Kỳ học: <strong>{rev.semester}</strong>
               </span>
               {rev.lecturer && (
-                <span style={{ fontSize: 12, color: '#93c5fd' }}>
+                <span style={{ fontSize: 12, color: 'var(--color-charcoal-ink)' }}>
                   · GV: {rev.lecturer.academic_title} {rev.lecturer.full_name}
                 </span>
               )}
@@ -75,9 +75,9 @@ export const LecturerReviewList: React.FC<LecturerReviewListProps> = ({
                   style={{
                     fontSize: 11,
                     padding: '2px 8px',
-                    borderRadius: 6,
-                    background: 'rgba(16, 185, 129, 0.15)',
-                    color: '#34d399',
+                    borderRadius: 20,
+                    background: 'var(--color-highlight-yellow)',
+                    color: 'var(--color-charcoal-ink)',
                   }}
                 >
                   Điểm kỳ vọng/đạt: {rev.expected_grade}
@@ -114,9 +114,9 @@ export const LecturerReviewList: React.FC<LecturerReviewListProps> = ({
             <div
               style={{
                 padding: '10px 14px',
-                borderRadius: 8,
-                background: 'rgba(16, 185, 129, 0.1)',
-                border: '1px solid rgba(16, 185, 129, 0.3)',
+                borderRadius: 20,
+                background: 'var(--color-highlight-yellow)',
+                border: '1px solid var(--color-highlight-yellow)',
                 fontSize: 13,
                 color: '#a7f3d0',
               }}

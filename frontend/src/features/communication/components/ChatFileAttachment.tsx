@@ -18,8 +18,8 @@ export const ChatFileAttachment: React.FC<ChatFileAttachmentProps> = ({
         onClick={() => setOpen(true)}
         style={{
           padding: '8px 12px',
-          borderRadius: 8,
-          background: 'rgba(148, 163, 184, 0.14)',
+          borderRadius: 20,
+          background: 'var(--color-fog-mist)',
           border: '1px solid var(--border-color)',
           color: 'var(--text-secondary)',
           fontSize: 12,
@@ -38,7 +38,7 @@ export const ChatFileAttachment: React.FC<ChatFileAttachmentProps> = ({
         gap: 8,
         alignItems: 'center',
         padding: '8px 10px',
-        borderRadius: 8,
+        borderRadius: 20,
         background: '#ffffff',
         border: '1px solid var(--border-color)',
       }}
@@ -49,10 +49,10 @@ export const ChatFileAttachment: React.FC<ChatFileAttachmentProps> = ({
         onChange={(e) => setFileName(e.target.value)}
         style={{
           padding: '6px 8px',
-          borderRadius: 6,
+          borderRadius: 20,
           background: 'var(--bg-secondary)',
           border: '1px solid var(--border-color)',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 12,
         }}
       />
@@ -62,10 +62,10 @@ export const ChatFileAttachment: React.FC<ChatFileAttachmentProps> = ({
         onChange={(e) => setFileUrl(e.target.value)}
         style={{
           padding: '6px 8px',
-          borderRadius: 6,
+          borderRadius: 20,
           background: 'var(--bg-secondary)',
           border: '1px solid var(--border-color)',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 12,
           minWidth: 200,
         }}
@@ -84,10 +84,10 @@ export const ChatFileAttachment: React.FC<ChatFileAttachmentProps> = ({
         }}
         style={{
           padding: '6px 10px',
-          borderRadius: 6,
+          borderRadius: 20,
           background: 'var(--brand-primary)',
           border: 'none',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 12,
           fontWeight: 600,
           cursor: 'pointer',

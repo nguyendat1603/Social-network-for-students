@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { LecturerItem } from '../../../types/course-review.types';
 
 interface WriteAnonymousReviewModalProps {
@@ -101,7 +101,7 @@ export const WriteAnonymousReviewModal: React.FC<
           <button
             type="button"
             onClick={onClose}
-            style={{ background: 'transparent', border: 'none', color: '#fff' }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--color-charcoal-ink)' }}
           >
             ✕
           </button>
@@ -111,9 +111,9 @@ export const WriteAnonymousReviewModal: React.FC<
           <div
             style={{
               padding: '10px 14px',
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.15)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -253,7 +253,7 @@ export const WriteAnonymousReviewModal: React.FC<
               border: '1px solid var(--border-color)',
               color: 'var(--text-secondary)',
               padding: '9px 16px',
-              borderRadius: 8,
+              borderRadius: 20,
             }}
           >
             Hủy
@@ -264,9 +264,9 @@ export const WriteAnonymousReviewModal: React.FC<
             style={{
               background: '#7c3aed',
               border: 'none',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               padding: '9px 20px',
-              borderRadius: 8,
+              borderRadius: 20,
               fontWeight: 700,
             }}
           >

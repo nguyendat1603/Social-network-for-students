@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 interface ResourceReliabilityVoteProps {
   upvoteCount: number;
@@ -17,10 +17,10 @@ export const ResourceReliabilityVote: React.FC<
         title="Đánh giá tài liệu chuẩn xác (+5 Karma cho người đăng)"
         style={{
           padding: '5px 10px',
-          borderRadius: 6,
-          background: 'rgba(16, 185, 129, 0.15)',
-          border: '1px solid rgba(16, 185, 129, 0.4)',
-          color: '#34d399',
+          borderRadius: 20,
+          background: 'var(--color-highlight-yellow)',
+          border: '1px solid var(--color-highlight-yellow)',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 12,
           fontWeight: 700,
         }}
@@ -34,10 +34,10 @@ export const ResourceReliabilityVote: React.FC<
         title="Báo hiệu tài liệu thiếu chính xác"
         style={{
           padding: '5px 10px',
-          borderRadius: 6,
-          background: 'rgba(239, 68, 68, 0.12)',
-          border: '1px solid rgba(239, 68, 68, 0.3)',
-          color: '#f87171',
+          borderRadius: 20,
+          background: 'var(--color-fog-mist)',
+          border: '1px solid var(--color-fog-mist)',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 12,
         }}
       >

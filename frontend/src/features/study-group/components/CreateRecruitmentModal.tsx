@@ -128,9 +128,9 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
             style={{
               padding: 10,
               marginBottom: 12,
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.16)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -149,10 +149,10 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               >
                 {courses.map((c) => (
@@ -171,10 +171,10 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               />
             </div>
@@ -191,10 +191,10 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                 width: '100%',
                 marginTop: 4,
                 padding: '9px 12px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
               }}
             />
           </div>
@@ -211,10 +211,10 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                 width: '100%',
                 marginTop: 4,
                 padding: '9px 12px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
               }}
             />
           </div>
@@ -231,10 +231,10 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               >
                 <option value="A+">A+ (Xuất sắc)</option>
@@ -257,10 +257,10 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               />
             </div>
@@ -268,18 +268,18 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
 
           <div style={{ marginTop: 6 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-charcoal-ink)' }}>
                 Các vị trí cần tuyển (Recruitment Slots)
               </span>
               <button
                 type="button"
                 onClick={handleAddSlot}
                 style={{
-                  background: 'rgba(59, 130, 246, 0.16)',
-                  border: '1px solid rgba(59, 130, 246, 0.4)',
-                  color: '#60a5fa',
+                  background: 'var(--color-fog-mist)',
+                  border: '1px solid var(--color-fog-mist)',
+                  color: 'var(--color-charcoal-ink)',
                   padding: '4px 10px',
-                  borderRadius: 6,
+                  borderRadius: 20,
                   fontSize: 12,
                   cursor: 'pointer',
                 }}
@@ -308,10 +308,10 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                     }}
                     style={{
                       padding: '8px 10px',
-                      borderRadius: 8,
+                      borderRadius: 20,
                       background: '#ffffff',
                       border: '1px solid var(--border-color)',
-                      color: '#fff',
+                      color: 'var(--color-charcoal-ink)',
                       fontSize: 13,
                     }}
                   />
@@ -325,10 +325,10 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                     }}
                     style={{
                       padding: '8px 10px',
-                      borderRadius: 8,
+                      borderRadius: 20,
                       background: '#ffffff',
                       border: '1px solid var(--border-color)',
-                      color: '#fff',
+                      color: 'var(--color-charcoal-ink)',
                       fontSize: 13,
                     }}
                   />
@@ -344,10 +344,10 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                     }}
                     style={{
                       padding: '8px 10px',
-                      borderRadius: 8,
+                      borderRadius: 20,
                       background: '#ffffff',
                       border: '1px solid var(--border-color)',
-                      color: '#fff',
+                      color: 'var(--color-charcoal-ink)',
                       fontSize: 13,
                     }}
                   />
@@ -362,7 +362,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
               onClick={onClose}
               style={{
                 padding: '9px 16px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: 'transparent',
                 border: '1px solid var(--border-color)',
                 color: 'var(--text-secondary)',
@@ -376,10 +376,10 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
               disabled={submitting}
               style={{
                 padding: '9px 18px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontWeight: 700,
                 cursor: 'pointer',
               }}

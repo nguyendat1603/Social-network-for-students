@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { CourseItem } from '../../../types/identity.types';
 
 interface SubjectQuestionSearchProps {
@@ -57,7 +57,7 @@ export const SubjectQuestionSearch: React.FC<SubjectQuestionSearchProps> = ({
           alignItems: 'center',
           gap: 8,
           fontSize: 13,
-          color: '#34d399',
+          color: 'var(--color-charcoal-ink)',
           cursor: 'pointer',
           whiteSpace: 'nowrap',
         }}

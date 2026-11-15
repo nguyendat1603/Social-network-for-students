@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { CommentItem, VoteType } from '../../../types/feed.types';
 import { LatexMathRenderer } from '../../../components/common/LatexMathRenderer';
 import { AcceptedAnswerBadge } from './AcceptedAnswerBadge';
@@ -59,12 +59,12 @@ export const NestedCommentTree: React.FC<NestedCommentTreeProps> = ({
             key={c.id}
             style={{
               backgroundColor: c.is_accepted
-                ? 'rgba(16, 185, 129, 0.08)'
+                ? 'var(--color-highlight-yellow)'
                 : 'var(--bg-secondary)',
               border: c.is_accepted
-                ? '1px solid rgba(16, 185, 129, 0.45)'
+                ? '1px solid var(--color-highlight-yellow)'
                 : '1px solid var(--border-color)',
-              borderRadius: 10,
+              borderRadius: 20,
               padding: 14,
               display: 'flex',
               flexDirection: 'column',
@@ -118,7 +118,7 @@ export const NestedCommentTree: React.FC<NestedCommentTreeProps> = ({
                       border: '1px solid var(--border-color)',
                       color: 'var(--text-secondary)',
                       padding: '4px 10px',
-                      borderRadius: 6,
+                      borderRadius: 20,
                       fontSize: 12,
                     }}
                   >
@@ -131,11 +131,11 @@ export const NestedCommentTree: React.FC<NestedCommentTreeProps> = ({
                     type="button"
                     onClick={() => onAcceptAnswer(c.id)}
                     style={{
-                      background: 'rgba(16, 185, 129, 0.18)',
-                      border: '1px solid rgba(16, 185, 129, 0.4)',
-                      color: '#34d399',
+                      background: 'var(--color-highlight-yellow)',
+                      border: '1px solid var(--color-highlight-yellow)',
+                      color: 'var(--color-charcoal-ink)',
                       padding: '4px 10px',
-                      borderRadius: 6,
+                      borderRadius: 20,
                       fontSize: 12,
                       fontWeight: 600,
                     }}
@@ -174,7 +174,7 @@ export const NestedCommentTree: React.FC<NestedCommentTreeProps> = ({
                       alignItems: 'center',
                       gap: 6,
                       fontSize: 12,
-                      color: '#c4b5fd',
+                      color: 'var(--color-charcoal-ink)',
                     }}
                   >
                     <input
@@ -191,9 +191,9 @@ export const NestedCommentTree: React.FC<NestedCommentTreeProps> = ({
                     style={{
                       background: 'var(--brand-primary)',
                       border: 'none',
-                      color: '#fff',
+                      color: 'var(--color-charcoal-ink)',
                       padding: '6px 14px',
-                      borderRadius: 6,
+                      borderRadius: 20,
                       fontSize: 12,
                       fontWeight: 600,
                     }}

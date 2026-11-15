@@ -72,7 +72,7 @@ export const MessengerPage: React.FC = () => {
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 14,
+            borderRadius: 20,
             padding: 16,
             display: 'flex',
             flexDirection: 'column',

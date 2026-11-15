@@ -21,10 +21,9 @@ export const CodeSnippetBlock: React.FC<CodeSnippetBlockProps> = ({
     <div
       style={{
         margin: '10px 0',
-        borderRadius: 8,
+        borderRadius: 'var(--radius-cards)',
         overflow: 'hidden',
-        border: '1px solid var(--border-color)',
-        backgroundColor: '#090d16',
+        backgroundColor: 'var(--color-fog-mist)',
       }}
     >
       <div
@@ -32,38 +31,38 @@ export const CodeSnippetBlock: React.FC<CodeSnippetBlockProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '6px 12px',
-          backgroundColor: '#131c2e',
+          padding: '8px 16px',
+          backgroundColor: 'var(--color-ash-border)',
           fontSize: 11,
-          color: 'var(--text-muted)',
+          color: 'var(--color-graphite)',
         }}
       >
-        <span style={{ textTransform: 'uppercase', fontWeight: 700 }}>
-          {language || 'code'}
+        <span>
+          [(<span className="hl-cyan">c</span>)ode · {language || 'snippet'}]
         </span>
         <button
           type="button"
           onClick={handleCopy}
           style={{
-            background: 'transparent',
-            border: '1px solid var(--border-color)',
-            color: '#93c5fd',
-            padding: '2px 8px',
-            borderRadius: 4,
+            backgroundColor: 'var(--color-paper-white)',
+            color: 'var(--color-charcoal-ink)',
+            padding: '2px 12px',
+            borderRadius: 'var(--radius-buttons)',
             fontSize: 11,
+            boxShadow: 'var(--shadow-sm-2)',
           }}
         >
-          {copied ? '✓ Đã sao chép' : 'Sao chép'}
+          {copied ? 'copied ✓' : 'copy'}
         </button>
       </div>
       <pre
         style={{
-          padding: 14,
+          padding: '14px 18px',
           overflowX: 'auto',
           fontSize: 13,
-          fontFamily: "'Fira Code', 'Consolas', monospace",
-          color: '#e2e8f0',
-          lineHeight: 1.55,
+          fontFamily: 'var(--font-ibm-plex-mono)',
+          color: 'var(--color-charcoal-ink)',
+          lineHeight: 1.45,
         }}
       >
         <code>{code}</code>

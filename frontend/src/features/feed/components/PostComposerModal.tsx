@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { RichTextEditor } from '../../../components/common/RichTextEditor';
 import { useAnonymousMode } from '../../../hooks/useAnonymousMode';
 import { FeedScope, PostType } from '../../../types/feed.types';
@@ -87,9 +87,16 @@ export const PostComposerModal: React.FC<PostComposerModalProps> = ({
           gap: 14,
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <h3 style={{ fontSize: 18, fontWeight: 700 }}>
-            ✍️ Tạo Bài đăng / Câu hỏi Học thuật (Post Engine)
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h3
+            style={{
+              fontFamily: 'var(--font-cahuenga)',
+              fontSize: 24,
+              fontWeight: 500,
+              color: 'var(--color-ink)',
+            }}
+          >
+            Xuất bản Bài viết / Câu hỏi Học thuật
           </h3>
           <button
             type="button"
@@ -97,7 +104,7 @@ export const PostComposerModal: React.FC<PostComposerModalProps> = ({
             style={{
               background: 'transparent',
               border: 'none',
-              color: 'var(--text-muted)',
+              color: 'var(--color-stone)',
               fontSize: 18,
             }}
           >
@@ -109,9 +116,9 @@ export const PostComposerModal: React.FC<PostComposerModalProps> = ({
           <div
             style={{
               padding: '10px 14px',
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.15)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -207,7 +214,7 @@ export const PostComposerModal: React.FC<PostComposerModalProps> = ({
               gap: 10,
               fontSize: 13,
               cursor: 'pointer',
-              color: '#c4b5fd',
+              color: 'var(--color-charcoal-ink)',
             }}
           >
             <input
@@ -226,29 +233,16 @@ export const PostComposerModal: React.FC<PostComposerModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            style={{
-              background: 'transparent',
-              border: '1px solid var(--border-color)',
-              color: 'var(--text-secondary)',
-              padding: '9px 16px',
-              borderRadius: 8,
-            }}
+            className="substack-btn-outline"
           >
             Hủy
           </button>
           <button
             type="submit"
             disabled={submitting}
-            style={{
-              background: 'var(--brand-primary)',
-              border: 'none',
-              color: '#fff',
-              padding: '9px 20px',
-              borderRadius: 8,
-              fontWeight: 700,
-            }}
+            className="substack-btn-primary"
           >
-            {submitting ? 'Đang đăng...' : 'Đăng bài lên Bảng tin'}
+            {submitting ? 'Đang xuất bản...' : 'Đăng bài lên Bảng tin'}
           </button>
         </div>
       </form>

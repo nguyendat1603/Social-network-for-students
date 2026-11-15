@@ -93,12 +93,12 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
         <div
           style={{
             padding: 12,
-            borderRadius: 10,
-            background: 'rgba(59, 130, 246, 0.1)',
-            border: '1px solid rgba(59, 130, 246, 0.28)',
+            borderRadius: 20,
+            background: 'var(--color-fog-mist)',
+            border: '1px solid var(--color-fog-mist)',
           }}
         >
-          <div style={{ fontWeight: 700, color: '#fff', fontSize: 15 }}>
+          <div style={{ fontWeight: 700, color: 'var(--color-charcoal-ink)', fontSize: 15 }}>
             {group.group_name}
           </div>
           <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 4 }}>
@@ -110,9 +110,9 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
           <div
             style={{
               padding: 10,
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.16)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -132,10 +132,10 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
                 width: '100%',
                 marginTop: 6,
                 padding: '10px 12px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
               }}
             >
               {availableSlots.map((slot) => (
@@ -160,10 +160,10 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
                 width: '100%',
                 marginTop: 6,
                 padding: 12,
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 resize: 'vertical',
               }}
             />
@@ -182,10 +182,10 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
                 width: '100%',
                 marginTop: 6,
                 padding: '10px 12px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
               }}
             />
           </div>
@@ -196,10 +196,10 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
             style={{
               marginTop: 8,
               padding: '11px 16px',
-              borderRadius: 8,
+              borderRadius: 20,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontWeight: 700,
               cursor: 'pointer',
             }}
