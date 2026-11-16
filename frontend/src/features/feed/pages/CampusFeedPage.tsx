@@ -11,89 +11,6 @@ import { ContextualFeedTabs } from '../components/ContextualFeedTabs';
 import { PostCard } from '../components/PostCard';
 import { PostComposerModal } from '../components/PostComposerModal';
 
-const FALLBACK_HUST_POSTS: PostItem[] = [
-  {
-    id: 'hust-demo-post-1',
-    author_id: 'u-1',
-    feed_scope: 'CAMPUS',
-    faculty_id: null,
-    course_id: null,
-    post_type: 'QUESTION',
-    title: 'Cách tối ưu độ trễ truyền gói tin TCP/IP trong Bài tập lớn Mạng máy tính #IT3080?',
-    content_body:
-      'Chào các đồng môn SoICT, nhóm mình đang cài đặt 멀티-client server bằng C trên Linux cho đồ án môn #IT3080. Khi gửi liên tiếp các gói tin nhỏ, thuật toán Nagle gây trễ khoảng $40\\text{ ms}$ do chờ ACK.\n\n```c\nint flag = 1;\nsetsockopt(sock_fd, IPPROTO_TCP, TCP_NODELAY, (char *)&flag, sizeof(int));\n```\n\nMình bật `TCP_NODELAY` kết hợp `epoll` như trên đã tối ưu nhất cho bài toán streaming chưa hay cần chỉnh thêm kích thước buffer nhận?',
-    is_anonymous: false,
-    has_latex: true,
-    has_code: true,
-    upvote_count: 48,
-    downvote_count: 1,
-    helpful_count: 19,
-    comment_count: 14,
-    accepted_comment_id: 'ans-1',
-    created_at: new Date(Date.now() - 3600 * 1000 * 2).toISOString(),
-    author: {
-      id: 'u-1',
-      full_name: 'Nguyễn Thành Đạt',
-      student_code: '20215340',
-      avatar_url: null,
-    },
-    courseTags: [{ id: 'c-1', code: 'IT3080', name: 'Mạng máy tính' }],
-  },
-  {
-    id: 'hust-demo-post-2',
-    author_id: 'u-2',
-    feed_scope: 'CAMPUS',
-    faculty_id: null,
-    course_id: null,
-    post_type: 'DISCUSSION',
-    title: 'Tổng hợp phương pháp tính tích phân mặt loại 2 và định lý Ostrogradsky-Gauss (#MI1121)',
-    content_body:
-      'Gửi anh em K68, K69 đang ôn thi cuối kỳ Giải tích 2. Khi gặp mặt cong kín $S$ định hướng ra ngoài giới hạn miền $V$, thay vì chiếu lên 3 mặt phẳng tọa độ rất dễ nhầm dấu pháp tuyến, ta chuyển thẳng sang tích phân bội ba:\n\n$$\\iint_S P\\,dy\\,dz + Q\\,dz\\,dx + R\\,dx\\,dy = \\iiint_V \\left(\\frac{\\partial P}{\\partial x} + \\frac{\\partial Q}{\\partial y} + \\frac{\\partial R}{\\partial z}\\right) dx\\,dy\\,dz$$\n\nLưu ý kiểm tra kỹ điều kiện hàm khả vi liên tục tại điểm kỳ dị $(0,0,0)$ trước khi áp dụng nhé!',
-    is_anonymous: false,
-    has_latex: true,
-    has_code: false,
-    upvote_count: 92,
-    downvote_count: 0,
-    helpful_count: 41,
-    comment_count: 23,
-    accepted_comment_id: null,
-    created_at: new Date(Date.now() - 3600 * 1000 * 6).toISOString(),
-    author: {
-      id: 'u-2',
-      full_name: 'Đỗ Ngọc Mai Anh',
-      student_code: '20237015',
-      avatar_url: null,
-    },
-    courseTags: [{ id: 'c-2', code: 'MI1121', name: 'Giải tích II' }],
-  },
-  {
-    id: 'hust-demo-post-3',
-    author_id: 'u-3',
-    feed_scope: 'CAMPUS',
-    faculty_id: null,
-    course_id: null,
-    post_type: 'QUESTION',
-    title: 'Xin kinh nghiệm chọn giảng viên hướng dẫn Đồ án Thiết kế Hệ thống Nhúng & Vi mạch (SEEE)',
-    content_body:
-      'Mình đang học năm 3 Trường Điện - Điện tử, kỳ tới bắt đầu nhận đề tài Project 2 hướng FPGA / SoC và xử lý tín hiệu số. Anh chị khóa trên cho mình hỏi lab nào ở nhà C7 hoặc C9 có nhiều thiết bị thực hành thực tế cho sinh viên làm nghiên cứu ạ?',
-    is_anonymous: true,
-    has_latex: false,
-    has_code: false,
-    upvote_count: 31,
-    downvote_count: 0,
-    helpful_count: 12,
-    comment_count: 9,
-    accepted_comment_id: null,
-    created_at: new Date(Date.now() - 3600 * 1000 * 11).toISOString(),
-    author: {
-      id: 'u-3',
-      anonymous_handle: 'KySuDienTu_K67',
-      avatar_url: null,
-    },
-    courseTags: [{ id: 'c-3', code: 'ET3260', name: 'Kỹ thuật Vi xử lý' }],
-  },
-];
-
 export const CampusFeedPage: React.FC = () => {
   const { user } = useAuth();
   const [searchParams] = useSearchParams();
@@ -106,6 +23,8 @@ export const CampusFeedPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [showComposer, setShowComposer] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  useEffect(() => { setSearchQuery(searchParams.get('q') || ''); }, [searchParams]);
 
   const loadFeed = useCallback(async () => {
     setLoading(true);
@@ -115,13 +34,11 @@ export const CampusFeedPage: React.FC = () => {
         sort,
         q: searchQuery || undefined,
       });
-      if (data && data.length > 0) {
-        setPosts(data);
-      } else {
-        setPosts(FALLBACK_HUST_POSTS);
-      }
+      setPosts(data);
+      setError('');
     } catch {
-      setPosts(FALLBACK_HUST_POSTS);
+      setPosts([]);
+      setError('Không thể tải bài viết. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }
@@ -169,26 +86,7 @@ export const CampusFeedPage: React.FC = () => {
         )
       );
     } catch {
-      // Optimistic local update for demo posts
-      setPosts((prev) =>
-        prev.map((p) =>
-          p.id === postId
-            ? {
-                ...p,
-                upvote_count:
-                  voteType === 'UPVOTE' ? p.upvote_count + 1 : p.upvote_count,
-                downvote_count:
-                  voteType === 'DOWNVOTE'
-                    ? p.downvote_count + 1
-                    : p.downvote_count,
-                helpful_count:
-                  voteType === 'HELPFUL'
-                    ? p.helpful_count + 1
-                    : p.helpful_count,
-              }
-            : p
-        )
-      );
+      setError('Không thể ghi nhận bình chọn. Vui lòng thử lại.');
     }
   };
 
@@ -203,121 +101,26 @@ export const CampusFeedPage: React.FC = () => {
     <MainLayout variant="campus" onAsk={() => setShowComposer(true)}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         {/* 1. SUBSTACK HERO BANNER CARD (Teal/dark gradient, Cahuenga 32px white heading) */}
-        <section className="substack-hero-banner" data-campus-feed-header>
-          {/* Subtle decorative editorial pen/notebook geometry in right background */}
-          <svg
-            width="180"
-            height="180"
-            viewBox="0 0 120 120"
-            fill="none"
-            style={{
-              position: 'absolute',
-              right: -12,
-              bottom: -24,
-              opacity: 0.12,
-              pointerEvents: 'none',
-            }}
-          >
-            <rect
-              x="16"
-              y="16"
-              width="72"
-              height="88"
-              rx="8"
-              stroke="#ffffff"
-              strokeWidth="3"
-            />
-            <line
-              x1="30"
-              y1="38"
-              x2="74"
-              y2="38"
-              stroke="#ffffff"
-              strokeWidth="3"
-            />
-            <line
-              x1="30"
-              y1="54"
-              x2="74"
-              y2="54"
-              stroke="#ffffff"
-              strokeWidth="3"
-            />
-            <line
-              x1="30"
-              y1="70"
-              x2="58"
-              y2="70"
-              stroke="#ffffff"
-              strokeWidth="3"
-            />
-            <circle cx="84" cy="84" r="22" stroke="#ff6719" strokeWidth="4" />
-          </svg>
-
-          <h1
-            style={{
-              fontFamily: 'var(--font-cahuenga)',
-              fontSize: 31,
-              fontWeight: 500,
-              color: '#ffffff',
-              lineHeight: 1.22,
-              marginBottom: 8,
-              maxWidth: 520,
-            }}
-          >
-            Bàn làm việc Học thuật Sinh viên Bách Khoa
-          </h1>
-
-          <p
-            style={{
-              fontFamily: 'var(--font-system-ui)',
-              fontSize: 15,
-              color: '#c8c8c8',
-              lineHeight: 1.5,
-              maxWidth: 500,
-              marginBottom: 20,
-            }}
-          >
-            Nơi xuất bản bài giảng, giải đề Giải tích &amp; IT bằng LaTeX, tìm đồng đội làm Đồ án và kết nối trực tiếp giữa các Trường/Viện ĐHBK Hà Nội.
-          </p>
-
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-              flexWrap: 'wrap',
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => setShowComposer(true)}
-              className="substack-btn-primary"
-            >
-              Viết bài chia sẻ
-            </button>
-
-            <Link
-              to={APP_ROUTES.RESOURCE_HUB}
-              style={{
-                backgroundColor: 'transparent',
-                border: '1px solid #b6b6b6',
-                color: '#ffffff',
-                fontFamily: 'var(--font-system-ui)',
-                fontWeight: 500,
-                fontSize: 15,
-                padding: '8px 20px',
-                borderRadius: 9999,
-                textDecoration: 'none',
-              }}
-            >
-              Khám phá Kho Đề thi
-            </Link>
-          </div>
+        <section className="campus-welcome" data-campus-feed-header>
+          <p className="campus-eyebrow">GÓC HỌC TẬP CỦA BẠN</p>
+          <h1>Học cùng nhau, tiến xa hơn.</h1>
+          <p>Hỏi điều đang bí, chia sẻ điều đã biết. Mỗi ngày một chút, cùng cộng đồng sinh viên.</p>
+          <details className="campus-guide"><summary>Lần đầu đến đây? Xem hướng dẫn nhanh</summary><p>Chọn học phần để hỏi bài, tìm tài liệu hoặc tìm nhóm. Dùng Khám phá thêm để mở các tiện ích sinh viên.</p></details>
+          <nav className="campus-quick-actions" aria-label="Bắt đầu học tập">
+            <Link to={APP_ROUTES.COURSE_FEED}><strong>Hỏi về môn học →</strong><small>Trao đổi theo học phần</small></Link>
+            <Link to={APP_ROUTES.RESOURCE_HUB}><strong>Tìm tài liệu →</strong><small>Chia sẻ kiến thức có nguồn</small></Link>
+            <Link to={APP_ROUTES.STUDY_GROUPS}><strong>Tìm nhóm →</strong><small>Cùng học, cùng làm đồ án</small></Link>
+          </nav>
+          <nav className="campus-course-links" aria-label="Mở học phần">{courses.map(course => <Link key={course.id} to={`${APP_ROUTES.COURSE_FEED}?code=${encodeURIComponent(course.code)}`}>{course.code} · {course.name}</Link>)}</nav>
         </section>
+        {error && <div role="alert">{error} <button type="button" onClick={loadFeed}>Thử lại</button></div>}
+        {!loading && !error && posts.length === 0 && <p role="status">Chưa có bài viết phù hợp.</p>}
 
         {/* 2. Substack Quick Compose Prompt Row */}
         <div
+          role="button"
+          tabIndex={0}
+          onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setShowComposer(true); } }}
           onClick={() => setShowComposer(true)}
           style={{
             display: 'flex',
@@ -337,7 +140,7 @@ export const CampusFeedPage: React.FC = () => {
                 width: 32,
                 height: 32,
                 borderRadius: '50%',
-                backgroundColor: '#ffedd5',
+                backgroundColor: '#f2e6e3',
                 color: '#c2410c',
                 display: 'flex',
                 alignItems: 'center',

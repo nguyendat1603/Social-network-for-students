@@ -6,8 +6,10 @@ const { spawn } = require('node:child_process');
 const { mkdirSync, writeFileSync } = require('node:fs');
 const path = require('node:path');
 const baseUrl = process.argv[2] || 'http://127.0.0.1:5175';
-const demoTest = process.argv[3]; // demo-dev or demo-prod (use a Vite preview URL)
-const artifacts = path.join(process.env.LOCALAPPDATA, 'Temp', 'opencode', `campus-shell-${Date.now()}`);
+const regressions = process.argv[3] === 'regressions';
+const allRoutes = process.argv[3] === 'all-routes' || regressions;
+const demoTest = allRoutes ? undefined : process.argv[3]; // demo-dev or demo-prod (use a Vite preview URL)
+const artifacts = path.join(process.env.LOCALAPPDATA, 'Temp', 'opencode', `campus-shell-${Date.now()}-${process.pid}`);
 mkdirSync(artifacts, { recursive: true });
 const browser = spawn(process.env.CHROME_PATH || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', [
   '--headless=new', '--no-first-run', '--no-default-browser-check', '--remote-debugging-port=0',
@@ -28,6 +30,14 @@ async function main() {
   let nextId = 0;
   const pending = new Map();
   let sessionId;
+  const ts = require('typescript');
+  const vm = require('node:vm');
+  const fixtureExports = {};
+  vm.runInNewContext(ts.transpileModule(require('node:fs').readFileSync(path.join(__dirname, '../src/demo/demo.fixtures.ts'), 'utf8').replaceAll('import.meta.env.DEV', 'true'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText, { exports: fixtureExports, URL, btoa, structuredClone });
+  const profile = { userId: 'browser-test', fullName: 'Browser QA Student', email: 'qa@sis.hust.edu.vn', role: 'ADMIN', isVerifiedStudent: true, karmaPoints: 10, skills: [], faculty: null, facultyId: null, anonymousHandle: 'qa-student', studentCode: '20260001' };
+  let rejectWrites = false;
+  let catalogMode = 'normal';
+  const exceptions = [];
   const requestUrls = [];
   const networkRequests = [];
   const send = (method, params = {}, session = sessionId) => new Promise((resolve, reject) => {
@@ -40,6 +50,8 @@ async function main() {
     if (message.id) {
       const task = pending.get(message.id);
       if (task) { pending.delete(message.id); message.error ? task.reject(message.error) : task.resolve(message.result); }
+    } else if (message.method === 'Runtime.exceptionThrown') {
+      exceptions.push(message.params.exceptionDetails);
     } else if (message.method === 'Network.requestWillBeSent') {
       networkRequests.push(message.params.request);
     } else if (message.method === 'Fetch.requestPaused') {
@@ -49,15 +61,32 @@ async function main() {
       let data = [];
       if (pathname.endsWith('/identity/catalog')) data = { faculties: [], courses: [] };
       if (pathname.endsWith('/communication/notifications')) data = { items: [], unreadCount: 2 };
+      if (allRoutes) {
+        try { data = fixtureExports.demoRead(pathname.replace('/api/v1', '') + new URL(request.url).search); } catch { data = []; }
+        if (pathname.endsWith('/identity/profile/me')) data = profile;
+        if (pathname.endsWith('/marketplace/items')) data = [{ id: 'qa-item', seller_id: 'qa-seller', title: 'QA textbook listing', description: 'Browser test fixture only', category: 'TEXTBOOK', price_vnd: 50000, is_free: false, condition: 'USED_GOOD', status: 'AVAILABLE', created_at: '2026-11-12T08:00:00Z', seller: { id: 'qa-seller', full_name: 'QA Seller', is_verified_student: true }, images: [] }];
+        if (pathname.endsWith('/marketplace/housing')) data = [{ id: 'qa-room', poster_id: 'qa-poster', listing_type: 'ROOMMATE_WANTED', title: 'QA housing listing', description: 'Browser test fixture only', address_district: 'QA district', distance_to_campus_km: 1, monthly_rent_vnd: 2000000, sleep_schedule: 'FLEXIBLE', smoking_allowed: false, cooking_allowed: true, gender_preference: 'ANY', status: 'OPEN', created_at: '2026-11-12T08:00:00Z', poster: { id: 'qa-poster', full_name: 'QA Poster', is_verified_student: true } }];
+      }
+      if (regressions) {
+        if (pathname.endsWith('/identity/catalog') && catalogMode === 'empty') data = { faculties: [], courses: [] };
+        if (pathname.endsWith('/communication/conversations')) data = ['A','B'].map(id => ({id, type:'DIRECT', created_at:'2026-11-12T08:00:00Z', last_message_at:'2026-11-12T08:00:00Z', participants:[{user_id:'peer-'+id,user:{id:'peer-'+id,full_name:'Peer '+id}}]}));
+        if (pathname.endsWith('/A/messages') || pathname.endsWith('/B/messages')) { const id = pathname.split('/').at(-2); data = [{id:'msg-'+id, conversation_id:id, sender_id:'peer-'+id, message_type:'TEXT', content:'Private message '+id, created_at:'2026-11-12T08:00:00Z', sender:{full_name:'Peer '+id}}]; }
+      }
+      const rejected = (regressions && (
+        (catalogMode === 'error' && pathname.endsWith('/identity/catalog')) ||
+        (catalogMode === 'hierarchy-error' && pathname.endsWith('/resources/hierarchy')) ||
+        (catalogMode === 'resource-error' && pathname.endsWith('/resources')) ||
+        (catalogMode === 'group-error' && pathname.endsWith('/study-groups'))
+      )) || rejectWrites && !['GET', 'OPTIONS'].includes(request.method);
       void send('Fetch.fulfillRequest', {
-        requestId, responseCode: 200,
+        requestId, responseCode: rejected ? 500 : 200,
         responseHeaders: [
           { name: 'Content-Type', value: 'application/json' },
           { name: 'Access-Control-Allow-Origin', value: '*' },
           { name: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' },
           { name: 'Access-Control-Allow-Methods', value: 'GET, POST, PATCH, PUT, DELETE, OPTIONS' },
         ],
-        body: Buffer.from(JSON.stringify({ success: true, data, meta: null, error: null })).toString('base64'),
+        body: Buffer.from(JSON.stringify(rejected ? { success: false, data: null, error: { message: 'QA write rejected' } } : { success: true, data, meta: null, error: null })).toString('base64'),
       }).catch(console.error);
     }
   };
@@ -68,10 +97,11 @@ async function main() {
     await send('Runtime.enable');
     await send('Network.enable');
     if (!demoTest) await send('Fetch.enable', { patterns: [{ urlPattern: '*/api/v1/*' }] });
-    if (!demoTest) await send('Page.addScriptToEvaluateOnNewDocument', { source: `
-      if (!localStorage.getItem('mxh_hssv_access_token')) {
+    let authScript;
+    if (!demoTest) authScript = await send('Page.addScriptToEvaluateOnNewDocument', { source: `
+      if (location.origin === new URL(${JSON.stringify(baseUrl)}).origin && !localStorage.getItem('mxh_hssv_access_token')) {
         localStorage.setItem('mxh_hssv_access_token', 'browser-test-only');
-        localStorage.setItem('mxh_hssv_user', JSON.stringify({ userId: 'browser-test', fullName: 'Kiểm thử giao diện', role: 'VERIFIED_STUDENT', isVerifiedStudent: true, karmaPoints: 0, skills: [] }));
+        localStorage.setItem('mxh_hssv_user', JSON.stringify({ userId: 'browser-test', fullName: 'Kiểm thử giao diện', role: ${allRoutes ? "'ADMIN'" : "'VERIFIED_STUDENT'"}, isVerifiedStudent: true, karmaPoints: 0, skills: [] }));
       }
     ` });
     const evaluate = async expression => {
@@ -86,6 +116,72 @@ async function main() {
       }
       throw new Error(`Timed out: ${expression}`);
     };
+    if (regressions) {
+      await require('./campus-ux-regressions.browser.cjs')({ send, evaluate, until, baseUrl, assert, artifacts, setCatalogMode: value => { catalogMode = value; } });
+      assert.equal(exceptions.length, 0, JSON.stringify(exceptions));
+      return;
+    }
+    if (allRoutes) {
+      const routes = ['/feed', '/feed/department', '/feed/course?code=IT3080', '/feed/posts/demo-post', '/course-reviews', '/course-reviews/IT3080', '/course-reviews/forum?courseCode=IT3080', '/resources?code=IT3080', '/resources/demo-document', '/study-groups?code=IT3080', '/study-groups/demo-group/workspace', '/marketplace', '/marketplace/housing', '/messenger?convId=demo-conversation', '/notifications', '/karma', '/profile', '/admin/moderation', '/login', '/register-edu', '/verify-otp'];
+      for (const width of [1440, 390]) {
+        await send('Emulation.setDeviceMetricsOverride', { width, height: 950, deviceScaleFactor: 1, mobile: width < 810 });
+        for (let index = 0; index < routes.length; index++) {
+          const route = routes[index];
+          await send('Page.navigate', { url: baseUrl + route });
+          await until(`!!document.querySelector('h1,h2')`);
+          await new Promise(resolve => setTimeout(resolve, 300));
+          assert.equal(await evaluate(`location.pathname`), route.split('?')[0]);
+          assert.equal(await evaluate(`document.documentElement.scrollWidth > innerWidth + 1`), false, `Overflow ${route} ${width}`);
+          const { data } = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true });
+          writeFileSync(path.join(artifacts, `route-${index}-${width}.png`), Buffer.from(data, 'base64'));
+          assert.ok(await evaluate(`document.querySelector('main,.campus-auth')?.getBoundingClientRect().width > 0`), route);
+          console.log(`PASS route ${width}px ${route}`);
+        }
+      }
+      // Cross-page course scope and keyboard dialog regression.
+      await send('Page.navigate', { url: baseUrl + '/feed/course?code=IT3080' });
+      await until(`!!document.querySelector('nav[data-campus-course-tabs]')`);
+      assert.equal(await evaluate(`document.querySelector('nav[data-campus-course-tabs] a[aria-current="page"]').textContent.includes('IT3080')`), true);
+      await evaluate(`Array.from(document.querySelectorAll('nav[data-campus-course-tabs] a')).find(a => a.getAttribute('href').includes('/resources')).click()`);
+      await until(`location.pathname === '/resources' && location.search.includes('IT3080')`);
+      await send('Page.navigate', { url: baseUrl + '/feed' });
+      await until(`!!document.querySelector('button[data-campus-ask]')`);
+      await evaluate(`document.querySelector('button[data-campus-ask]').focus(); document.querySelector('button[data-campus-ask]').click()`);
+      await until(`!!document.querySelector('[role="dialog"]')`);
+      assert.equal(await evaluate(`document.querySelector('[role="dialog"]').contains(document.activeElement)`), true);
+      await evaluate(`document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+      await until(`!document.querySelector('[role="dialog"]')`);
+      assert.equal(await evaluate(`document.activeElement.hasAttribute('data-campus-ask')`), true);
+      // Existing API integration: a failed send must retain the draft and show no fake success.
+      await send('Page.navigate', { url: baseUrl + '/messenger?convId=demo-conversation' });
+      await until(`!!document.querySelector('main form input')`);
+      rejectWrites = true;
+      await evaluate(`(() => { const input = document.querySelector('main form input'); Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(input, 'QA retained draft'); input.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+      await evaluate(`document.querySelector('main form').requestSubmit()`);
+      await until(`document.querySelector('[role="alert"]')?.textContent.includes('QA write rejected')`);
+      assert.equal(await evaluate(`document.querySelector('main form input').value`), 'QA retained draft');
+      rejectWrites = false;
+      await send('Page.navigate', { url: baseUrl + '/oauth/callback' });
+      await until(`location.pathname === '/profile'`);
+      await send('Page.removeScriptToEvaluateOnNewDocument', { identifier: authScript.identifier });
+      await evaluate(`localStorage.clear()`);
+      await send('Page.navigate', { url: baseUrl + '/login' });
+      await until(`!!document.querySelector('#login-email')`);
+      await evaluate(`localStorage.clear()`);
+      await send('Page.navigate', { url: baseUrl + '/oauth/callback' });
+      await until(`!!document.querySelector('.campus-auth')`);
+      assert.equal(await evaluate(`localStorage.getItem('mxh_hssv_access_token')`), null);
+      for (const width of [1440, 390]) {
+        await send('Emulation.setDeviceMetricsOverride', { width, height: 950, deviceScaleFactor: 1, mobile: width < 810 });
+        assert.equal(await evaluate(`document.documentElement.scrollWidth > innerWidth + 1`), false);
+        const { data } = await send('Page.captureScreenshot', { format: 'png' });
+        writeFileSync(path.join(artifacts, `sso-${width}.png`), Buffer.from(data, 'base64'));
+      }
+      console.log('PASS course scope, modal focus/Escape, failed message draft, SSO callback');
+      assert.equal(exceptions.length, 0, JSON.stringify(exceptions));
+      console.log(`Screenshots: ${artifacts}`);
+      return;
+    }
     if (demoTest) {
       await send('Page.navigate', { url: `${baseUrl}/login` });
       await until(`Array.from(document.querySelectorAll('button')).some(b => b.textContent.includes('Đăng nhập bằng Mail Trường'))`);
@@ -173,7 +269,7 @@ async function main() {
     assert.equal(await evaluate(`document.activeElement.getAttribute('aria-controls')`), 'campus-mobile-explore');
     await evaluate(`document.querySelector('summary[aria-label="Tài khoản và chế độ ẩn danh"]').click()`);
     await evaluate(`Array.from(document.querySelectorAll('details button')).find(b => b.textContent.includes('eal identity')).click()`);
-    await until(`document.querySelector('details').textContent.includes('nonymous:')`);
+    await until(`document.querySelector('details[open]').textContent.includes('nonymous:')`);
     await evaluate(`document.querySelector('details').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
     await evaluate(`document.querySelector('button[aria-label="Đặt câu hỏi"]').click()`);
     await until(`Array.from(document.querySelectorAll('h3')).some(h => h.textContent.includes('Xuất bản Bài viết'))`);
@@ -181,9 +277,9 @@ async function main() {
     console.log('PASS mobile secondary navigation, Escape/focus restoration, anonymous mode, notification badge');
     console.log('PASS header action opens the existing feed composer');
     await evaluate(`document.querySelector('a[href="/resources"]').click()`);
-    await until(`location.pathname === '/resources' && !document.querySelector('#campus-main')`);
+    await until(`location.pathname === '/resources' && !!document.querySelector('#campus-main')`);
     assert.ok(await evaluate(`!!document.querySelector('main')`));
-    console.log('PASS navigation to existing /resources with legacy layout');
+    console.log('PASS navigation to existing /resources with campus layout');
     await evaluate(`localStorage.setItem('mxh_hssv_user', JSON.stringify({ ...JSON.parse(localStorage.getItem('mxh_hssv_user')), role: 'ADMIN' }))`);
     await send('Page.navigate', { url: `${baseUrl}/feed` });
     await until(`!!document.querySelector('aside a[href="/admin/moderation"]')`);

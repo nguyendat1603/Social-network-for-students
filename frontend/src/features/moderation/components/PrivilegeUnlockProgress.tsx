@@ -60,7 +60,7 @@ export const PrivilegeUnlockProgress: React.FC<PrivilegeUnlockProgressProps> = (
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 20,
+        borderRadius: 9,
         padding: 22,
         display: 'flex',
         flexDirection: 'column',
@@ -81,7 +81,7 @@ export const PrivilegeUnlockProgress: React.FC<PrivilegeUnlockProgressProps> = (
         <div
           style={{
             padding: '8px 14px',
-            borderRadius: 20,
+            borderRadius: 9,
             background: 'var(--color-fog-mist)',
             border: '1px solid var(--color-fog-mist)',
             textAlign: 'right',
@@ -115,11 +115,11 @@ export const PrivilegeUnlockProgress: React.FC<PrivilegeUnlockProgressProps> = (
             <div
               key={tier.code}
               style={{
-                borderRadius: 20,
+                borderRadius: 9,
                 padding: 16,
                 background: isCurrent
                   ? 'rgba(30, 41, 59, 0.95)'
-                  : 'rgba(15, 23, 42, 0.45)',
+                  : 'var(--bg-elevated)',
                 border: isCurrent
                   ? `2px solid ${tier.color}`
                   : '1px solid var(--border-color)',

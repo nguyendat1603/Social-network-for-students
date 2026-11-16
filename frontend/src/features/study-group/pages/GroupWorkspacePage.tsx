@@ -40,7 +40,7 @@ export const GroupWorkspacePage: React.FC = () => {
   }, [groupId]);
 
   return (
-    <MainLayout>
+    <MainLayout courseCode={workspace?.group.course?.code}>
       {loading ? (
         <div style={{ padding: 36, textAlign: 'center', color: 'var(--text-muted)' }}>
           Đang tải Không gian Nhóm Đồ án...
@@ -65,7 +65,7 @@ export const GroupWorkspacePage: React.FC = () => {
               padding: '9px 16px',
               borderRadius: 20,
               background: 'var(--brand-primary)',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               fontWeight: 600,
               fontSize: 13,
             }}

@@ -24,6 +24,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
   onSendMessage,
 }) => {
   const [text, setText] = useState('');
+  const [error, setError] = useState('');
   const [sending, setSending] = useState(false);
 
   if (!conversation) {
@@ -32,7 +33,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
         style={{
           background: 'var(--bg-secondary)',
           border: '1px solid var(--border-color)',
-          borderRadius: 20,
+          borderRadius: 9,
           padding: 40,
           display: 'flex',
           alignItems: 'center',
@@ -61,10 +62,13 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!text.trim()) return;
+    setError('');
     setSending(true);
     try {
       await onSendMessage({ content: text.trim() });
       setText('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Không thể gửi tin nhắn. Nội dung của bạn vẫn được giữ lại.');
     } finally {
       setSending(false);
     }
@@ -75,7 +79,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 20,
+        borderRadius: 9,
         display: 'flex',
         flexDirection: 'column',
         minHeight: 520,
@@ -108,7 +112,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
             to={`/study-groups/${conversation.study_group_id}/workspace`}
             style={{
               padding: '6px 12px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-highlight-yellow)',
               color: 'var(--color-charcoal-ink)',
               fontSize: 12,
@@ -158,12 +162,12 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
                 alignSelf: isMine ? 'flex-end' : 'flex-start',
                 maxWidth: '72%',
                 padding: '10px 14px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: isMine
                   ? 'var(--brand-primary)'
-                  : 'rgba(15, 23, 42, 0.85)',
+                  : 'var(--bg-elevated)',
                 border: isMine ? 'none' : '1px solid var(--border-color)',
-                color: 'var(--color-charcoal-ink)',
+                color: isMine ? '#fff' : 'var(--text-primary)',
               }}
             >
               {!isMine && (
@@ -188,8 +192,8 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
                     display: 'inline-block',
                     marginTop: 6,
                     padding: '5px 10px',
-                    borderRadius: 20,
-                    background: 'rgba(2, 6, 23, 0.35)',
+                    borderRadius: 9,
+                    background: 'var(--bg-elevated)',
                     color: '#bfdbfe',
                     fontSize: 12,
                   }}
@@ -215,6 +219,7 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
         })}
       </div>
 
+      {error && <p role="alert" className="campus-error">{error}</p>}
       {/* Composer */}
       <div
         style={{
@@ -236,13 +241,14 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
         />
         <form onSubmit={handleSubmit} style={{ display: 'flex', gap: 8 }}>
           <input
+            aria-label="Nội dung tin nhắn"
             placeholder="Nhập tin nhắn trao đổi bài tập / đồ án..."
             value={text}
             onChange={(e) => setText(e.target.value)}
             style={{
               flex: 1,
               padding: '10px 14px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: '#ffffff',
               border: '1px solid var(--border-color)',
               color: 'var(--color-charcoal-ink)',
@@ -254,10 +260,10 @@ export const ChatConversationPanel: React.FC<ChatConversationPanelProps> = ({
             disabled={sending}
             style={{
               padding: '10px 18px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               fontWeight: 700,
               fontSize: 13,
               cursor: 'pointer',

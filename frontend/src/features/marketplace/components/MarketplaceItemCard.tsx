@@ -40,7 +40,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 20,
+        borderRadius: 9,
         padding: 18,
         display: 'flex',
         flexDirection: 'column',
@@ -62,7 +62,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
               fontSize: 11,
               fontWeight: 700,
               padding: '3px 8px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               color: 'var(--color-charcoal-ink)',
             }}
@@ -73,7 +73,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
             style={{
               fontSize: 11,
               padding: '3px 8px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               color: 'var(--text-secondary)',
             }}
@@ -106,7 +106,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
             style={{
               fontSize: 18,
               fontWeight: 800,
-              color: item.is_free ? '#34d399' : '#fbbf24',
+              color: item.is_free ? '#347052' : '#8b6227',
             }}
           >
             {item.is_free
@@ -150,7 +150,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
             }
             style={{
               padding: '6px 10px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: '#ffffff',
               border: '1px solid var(--border-color)',
               color: 'var(--color-charcoal-ink)',
@@ -167,10 +167,10 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
             onClick={() => onMessageSeller(item.seller_id, item.title)}
             style={{
               padding: '7px 14px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               fontWeight: 600,
               fontSize: 12,
               cursor: 'pointer',
@@ -183,7 +183,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({
             style={{
               fontSize: 12,
               padding: '5px 10px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               color: 'var(--text-muted)',
             }}

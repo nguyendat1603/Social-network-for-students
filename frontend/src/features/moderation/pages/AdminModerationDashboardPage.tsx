@@ -14,6 +14,7 @@ import { AutoModThresholdSettings } from '../components/AutoModThresholdSettings
 import { UserSanctionModal } from '../components/UserSanctionModal';
 
 export const AdminModerationDashboardPage: React.FC = () => {
+  const [statusError, setStatusError] = useState('');
   const [activeTab, setActiveTab] = useState<'QUEUE' | 'SETTINGS' | 'ACTIONS'>('QUEUE');
   const [queueItems, setQueueItems] = useState<ModerationQueueItem[]>([]);
   const [settings, setSettings] = useState<AutoModSettingItem[]>([]);
@@ -28,6 +29,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
     useState<ModerationQueueItem | null>(null);
 
   const loadData = async () => {
+    setStatusError('');
     setLoading(true);
     try {
       if (activeTab === 'QUEUE') {
@@ -45,7 +47,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
         setActions(res || []);
       }
     } catch (err) {
-      console.error('Failed to load moderation dashboard:', err);
+      setStatusError(err instanceof Error ? err.message : 'Không thể tải dữ liệu. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }
@@ -74,14 +76,15 @@ export const AdminModerationDashboardPage: React.FC = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout pageClassName="campus-page campus-reputation">
+      {statusError && <p role="alert" className="campus-error">{statusError}</p>}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         {/* Dashboard Header */}
         <div
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 20,
+            borderRadius: 9,
             padding: 22,
             display: 'flex',
             justifyContent: 'space-between',
@@ -95,7 +98,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
                   fontSize: 11,
                   fontWeight: 700,
                   padding: '3px 8px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'var(--color-fog-mist)',
                   color: 'var(--color-charcoal-ink)',
                 }}
@@ -118,12 +121,12 @@ export const AdminModerationDashboardPage: React.FC = () => {
               onClick={() => setActiveTab('QUEUE')}
               style={{
                 padding: '9px 16px',
-                borderRadius: 20,
+                borderRadius: 9,
                 border: '1px solid var(--border-color)',
                 background:
                   activeTab === 'QUEUE'
                     ? 'var(--brand-primary)'
-                    : 'rgba(15, 23, 42, 0.6)',
+                    : 'var(--bg-elevated)',
                 color: activeTab === 'QUEUE' ? '#fff' : 'var(--text-secondary)',
                 fontWeight: 600,
                 fontSize: 13,
@@ -137,12 +140,12 @@ export const AdminModerationDashboardPage: React.FC = () => {
               onClick={() => setActiveTab('SETTINGS')}
               style={{
                 padding: '9px 16px',
-                borderRadius: 20,
+                borderRadius: 9,
                 border: '1px solid var(--border-color)',
                 background:
                   activeTab === 'SETTINGS'
                     ? 'var(--brand-primary)'
-                    : 'rgba(15, 23, 42, 0.6)',
+                    : 'var(--bg-elevated)',
                 color: activeTab === 'SETTINGS' ? '#fff' : 'var(--text-secondary)',
                 fontWeight: 600,
                 fontSize: 13,
@@ -156,12 +159,12 @@ export const AdminModerationDashboardPage: React.FC = () => {
               onClick={() => setActiveTab('ACTIONS')}
               style={{
                 padding: '9px 16px',
-                borderRadius: 20,
+                borderRadius: 9,
                 border: '1px solid var(--border-color)',
                 background:
                   activeTab === 'ACTIONS'
                     ? 'var(--brand-primary)'
-                    : 'rgba(15, 23, 42, 0.6)',
+                    : 'var(--bg-elevated)',
                 color: activeTab === 'ACTIONS' ? '#fff' : 'var(--text-secondary)',
                 fontWeight: 600,
                 fontSize: 13,
@@ -179,7 +182,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 20,
+              borderRadius: 9,
               padding: 12,
               display: 'flex',
               gap: 12,
@@ -192,7 +195,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
               onChange={(e) => setFilterStatus(e.target.value as ReportStatus)}
               style={{
                 padding: '7px 10px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: 'var(--color-charcoal-ink)',
@@ -211,7 +214,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
               }
               style={{
                 padding: '7px 10px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: 'var(--color-charcoal-ink)',
@@ -234,7 +237,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
               }
               style={{
                 padding: '7px 10px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: 'var(--color-charcoal-ink)',
@@ -252,7 +255,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
         )}
 
         {/* Content area */}
-        {loading ? (
+        {statusError ? null : loading ? (
           <div style={{ padding: 40, textAlign: 'center', color: 'var(--text-muted)' }}>
             Đang tải dữ liệu kiểm duyệt...
           </div>
@@ -279,7 +282,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 20,
+              borderRadius: 9,
               padding: 20,
             }}
           >
@@ -300,8 +303,8 @@ export const AdminModerationDashboardPage: React.FC = () => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       padding: '12px 14px',
-                      borderRadius: 20,
-                      background: 'rgba(15, 23, 42, 0.55)',
+                      borderRadius: 9,
+                      background: 'var(--bg-elevated)',
                       border: '1px solid var(--border-color)',
                     }}
                   >
@@ -312,7 +315,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
                             fontSize: 11,
                             fontWeight: 700,
                             padding: '2px 8px',
-                            borderRadius: 20,
+                            borderRadius: 9,
                             background:
                               act.action_taken === 'PERMANENT_BAN' ||
                               act.action_taken === 'TEMPORARY_BAN'
@@ -322,7 +325,7 @@ export const AdminModerationDashboardPage: React.FC = () => {
                               act.action_taken === 'PERMANENT_BAN' ||
                               act.action_taken === 'TEMPORARY_BAN'
                                 ? '#f87171'
-                                : '#fbbf24',
+                                : '#8b6227',
                           }}
                         >
                           {act.action_taken}

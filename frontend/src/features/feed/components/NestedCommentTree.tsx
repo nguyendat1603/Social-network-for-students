@@ -191,7 +191,7 @@ export const NestedCommentTree: React.FC<NestedCommentTreeProps> = ({
                     style={{
                       background: 'var(--brand-primary)',
                       border: 'none',
-                      color: 'var(--color-charcoal-ink)',
+                      color: '#fff',
                       padding: '6px 14px',
                       borderRadius: 20,
                       fontSize: 12,

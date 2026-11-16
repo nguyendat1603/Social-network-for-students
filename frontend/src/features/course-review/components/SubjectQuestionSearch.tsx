@@ -33,7 +33,7 @@ export const SubjectQuestionSearch: React.FC<SubjectQuestionSearchProps> = ({
         alignItems: 'center',
       }}
     >
-      <select
+      <select aria-label="Học phần"
         value={selectedCourseCode}
         onChange={(e) => onCourseChange(e.target.value)}
       >
@@ -45,7 +45,7 @@ export const SubjectQuestionSearch: React.FC<SubjectQuestionSearchProps> = ({
         ))}
       </select>
 
-      <input
+      <input aria-label="Từ khóa"
         value={keyword}
         onChange={(e) => onKeywordChange(e.target.value)}
         placeholder="🔎 Full-text search câu hỏi cũ, thông báo lỗi (Segmentation fault, TCP socket, tích phân...)"

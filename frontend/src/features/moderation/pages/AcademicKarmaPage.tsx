@@ -10,6 +10,7 @@ import { KarmaPointsSummary } from '../components/KarmaPointsSummary';
 import { PrivilegeUnlockProgress } from '../components/PrivilegeUnlockProgress';
 
 export const AcademicKarmaPage: React.FC = () => {
+  const [statusError, setStatusError] = useState('');
   const [summary, setSummary] = useState<KarmaSummaryResponse | null>(null);
   const [privileges, setPrivileges] = useState<UserPrivilegesResponse | null>(null);
   const [leaderboard, setLeaderboard] = useState<KarmaLeaderboardItem[]>([]);
@@ -17,6 +18,7 @@ export const AcademicKarmaPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'LEADERBOARD'>('OVERVIEW');
 
   const loadData = async () => {
+    setStatusError('');
     setLoading(true);
     try {
       const [sumRes, privRes, leadRes] = await Promise.all([
@@ -28,7 +30,7 @@ export const AcademicKarmaPage: React.FC = () => {
       setPrivileges(privRes);
       setLeaderboard(leadRes);
     } catch (err) {
-      console.error('Failed to load karma data:', err);
+      setStatusError(err instanceof Error ? err.message : 'Không thể tải dữ liệu. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }
@@ -39,14 +41,15 @@ export const AcademicKarmaPage: React.FC = () => {
   }, []);
 
   return (
-    <MainLayout>
+    <MainLayout pageClassName="campus-page campus-reputation">
+      {statusError && <p role="alert" className="campus-error">{statusError}</p>}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         {/* Header */}
         <div
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 20,
+            borderRadius: 9,
             padding: 22,
             display: 'flex',
             justifyContent: 'space-between',
@@ -74,12 +77,12 @@ export const AcademicKarmaPage: React.FC = () => {
               onClick={() => setActiveTab('OVERVIEW')}
               style={{
                 padding: '9px 16px',
-                borderRadius: 20,
+                borderRadius: 9,
                 border: '1px solid var(--border-color)',
                 background:
                   activeTab === 'OVERVIEW'
                     ? 'var(--brand-primary)'
-                    : 'rgba(15, 23, 42, 0.6)',
+                    : 'var(--bg-elevated)',
                 color: activeTab === 'OVERVIEW' ? '#fff' : 'var(--text-secondary)',
                 fontWeight: 600,
                 fontSize: 13,
@@ -93,12 +96,12 @@ export const AcademicKarmaPage: React.FC = () => {
               onClick={() => setActiveTab('LEADERBOARD')}
               style={{
                 padding: '9px 16px',
-                borderRadius: 20,
+                borderRadius: 9,
                 border: '1px solid var(--border-color)',
                 background:
                   activeTab === 'LEADERBOARD'
                     ? 'var(--brand-primary)'
-                    : 'rgba(15, 23, 42, 0.6)',
+                    : 'var(--bg-elevated)',
                 color: activeTab === 'LEADERBOARD' ? '#fff' : 'var(--text-secondary)',
                 fontWeight: 600,
                 fontSize: 13,
@@ -110,7 +113,7 @@ export const AcademicKarmaPage: React.FC = () => {
           </div>
         </div>
 
-        {loading ? (
+        {statusError ? null : loading ? (
           <div style={{ padding: 40, textAlign: 'center', color: 'var(--text-muted)' }}>
             Đang tải dữ liệu điểm uy tín...
           </div>
@@ -125,7 +128,7 @@ export const AcademicKarmaPage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 20,
+              borderRadius: 9,
               padding: 22,
             }}
           >
@@ -157,14 +160,14 @@ export const AcademicKarmaPage: React.FC = () => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       padding: '12px 16px',
-                      borderRadius: 20,
+                      borderRadius: 9,
                       background: isTop1
                         ? 'var(--color-sand-wash)'
                         : isTop2
                         ? 'var(--color-fog-mist)'
                         : isTop3
                         ? 'rgba(180, 83, 9, 0.12)'
-                        : 'rgba(15, 23, 42, 0.55)',
+                        : 'var(--bg-elevated)',
                       border: isTop1
                         ? '1px solid var(--color-sand-wash)'
                         : '1px solid var(--border-color)',
@@ -177,7 +180,7 @@ export const AcademicKarmaPage: React.FC = () => {
                           fontWeight: 800,
                           width: 32,
                           textAlign: 'center',
-                          color: isTop1 ? '#fbbf24' : '#fff',
+                          color: 'var(--text-secondary)',
                         }}
                       >
                         {rankIcon}

@@ -45,11 +45,9 @@ test('All eight business modules retain navigation entry points', () => {
   assert.match(shell, /APP_ROUTES.MODERATION_DASHBOARD/);
 });
 
-test('Only CampusFeedPage opts into the new shell; legacy remains default', () => {
-  const { readdirSync } = require('node:fs');
-  const files = readdirSync(path.join(src, 'features'), { recursive: true });
-  const optedIn = files.filter(file => file.endsWith('.tsx') && readFileSync(path.join(src, 'features', file), 'utf8').includes('variant="campus"'));
-  assert.equal(optedIn.length, 1);
-  assert.ok(optedIn[0].endsWith('CampusFeedPage.tsx'));
-  assert.match(readFileSync(path.join(src, 'components/layout/MainLayout.tsx'), 'utf8'), /variant = 'legacy'/);
+test('All MainLayout consumers use the shared Campus shell and keep messaging', () => {
+  const layout = readFileSync(path.join(src, 'components/layout/MainLayout.tsx'), 'utf8');
+  assert.match(layout, /return <CampusAppShell/);
+  assert.match(layout, /FloatingChatBubbles/);
+  assert.doesNotMatch(layout, /substack-layout-grid/);
 });

@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+import { useDialog } from '../../../hooks/useDialog';
+import React, { useState } from 'react';
 import {
   ItemCategory,
   ItemCondition,
@@ -26,6 +27,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
   onClose,
   onSubmit,
 }) => {
+  const dialogRef = useDialog(onClose, isOpen);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState<ItemCategory>('TEXTBOOK');
@@ -63,7 +65,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
   };
 
   return (
-    <div
+    <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Đăng đồ dùng học tập" tabIndex={-1}
       style={{
         position: 'fixed',
         inset: 0,
@@ -108,7 +110,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
           style={{
             padding: 10,
             marginBottom: 14,
-            borderRadius: 20,
+            borderRadius: 9,
             background: 'var(--color-highlight-yellow)',
             color: 'var(--color-charcoal-ink)',
             fontSize: 12,
@@ -122,7 +124,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
             style={{
               padding: 10,
               marginBottom: 12,
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               color: 'var(--color-charcoal-ink)',
               fontSize: 13,
@@ -134,8 +136,8 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Tên món đồ</label>
-            <input
+            <label htmlFor="PostMarketplaceItemModal-field-1" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Tên món đồ</label>
+            <input id="PostMarketplaceItemModal-field-1"
               required
               placeholder="VD: Giáo trình Giải tích 1 + Bài tập, Kit STM32F103..."
               value={title}
@@ -144,7 +146,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                 width: '100%',
                 marginTop: 4,
                 padding: '9px 12px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: 'var(--color-charcoal-ink)',
@@ -154,15 +156,15 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Danh mục</label>
-              <select
+              <label htmlFor="PostMarketplaceItemModal-field-2" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Danh mục</label>
+              <select id="PostMarketplaceItemModal-field-2"
                 value={category}
                 onChange={(e) => setCategory(e.target.value as ItemCategory)}
                 style={{
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: 'var(--color-charcoal-ink)',
@@ -176,15 +178,15 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
               </select>
             </div>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Tình trạng</label>
-              <select
+              <label htmlFor="PostMarketplaceItemModal-field-3" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Tình trạng</label>
+              <select id="PostMarketplaceItemModal-field-3"
                 value={condition}
                 onChange={(e) => setCondition(e.target.value as ItemCondition)}
                 style={{
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: 'var(--color-charcoal-ink)',
@@ -200,17 +202,17 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="PostMarketplaceItemModal-field-4" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Gắn với môn học (Tùy chọn)
               </label>
-              <select
+              <select id="PostMarketplaceItemModal-field-4"
                 value={courseId}
                 onChange={(e) => setCourseId(e.target.value)}
                 style={{
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: 'var(--color-charcoal-ink)',
@@ -225,10 +227,10 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
               </select>
             </div>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="PostMarketplaceItemModal-field-5" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Giá sinh viên (VNĐ)
               </label>
-              <input
+              <input id="PostMarketplaceItemModal-field-5"
                 type="number"
                 disabled={isFree}
                 value={isFree ? 0 : priceVnd}
@@ -237,7 +239,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: 'var(--color-charcoal-ink)',
@@ -266,17 +268,17 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
           </label>
 
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+            <label htmlFor="PostMarketplaceItemModal-field-6" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
               Địa điểm giao nhận tại trường
             </label>
-            <input
+            <input id="PostMarketplaceItemModal-field-6"
               value={pickupLocation}
               onChange={(e) => setPickupLocation(e.target.value)}
               style={{
                 width: '100%',
                 marginTop: 4,
                 padding: '9px 12px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: 'var(--color-charcoal-ink)',
@@ -285,8 +287,8 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
           </div>
 
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Mô tả chi tiết</label>
-            <textarea
+            <label htmlFor="PostMarketplaceItemModal-field-7" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Mô tả chi tiết</label>
+            <textarea id="PostMarketplaceItemModal-field-7"
               required
               rows={3}
               placeholder="Mô tả tình trạng sách/linh kiện, phụ kiện đi kèm..."
@@ -296,7 +298,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
                 width: '100%',
                 marginTop: 4,
                 padding: 10,
-                borderRadius: 20,
+                borderRadius: 9,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: 'var(--color-charcoal-ink)',
@@ -310,7 +312,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
               onClick={onClose}
               style={{
                 padding: '9px 16px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: 'transparent',
                 border: '1px solid var(--border-color)',
                 color: 'var(--text-secondary)',
@@ -324,10 +326,10 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
               disabled={submitting}
               style={{
                 padding: '9px 18px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: 'var(--color-charcoal-ink)',
+                color: '#fff',
                 fontWeight: 700,
                 cursor: 'pointer',
               }}

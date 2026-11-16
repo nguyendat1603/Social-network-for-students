@@ -58,13 +58,13 @@ export const NotificationsPage: React.FC = () => {
   const busy = pendingId !== null;
 
   return (
-    <MainLayout>
+    <MainLayout pageClassName="campus-page campus-communication">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
         <div
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 20,
+            borderRadius: 9,
             padding: 20,
             display: 'flex',
             justifyContent: 'space-between',
@@ -88,7 +88,7 @@ export const NotificationsPage: React.FC = () => {
               disabled={busy || loading || loadError}
               style={{
                 padding: '8px 14px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: 'var(--color-fog-mist)',
                 border: '1px solid var(--color-fog-mist)',
                 color: 'var(--color-charcoal-ink)',
@@ -110,7 +110,7 @@ export const NotificationsPage: React.FC = () => {
               aria-pressed={filter === value}
               onClick={() => setFilter(value)}
               style={{
-                padding: '8px 14px', borderRadius: 20,
+                padding: '8px 14px', borderRadius: 9,
                 border: '1px solid var(--border-color)',
                 background: filter === value ? 'var(--brand-primary)' : 'var(--bg-secondary)',
                 color: filter === value ? '#fff' : 'var(--text-primary)', cursor: 'pointer',
@@ -141,7 +141,7 @@ export const NotificationsPage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 20,
+              borderRadius: 9,
               padding: 36,
               textAlign: 'center',
               color: 'var(--text-secondary)',
@@ -161,7 +161,7 @@ export const NotificationsPage: React.FC = () => {
                   border: n.is_read
                     ? '1px solid var(--border-color)'
                     : '1px solid var(--color-fog-mist)',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   padding: 16,
                   display: 'flex',
                   justifyContent: 'space-between',
@@ -191,7 +191,7 @@ export const NotificationsPage: React.FC = () => {
                       onClick={() => handleMarkRead(n.id)}
                       aria-label={`Đánh dấu đã đọc: ${n.title}`}
                       style={{
-                        padding: '7px 12px', borderRadius: 20,
+                        padding: '7px 12px', borderRadius: 9,
                         border: '1px solid var(--border-color)',
                         background: 'var(--bg-secondary)', color: 'var(--text-primary)',
                         cursor: busy ? 'not-allowed' : 'pointer', fontSize: 12,
@@ -206,9 +206,9 @@ export const NotificationsPage: React.FC = () => {
                       onClick={() => { if (!n.is_read) void handleMarkRead(n.id); }}
                       style={{
                         padding: '7px 12px',
-                        borderRadius: 20,
+                        borderRadius: 9,
                         background: 'var(--brand-primary)',
-                        color: 'var(--color-charcoal-ink)',
+                        color: '#fff',
                         fontSize: 12,
                         fontWeight: 600,
                         whiteSpace: 'nowrap',

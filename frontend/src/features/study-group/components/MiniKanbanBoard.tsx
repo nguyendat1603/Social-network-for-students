@@ -22,9 +22,9 @@ interface MiniKanbanBoardProps {
 
 const COLUMNS: Array<{ key: KanbanTaskStatus; label: string; badgeColor: string }> = [
   { key: 'TODO', label: '📋 Cần làm (TODO)', badgeColor: '#94a3b8' },
-  { key: 'IN_PROGRESS', label: '⚡ Đang thực hiện', badgeColor: '#60a5fa' },
-  { key: 'REVIEW', label: '🔍 Đang Review', badgeColor: '#fbbf24' },
-  { key: 'DONE', label: '✅ Hoàn thành (+5 Karma)', badgeColor: '#34d399' },
+  { key: 'IN_PROGRESS', label: '⚡ Đang thực hiện', badgeColor: '#446878' },
+  { key: 'REVIEW', label: '🔍 Đang Review', badgeColor: '#8b6227' },
+  { key: 'DONE', label: '✅ Hoàn thành (+5 Karma)', badgeColor: '#347052' },
 ];
 
 export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
@@ -142,7 +142,7 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
             borderRadius: 20,
             background: 'var(--brand-primary)',
             border: 'none',
-            color: 'var(--color-charcoal-ink)',
+            color: '#fff',
             fontWeight: 600,
             fontSize: 13,
             cursor: 'pointer',

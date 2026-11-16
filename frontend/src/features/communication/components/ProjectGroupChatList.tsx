@@ -34,11 +34,11 @@ export const ProjectGroupChatList: React.FC<ProjectGroupChatListProps> = ({
             style={{
               textAlign: 'left',
               padding: '10px 12px',
-              borderRadius: 20,
+              borderRadius: 9,
               border: '1px solid var(--border-color)',
               background: isActive
                 ? 'var(--color-highlight-yellow)'
-                : 'rgba(15, 23, 42, 0.5)',
+                : 'var(--bg-elevated)',
               color: 'var(--color-charcoal-ink)',
               cursor: 'pointer',
             }}

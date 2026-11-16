@@ -36,7 +36,7 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 20,
+        borderRadius: 9,
         padding: 14,
         display: 'grid',
         gridTemplateColumns: '1.4fr 1fr 1fr 1fr auto',
@@ -51,7 +51,7 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         onKeyDown={(e) => e.key === 'Enter' && onApply()}
         style={{
           padding: '9px 12px',
-          borderRadius: 20,
+          borderRadius: 9,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: 'var(--color-charcoal-ink)',
@@ -59,12 +59,12 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         }}
       />
 
-      <select
+      <select aria-label="Danh mục"
         value={category}
         onChange={(e) => onCategoryChange(e.target.value as ItemCategory | '')}
         style={{
           padding: '9px 10px',
-          borderRadius: 20,
+          borderRadius: 9,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: 'var(--color-charcoal-ink)',
@@ -79,12 +79,12 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         <option value="OTHER">📦 Khác</option>
       </select>
 
-      <select
+      <select aria-label="Tình trạng đồ dùng"
         value={condition}
         onChange={(e) => onConditionChange(e.target.value as ItemCondition | '')}
         style={{
           padding: '9px 10px',
-          borderRadius: 20,
+          borderRadius: 9,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: 'var(--color-charcoal-ink)',
@@ -106,7 +106,7 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         onKeyDown={(e) => e.key === 'Enter' && onApply()}
         style={{
           padding: '9px 12px',
-          borderRadius: 20,
+          borderRadius: 9,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: 'var(--color-charcoal-ink)',

@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { useAuth } from '../../../hooks/useAuth';
@@ -12,54 +12,73 @@ import { ProjectGroupChatList } from '../components/ProjectGroupChatList';
 import { ChatConversationPanel } from '../components/ChatConversationPanel';
 
 export const MessengerPage: React.FC = () => {
+  const [statusError, setStatusError] = useState('');
   const { user } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialConvId = searchParams.get('convId');
+  const selectedConvId = searchParams.get('convId');
 
   const [conversations, setConversations] = useState<ConversationItem[]>([]);
-  const [selectedConvId, setSelectedConvId] = useState<string | null>(
-    initialConvId
-  );
-  const [messages, setMessages] = useState<ChatMessageItem[]>([]);
+  const selected = useRef(selectedConvId);
+  selected.current = selectedConvId;
+  const mounted = useRef(false);
+  const conversationVersion = useRef(0);
+  const selectConversation = (id: string) => {
+    selected.current = id;
+    messageVersion.current++;
+    setSearchParams({ convId: id }, { replace: true });
+  };
+  const messageVersion = useRef(0);
+  const [messageState, setMessageState] = useState<{ id: string; items: ChatMessageItem[] } | null>(null);
+  const messages = messageState?.id === selectedConvId ? messageState.items : [];
 
   const loadConversations = async () => {
+    const version = ++conversationVersion.current;
     try {
       const list = await communicationService.listConversations();
+      if (!mounted.current || version !== conversationVersion.current) return;
       setConversations(list);
-      if (!selectedConvId && list.length > 0) {
-        setSelectedConvId(initialConvId || list[0].id);
+      if (!selected.current && list.length > 0) {
+        selectConversation(list[0].id);
       }
     } catch (err) {
-      console.error('Failed to load conversations:', err);
+      if (mounted.current && version === conversationVersion.current) setStatusError(err instanceof Error ? err.message : 'Không thể tải dữ liệu. Vui lòng thử lại.');
     }
   };
 
   const loadMessages = async (convId: string) => {
+    if (!mounted.current || selected.current !== convId) return;
+    const version = ++messageVersion.current;
     try {
       const list = await communicationService.listMessages(convId);
-      setMessages(list);
+      if (mounted.current && selected.current === convId && version === messageVersion.current) { setMessageState({ id: convId, items: list }); setStatusError(''); }
     } catch (err) {
-      console.error('Failed to load messages:', err);
+      if (mounted.current && selected.current === convId && version === messageVersion.current) setStatusError(err instanceof Error ? err.message : 'Không thể tải dữ liệu. Vui lòng thử lại.');
     }
   };
 
   useEffect(() => {
+    mounted.current = true;
     loadConversations();
+    return () => { mounted.current = false; conversationVersion.current++; messageVersion.current++; };
   }, []);
 
   useEffect(() => {
+    setMessageState(null);
+    setStatusError('');
     if (selectedConvId) {
-      setSearchParams({ convId: selectedConvId }, { replace: true });
       loadMessages(selectedConvId);
     }
+    return () => { messageVersion.current++; };
   }, [selectedConvId]);
 
   const activeConversation =
     conversations.find((c) => c.id === selectedConvId) || null;
 
   return (
-    <MainLayout>
-      <div
+    <MainLayout pageClassName="campus-page campus-communication">
+      {statusError && <p role="alert" className="campus-error">{statusError}</p>}
+      <header className="campus-page-heading"><h1>Tin nhắn</h1></header>
+      <div className="campus-messenger-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: '320px 1fr',
@@ -72,7 +91,7 @@ export const MessengerPage: React.FC = () => {
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 20,
+            borderRadius: 9,
             padding: 16,
             display: 'flex',
             flexDirection: 'column',
@@ -86,7 +105,7 @@ export const MessengerPage: React.FC = () => {
             <ProjectGroupChatList
               conversations={conversations}
               selectedId={selectedConvId}
-              onSelect={setSelectedConvId}
+              onSelect={selectConversation}
             />
           </div>
 
@@ -98,13 +117,14 @@ export const MessengerPage: React.FC = () => {
               conversations={conversations}
               currentUserId={user?.userId}
               selectedId={selectedConvId}
-              onSelect={setSelectedConvId}
+              onSelect={selectConversation}
             />
           </div>
         </div>
 
         {/* Right Panel: Active Conversation */}
         <ChatConversationPanel
+          key={selectedConvId}
           conversation={activeConversation}
           messages={messages}
           currentUserId={user?.userId}

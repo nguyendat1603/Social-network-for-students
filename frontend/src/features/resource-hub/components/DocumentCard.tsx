@@ -143,7 +143,7 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
             style={{
               background: 'var(--brand-primary)',
               border: 'none',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               padding: '6px 12px',
               borderRadius: 20,
               fontSize: 12,

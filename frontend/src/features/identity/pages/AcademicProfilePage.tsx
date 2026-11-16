@@ -11,6 +11,7 @@ export const AcademicProfilePage: React.FC = () => {
   const { user, setUser } = useAuth();
   const [faculties, setFaculties] = useState<FacultyItem[]>([]);
   const [courses, setCourses] = useState<CourseItem[]>([]);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,33 +24,36 @@ export const AcademicProfilePage: React.FC = () => {
         setFaculties(catalog.faculties);
         setCourses(catalog.courses);
       })
-      .catch(() => {})
+      .catch(err => setError(err instanceof Error ? err.message : 'Unable to load profile.'))
       .finally(() => setLoading(false));
   }, [setUser]);
 
-  if (loading && !user) {
+  if (loading) {
     return (
-      <MainLayout>
-        <div>Đang tải Hồ sơ Học thuật từ Supabase Online...</div>
+      <MainLayout pageClassName="campus-page campus-identity">
+      {error && <p role="alert">{error}</p>}
+        <div>Đang tải Hồ sơ Học thuật...</div>
       </MainLayout>
     );
   }
 
   if (!user) {
     return (
-      <MainLayout>
+      <MainLayout pageClassName="campus-page campus-identity">
+      {error && <p role="alert">{error}</p>}
         <div>Vui lòng đăng nhập để xem hồ sơ học thuật.</div>
       </MainLayout>
     );
   }
 
   return (
-    <MainLayout>
+    <MainLayout pageClassName="campus-page campus-identity">
+      {error && <p role="alert">{error}</p>}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         <div
           style={{
             background:
-              'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95))',
+              'var(--bg-card)',
             border: '1px solid var(--border-color)',
             borderRadius: 'var(--radius-lg)',
             padding: 24,
@@ -114,7 +118,7 @@ export const AcademicProfilePage: React.FC = () => {
           }}
         >
           <h4 style={{ fontSize: 14, fontWeight: 700, marginBottom: 10 }}>
-            🗂️ Danh mục Mã học phần đã đồng bộ trên Supabase Online ({courses.length} học phần mẫu)
+            🗂️ Danh mục Mã học phần đã đồng bộ ({courses.length} học phần)
           </h4>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
             {courses.map((c) => (
@@ -123,7 +127,7 @@ export const AcademicProfilePage: React.FC = () => {
                 style={{
                   fontSize: 12,
                   padding: '5px 10px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'var(--bg-primary)',
                   border: '1px solid var(--border-color)',
                 }}

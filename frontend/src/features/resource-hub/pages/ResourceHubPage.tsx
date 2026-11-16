@@ -1,4 +1,5 @@
-﻿import React, { useCallback, useEffect, useState } from 'react';
+﻿import { useSearchParams } from 'react-router-dom';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { PdfViewerModal } from '../../../components/common/PdfViewerModal';
 import { identityService } from '../../../services/identity.service';
@@ -14,6 +15,8 @@ import { FacultyCourseSemesterTree } from '../components/FacultyCourseSemesterTr
 import { UploadResourceModal } from '../components/UploadResourceModal';
 
 export const ResourceHubPage: React.FC = () => {
+  const [params, setParams] = useSearchParams();
+  const code = params.get('code');
   const [tree, setTree] = useState<HierarchyFacultyNode[]>([]);
   const [faculties, setFaculties] = useState<FacultyItem[]>([]);
   const [courses, setCourses] = useState<CourseItem[]>([]);
@@ -27,32 +30,68 @@ export const ResourceHubPage: React.FC = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [statusError, setStatusError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [catalogState, setCatalogState] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [catalogError, setCatalogError] = useState('');
+  const documentVersion = useRef(0);
+  const catalogVersion = useRef(0);
 
   const loadHierarchyAndCatalog = useCallback(async () => {
-    const [hierarchyData, catalogData] = await Promise.all([
-      resourceHubService.getHierarchyTree(),
-      identityService.getCatalog(),
-    ]);
-    setTree(hierarchyData);
-    setFaculties(catalogData.faculties);
-    setCourses(catalogData.courses);
+    const version = ++catalogVersion.current;
+    setCatalogState('loading');
+    setCatalogError('');
+    documentVersion.current++;
+    try {
+      const [hierarchyData, catalogData] = await Promise.all([
+        resourceHubService.getHierarchyTree(),
+        identityService.getCatalog(),
+      ]);
+      if (version !== catalogVersion.current) return;
+      setTree(hierarchyData);
+      setFaculties(catalogData.faculties);
+      setCourses(catalogData.courses);
+      setCatalogState('ready');
+    } catch (err) {
+      if (version !== catalogVersion.current) return;
+      setCatalogError(err instanceof Error ? err.message : 'Không thể tải danh mục học phần.');
+      setCatalogState('error');
+    }
   }, []);
 
+  useEffect(() => {
+    setSelectedCourseId(code ? courses.find(course => course.code === code)?.id || '' : '');
+  }, [code, courses]);
+
   const loadDocuments = useCallback(async () => {
+    const version = ++documentVersion.current;
+    setStatusError(null);
+    if (catalogState !== 'ready') { setLoading(false); return; }
     setLoading(true);
+    if (code && !courses.some(course => course.code === code)) {
+      setDocuments([]);
+      setStatusError('Không tìm thấy học phần. Hãy chọn học phần hợp lệ hoặc xem tất cả tài liệu.');
+      setLoading(false);
+      return;
+    }
     try {
       const list = await resourceHubService.listResources({
         facultyId: selectedFacultyId || undefined,
-        courseId: selectedCourseId || undefined,
+        courseId: (code ? courses.find(course => course.code === code)?.id : selectedCourseId) || undefined,
         semester: selectedSemester || undefined,
         docType: selectedDocType || undefined,
         q: keyword || undefined,
       });
+      if (version !== documentVersion.current) return;
       setDocuments(list);
+      setStatusError(null);
+    } catch (err) {
+      if (version === documentVersion.current) setStatusError(err instanceof Error ? err.message : 'Không thể tải tài liệu.');
     } finally {
-      setLoading(false);
+      if (version === documentVersion.current) setLoading(false);
     }
   }, [
+    code,
+    catalogState,
+    courses,
     selectedFacultyId,
     selectedCourseId,
     selectedSemester,
@@ -61,11 +100,13 @@ export const ResourceHubPage: React.FC = () => {
   ]);
 
   useEffect(() => {
-    loadHierarchyAndCatalog().catch(() => {});
+    loadHierarchyAndCatalog();
+    return () => { catalogVersion.current++; };
   }, [loadHierarchyAndCatalog]);
 
   useEffect(() => {
     loadDocuments();
+    return () => { documentVersion.current++; };
   }, [loadDocuments]);
 
   const handleDownload = async (docId: string) => {
@@ -87,7 +128,7 @@ export const ResourceHubPage: React.FC = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout pageClassName="campus-page campus-resources">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div
           style={{
@@ -110,7 +151,7 @@ export const ResourceHubPage: React.FC = () => {
             onClick={() => setShowUploadModal(true)}
             style={{
               background: 'var(--brand-primary)',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               border: 'none',
               padding: '10px 18px',
               borderRadius: 20,
@@ -122,8 +163,8 @@ export const ResourceHubPage: React.FC = () => {
           </button>
         </div>
 
-        {statusError && (
-          <div
+        {(catalogError || statusError) && (
+          <div role="alert"
             style={{
               padding: '10px 14px',
               borderRadius: 20,
@@ -132,7 +173,9 @@ export const ResourceHubPage: React.FC = () => {
               fontSize: 13,
             }}
           >
-            {statusError}
+            {catalogError || statusError}
+            <button type="button" onClick={() => catalogState === 'error' ? loadHierarchyAndCatalog() : loadDocuments()}>Thử lại</button>
+            {code && <button type="button" onClick={() => { const next = new URLSearchParams(params); next.delete('code'); setParams(next); }}>Xem tất cả tài liệu</button>}
           </div>
         )}
 
@@ -143,19 +186,25 @@ export const ResourceHubPage: React.FC = () => {
           selectedSemester={selectedSemester}
           selectedDocType={selectedDocType}
           onSelectFaculty={setSelectedFacultyId}
-          onSelectCourse={setSelectedCourseId}
+          onSelectCourse={id => {
+            setSelectedCourseId(id);
+            const next = new URLSearchParams(params);
+            const course = courses.find(item => item.id === id);
+            if (course) next.set('code', course.code); else next.delete('code');
+            setParams(next);
+          }}
           onSelectSemester={setSelectedSemester}
           onSelectDocType={setSelectedDocType}
         />
 
-        <input
+        <input aria-label="Từ khóa"
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           placeholder="🔍 Tìm nhanh đề thi, slide bài giảng, tóm tắt công thức hoặc code mẫu..."
         />
 
-        {loading ? (
-          <div>Đang tải kho tài liệu từ Supabase Online...</div>
+        {catalogState === 'error' || statusError ? null : catalogState === 'loading' || loading ? (
+          <div>Đang tải kho tài liệu...</div>
         ) : documents.length === 0 ? (
           <div
             style={{

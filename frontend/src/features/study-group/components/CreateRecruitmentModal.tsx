@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+import { useDialog } from '../../../hooks/useDialog';
+import React, { useState } from 'react';
 import { TargetGradeGoal } from '../../../types/study-group.types';
 
 interface CreateRecruitmentModalProps {
@@ -26,6 +27,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
   onClose,
   onSubmit,
 }) => {
+  const dialogRef = useDialog(onClose, isOpen);
   const [courseId, setCourseId] = useState<number>(courses[0]?.id || 1);
   const [semester, setSemester] = useState('2026.1');
   const [groupName, setGroupName] = useState('');
@@ -80,7 +82,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
   };
 
   return (
-    <div
+    <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Tạo nhóm học" tabIndex={-1}
       style={{
         position: 'fixed',
         inset: 0,
@@ -142,7 +144,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 12 }}>
             <div>
               <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Học phần</label>
-              <select
+              <select aria-label="Học phần"
                 value={courseId}
                 onChange={(e) => setCourseId(Number(e.target.value))}
                 style={{
@@ -224,7 +226,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
               <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Mục tiêu điểm số
               </label>
-              <select
+              <select aria-label="Mục tiêu điểm"
                 value={targetGrade}
                 onChange={(e) => setTargetGrade(e.target.value as TargetGradeGoal)}
                 style={{
@@ -379,7 +381,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
                 borderRadius: 20,
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: 'var(--color-charcoal-ink)',
+                color: '#fff',
                 fontWeight: 700,
                 cursor: 'pointer',
               }}

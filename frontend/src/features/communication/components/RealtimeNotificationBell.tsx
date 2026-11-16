@@ -38,7 +38,7 @@ export const RealtimeNotificationBell: React.FC = () => {
         title="Tin nhắn & Phòng Chat Nhóm"
         style={{
           padding: '6px 10px',
-          borderRadius: 20,
+          borderRadius: 9,
           background: 'var(--color-fog-mist)',
           border: '1px solid var(--color-fog-mist)',
           color: 'var(--color-charcoal-ink)',
@@ -55,7 +55,7 @@ export const RealtimeNotificationBell: React.FC = () => {
         style={{
           position: 'relative',
           padding: '6px 10px',
-          borderRadius: 20,
+          borderRadius: 9,
           background: 'var(--color-fog-mist)',
           border: '1px solid var(--border-color)',
           color: 'var(--color-charcoal-ink)',

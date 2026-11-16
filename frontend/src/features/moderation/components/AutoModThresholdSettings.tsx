@@ -28,6 +28,7 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
   const [editingCode, setEditingCode] = useState<string | null>(null);
   const [tempThreshold, setTempThreshold] = useState<number>(3);
   const [tempEnabled, setTempEnabled] = useState<boolean>(true);
+  const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
 
   const startEdit = (s: AutoModSettingItem) => {
@@ -37,10 +38,13 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
   };
 
   const handleSave = async (reasonCode: ReportReasonCode) => {
+    setError('');
     setSaving(true);
     try {
       await onUpdate(reasonCode, tempThreshold, tempEnabled);
       setEditingCode(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Update failed.');
     } finally {
       setSaving(false);
     }
@@ -51,13 +55,14 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 20,
+        borderRadius: 9,
         padding: 20,
         display: 'flex',
         flexDirection: 'column',
         gap: 14,
       }}
     >
+      {error && <p role="alert">{error}</p>}
       <div>
         <h3 style={{ margin: 0, fontSize: 16, color: 'var(--text-primary)' }}>
           ⚙️ Cấu hình Ngưỡng Tự động Ẩn Nội dung (Auto-Moderation)
@@ -78,8 +83,8 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '12px 16px',
-                borderRadius: 20,
-                background: 'rgba(15, 23, 42, 0.55)',
+                borderRadius: 9,
+                background: 'var(--bg-elevated)',
                 border: '1px solid var(--border-color)',
               }}
             >
@@ -106,7 +111,7 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
                         width: 55,
                         marginLeft: 6,
                         padding: '4px 6px',
-                        borderRadius: 20,
+                        borderRadius: 9,
                         background: '#ffffff',
                         border: '1px solid var(--border-color)',
                         color: 'var(--color-charcoal-ink)',
@@ -130,10 +135,10 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
                     onClick={() => handleSave(s.reason_code)}
                     style={{
                       padding: '5px 12px',
-                      borderRadius: 20,
+                      borderRadius: 9,
                       background: 'var(--brand-primary)',
                       border: 'none',
-                      color: 'var(--color-charcoal-ink)',
+                      color: '#fff',
                       fontSize: 12,
                       fontWeight: 600,
                       cursor: 'pointer',
@@ -165,7 +170,7 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
                       background: s.is_enabled
                         ? 'var(--color-highlight-yellow)'
                         : 'var(--color-fog-mist)',
-                      color: s.is_enabled ? '#34d399' : '#94a3b8',
+                      color: s.is_enabled ? '#347052' : '#94a3b8',
                       fontWeight: 600,
                     }}
                   >
@@ -177,7 +182,7 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
                     onClick={() => startEdit(s)}
                     style={{
                       padding: '5px 10px',
-                      borderRadius: 20,
+                      borderRadius: 9,
                       background: 'var(--color-fog-mist)',
                       border: '1px solid var(--border-color)',
                       color: 'var(--text-secondary)',

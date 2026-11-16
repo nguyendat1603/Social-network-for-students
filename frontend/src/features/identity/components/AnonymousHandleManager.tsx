@@ -51,7 +51,7 @@ export const AnonymousHandleManager: React.FC<AnonymousHandleManagerProps> = ({
             🎭 Định danh Ẩn danh (Anonymous Handle)
           </h3>
           <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 4 }}>
-            Hiển thị thay cho tên thật và MSSV khi bạn bật chế độ ẩn danh trong Hỏi đáp học tập (Module 2) hoặc Review Giảng viên/Học phần (Module 4).
+            Hiển thị thay cho tên thật và MSSV khi bạn bật chế độ ẩn danh trong Hỏi đáp học tập hoặc Review Giảng viên/Học phần.
           </p>
         </div>
         <span
@@ -72,7 +72,7 @@ export const AnonymousHandleManager: React.FC<AnonymousHandleManagerProps> = ({
         <div
           style={{
             padding: '10px 14px',
-            borderRadius: 20,
+            borderRadius: 9,
             background: 'var(--color-highlight-yellow)',
             color: 'var(--color-charcoal-ink)',
             fontSize: 13,
@@ -86,7 +86,7 @@ export const AnonymousHandleManager: React.FC<AnonymousHandleManagerProps> = ({
         <div
           style={{
             padding: '10px 14px',
-            borderRadius: 20,
+            borderRadius: 9,
             background: 'var(--color-fog-mist)',
             color: 'var(--color-charcoal-ink)',
             fontSize: 13,
@@ -97,7 +97,7 @@ export const AnonymousHandleManager: React.FC<AnonymousHandleManagerProps> = ({
       )}
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 12 }}>
-        <input
+        <input aria-label="Biệt danh ẩn danh"
           value={handle}
           onChange={(e) => setHandle(e.target.value)}
           placeholder="VD: BachKhoaAnDanh_9999"
@@ -106,11 +106,11 @@ export const AnonymousHandleManager: React.FC<AnonymousHandleManagerProps> = ({
           type="submit"
           disabled={loading}
           style={{
-            background: '#7c3aed',
-            color: 'var(--color-charcoal-ink)',
+            background: 'var(--brand-primary)',
+            color: '#fff',
             border: 'none',
             padding: '0 20px',
-            borderRadius: 20,
+            borderRadius: 9,
             fontWeight: 600,
           }}
         >
