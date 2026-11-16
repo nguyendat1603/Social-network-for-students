@@ -61,12 +61,12 @@ export const SkillsLanguageSelector: React.FC<SkillsLanguageSelectorProps> = ({
           gap: 10,
         }}
       >
-        <input
+        <input aria-label="Tên kỹ năng"
           value={skillName}
           onChange={(e) => setSkillName(e.target.value)}
           placeholder="VD: TypeScript, React, STM32, IELTS 7.5, JLPT N2..."
         />
-        <select
+        <select aria-label="Danh mục"
           value={category}
           onChange={(e) => setCategory(e.target.value as SkillCategory)}
         >
@@ -74,7 +74,7 @@ export const SkillsLanguageSelector: React.FC<SkillsLanguageSelectorProps> = ({
           <option value="LANGUAGE">Ngoại ngữ</option>
           <option value="SOFT_SKILL">Kỹ năng mềm</option>
         </select>
-        <select
+        <select aria-label="Trình độ kỹ năng"
           value={proficiencyLevel}
           onChange={(e) =>
             setProficiencyLevel(e.target.value as SkillProficiency)
@@ -93,7 +93,7 @@ export const SkillsLanguageSelector: React.FC<SkillsLanguageSelectorProps> = ({
             color: 'var(--color-charcoal-ink)',
             border: '1px solid var(--border-color)',
             padding: '0 16px',
-            borderRadius: 20,
+            borderRadius: 9,
             fontWeight: 600,
           }}
         >

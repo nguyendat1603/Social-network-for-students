@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+import { useDialog } from '../../../hooks/useDialog';
+import React, { useState } from 'react';
 import {
   ReportReasonCode,
   ReportTargetType,
@@ -50,6 +51,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
   onClose,
   onSuccess,
 }) => {
+  const dialogRef = useDialog(onClose, isOpen);
   const [reasonCode, setReasonCode] = useState<ReportReasonCode>('LEAKED_EXAM');
   const [description, setDescription] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -87,7 +89,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
   };
 
   return (
-    <div
+    <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Báo cáo vi phạm" tabIndex={-1}
       style={{
         position: 'fixed',
         inset: 0,
@@ -142,7 +144,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
               <div
                 style={{
                   padding: 10,
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'var(--color-sand-wash)',
                   border: '1px solid var(--color-sand-wash)',
                   color: 'var(--color-charcoal-ink)',
@@ -158,10 +160,10 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
               style={{
                 marginTop: 10,
                 padding: '9px 18px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: 'var(--color-charcoal-ink)',
+                color: '#fff',
                 fontWeight: 600,
                 cursor: 'pointer',
               }}
@@ -175,8 +177,8 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
               <div
                 style={{
                   padding: 10,
-                  borderRadius: 20,
-                  background: 'rgba(15, 23, 42, 0.6)',
+                  borderRadius: 9,
+                  background: 'var(--bg-elevated)',
                   border: '1px solid var(--border-color)',
                   fontSize: 12,
                   color: 'var(--text-secondary)',
@@ -190,7 +192,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
               <div
                 style={{
                   padding: 10,
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'var(--color-fog-mist)',
                   color: 'var(--color-charcoal-ink)',
                   fontSize: 13,
@@ -213,7 +215,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
                       alignItems: 'flex-start',
                       gap: 8,
                       padding: 10,
-                      borderRadius: 20,
+                      borderRadius: 9,
                       background:
                         reasonCode === r.code
                           ? 'var(--color-fog-mist)'
@@ -247,10 +249,10 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
             </div>
 
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="ReportViolationModal-field-1" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Mô tả chi tiết bằng chứng vi phạm (Tùy chọn)
               </label>
-              <textarea
+              <textarea id="ReportViolationModal-field-1"
                 rows={3}
                 placeholder="Cung cấp thêm chi tiết để giúp Ban quản trị xử lý nhanh hơn..."
                 value={description}
@@ -259,7 +261,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
                   width: '100%',
                   marginTop: 6,
                   padding: 10,
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: 'var(--color-charcoal-ink)',
@@ -274,7 +276,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
                 onClick={onClose}
                 style={{
                   padding: '9px 16px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'transparent',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-secondary)',
@@ -288,7 +290,7 @@ export const ReportViolationModal: React.FC<ReportViolationModalProps> = ({
                 disabled={submitting}
                 style={{
                   padding: '9px 18px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ef4444',
                   border: 'none',
                   color: 'var(--color-charcoal-ink)',

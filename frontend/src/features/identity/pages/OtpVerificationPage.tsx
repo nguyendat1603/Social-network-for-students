@@ -1,5 +1,5 @@
-﻿import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { APP_ROUTES } from '../../../config/routes.config';
 import { useAuth } from '../../../hooks/useAuth';
 import { identityService } from '../../../services/identity.service';
@@ -15,12 +15,20 @@ export const OtpVerificationPage: React.FC = () => {
     inferredStudentCode?: string;
   };
 
-  const [email, setEmail] = useState(state.email || '');
-  const [otpCode, setOtpCode] = useState(state.devOtpPreview || '');
-  const [devPreview, setDevPreview] = useState(state.devOtpPreview || '');
+  const [email, setEmail] = useState(state.email || new URLSearchParams(location.search).get('email') || '');
+  const [otpCode, setOtpCode] = useState(import.meta.env.DEV ? state.devOtpPreview || '' : '');
+  const [devPreview, setDevPreview] = useState(import.meta.env.DEV ? state.devOtpPreview || '' : '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
+
+  const [resending, setResending] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
+  useEffect(() => {
+    if (!cooldown) return;
+    const timer = window.setTimeout(() => setCooldown(value => value - 1), 1000);
+    return () => window.clearTimeout(timer);
+  }, [cooldown]);
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,22 +46,27 @@ export const OtpVerificationPage: React.FC = () => {
   };
 
   const handleResend = async () => {
+    if (resending || cooldown || !email) return;
+    setResending(true);
     setError(null);
     setInfo(null);
     try {
       const res = await identityService.resendOtp(email);
-      if (res.devOtpPreview) {
+      if (import.meta.env.DEV && res.devOtpPreview) {
         setDevPreview(res.devOtpPreview);
         setOtpCode(res.devOtpPreview);
       }
+      setCooldown(60);
       setInfo('Đã gửi lại mã OTP 6 chữ số mới!');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không thể gửi lại OTP.');
+    } finally {
+      setResending(false);
     }
   };
 
   return (
-    <div
+    <div className="campus-auth"
       style={{
         minHeight: '100vh',
         display: 'flex',
@@ -80,12 +93,12 @@ export const OtpVerificationPage: React.FC = () => {
           <strong style={{ color: 'var(--color-charcoal-ink)' }}>Verified Student</strong>.
         </p>
 
-        {devPreview && (
+        {import.meta.env.DEV && devPreview && (
           <div
             style={{
               marginTop: 14,
               padding: '10px 14px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               border: '1px solid var(--color-fog-mist)',
               fontSize: 13,
@@ -104,7 +117,7 @@ export const OtpVerificationPage: React.FC = () => {
             style={{
               marginTop: 14,
               padding: '10px 14px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-highlight-yellow)',
               color: 'var(--color-charcoal-ink)',
               fontSize: 13,
@@ -119,7 +132,7 @@ export const OtpVerificationPage: React.FC = () => {
             style={{
               marginTop: 14,
               padding: '10px 14px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               color: 'var(--color-charcoal-ink)',
               fontSize: 13,
@@ -139,10 +152,10 @@ export const OtpVerificationPage: React.FC = () => {
           }}
         >
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+            <label htmlFor="OtpVerificationPage-field-1" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
               Email sinh viên (.edu)
             </label>
-            <input
+            <input id="OtpVerificationPage-field-1"
               type="email"
               required
               value={email}
@@ -151,11 +164,13 @@ export const OtpVerificationPage: React.FC = () => {
           </div>
 
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+            <label htmlFor="OtpVerificationPage-field-2" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
               Mã OTP (6 chữ số)
             </label>
-            <input
+            <input id="OtpVerificationPage-field-2"
               required
+              inputMode="numeric"
+              autoComplete="one-time-code"
               maxLength={6}
               pattern="\d{6}"
               placeholder="123456"
@@ -174,11 +189,11 @@ export const OtpVerificationPage: React.FC = () => {
             type="submit"
             disabled={loading}
             style={{
-              background: 'var(--accent-emerald)',
-              color: '#06281e',
+              background: 'var(--brand-primary)',
+              color: '#fff',
               border: 'none',
               padding: '12px',
-              borderRadius: 20,
+              borderRadius: 9,
               fontWeight: 800,
               fontSize: 14,
             }}
@@ -189,18 +204,20 @@ export const OtpVerificationPage: React.FC = () => {
           <button
             type="button"
             onClick={handleResend}
+            disabled={loading || resending || cooldown > 0 || !email}
             style={{
               background: 'transparent',
               border: '1px solid var(--border-color)',
               color: 'var(--text-secondary)',
               padding: '10px',
-              borderRadius: 20,
+              borderRadius: 9,
               fontSize: 13,
             }}
           >
-            Gửi lại mã OTP (Cooldown 60 giây)
+            {resending ? 'Đang gửi…' : cooldown ? `Gửi lại sau ${cooldown} giây` : 'Gửi lại mã OTP'}
           </button>
         </form>
+        <Link to={APP_ROUTES.LOGIN}>← Về đăng nhập</Link>
       </div>
     </div>
   );

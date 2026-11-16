@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+import { useDialog } from '../../../hooks/useDialog';
+import React, { useState } from 'react';
 import {
   ModerationActionType,
   ModerationQueueItem,
@@ -22,6 +23,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
   onClose,
   onSubmit,
 }) => {
+  const dialogRef = useDialog(onClose, !!item);
   const [actionTaken, setActionTaken] = useState<ModerationActionType>('WARN');
   const [reason, setReason] = useState(
     'Vi phạm tiêu chuẩn cộng đồng về tính minh bạch học thuật & đời sống sinh viên.'
@@ -57,7 +59,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
   };
 
   return (
-    <div
+    <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Xử lý vi phạm" tabIndex={-1}
       style={{
         position: 'fixed',
         inset: 0,
@@ -102,7 +104,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
           <div
             style={{
               padding: 12,
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'rgba(15, 23, 42, 0.65)',
               border: '1px solid var(--border-color)',
               marginBottom: 14,
@@ -121,7 +123,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
           <div
             style={{
               padding: 10,
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               color: 'var(--color-charcoal-ink)',
               fontSize: 13,
@@ -134,17 +136,17 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+            <label htmlFor="UserSanctionModal-field-1" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
               Hình thức xử lý kỷ luật
             </label>
-            <select
+            <select id="UserSanctionModal-field-1"
               value={actionTaken}
               onChange={(e) => setActionTaken(e.target.value as ModerationActionType)}
               style={{
                 width: '100%',
                 marginTop: 6,
                 padding: '9px 12px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: 'var(--color-charcoal-ink)',
@@ -178,10 +180,10 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
           </label>
 
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+            <label htmlFor="UserSanctionModal-field-2" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
               Lý do kỷ luật (Lưu nhật ký bất biến)
             </label>
-            <textarea
+            <textarea id="UserSanctionModal-field-2"
               rows={3}
               required
               value={reason}
@@ -190,7 +192,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
                 width: '100%',
                 marginTop: 6,
                 padding: 10,
-                borderRadius: 20,
+                borderRadius: 9,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: 'var(--color-charcoal-ink)',
@@ -205,7 +207,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
               onClick={onClose}
               style={{
                 padding: '9px 16px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: 'transparent',
                 border: '1px solid var(--border-color)',
                 color: 'var(--text-secondary)',
@@ -219,7 +221,7 @@ export const UserSanctionModal: React.FC<UserSanctionModalProps> = ({
               disabled={submitting}
               style={{
                 padding: '9px 18px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: '#ef4444',
                 border: 'none',
                 color: 'var(--color-charcoal-ink)',

@@ -42,14 +42,14 @@ export const DocumentDetailPage: React.FC = () => {
 
   if (loading || !doc) {
     return (
-      <MainLayout>
+      <MainLayout courseCode={doc?.course?.code}>
         <div>Đang tải thông tin tài liệu...</div>
       </MainLayout>
     );
   }
 
   return (
-    <MainLayout>
+    <MainLayout courseCode={doc?.course?.code}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Link to={APP_ROUTES.RESOURCE_HUB} style={{ fontSize: 13 }}>
           ← Quay lại Kho Tài liệu Mở
@@ -114,7 +114,7 @@ export const DocumentDetailPage: React.FC = () => {
               onClick={handleDownload}
               style={{
                 background: 'var(--brand-primary)',
-                color: 'var(--color-charcoal-ink)',
+                color: '#fff',
                 border: 'none',
                 padding: '10px 18px',
                 borderRadius: 20,

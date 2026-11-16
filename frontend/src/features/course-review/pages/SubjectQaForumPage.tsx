@@ -10,11 +10,12 @@ import { CourseItem } from '../../../types/identity.types';
 import { SubjectQuestionSearch } from '../components/SubjectQuestionSearch';
 
 export const SubjectQaForumPage: React.FC = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const initialCourse = searchParams.get('courseCode') || '';
 
   const [courses, setCourses] = useState<CourseItem[]>([]);
   const [selectedCourseCode, setSelectedCourseCode] = useState(initialCourse);
+  useEffect(() => { setSelectedCourseCode(searchParams.get('courseCode') || ''); }, [searchParams]);
   const [keyword, setKeyword] = useState('');
   const [onlyAccepted, setOnlyAccepted] = useState(false);
   const [questions, setQuestions] = useState<PostItem[]>([]);
@@ -51,7 +52,7 @@ export const SubjectQaForumPage: React.FC = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout pageClassName="campus-page campus-reviews">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>
@@ -67,7 +68,12 @@ export const SubjectQaForumPage: React.FC = () => {
           selectedCourseCode={selectedCourseCode}
           keyword={keyword}
           onlyAccepted={onlyAccepted}
-          onCourseChange={setSelectedCourseCode}
+          onCourseChange={code => {
+            setSelectedCourseCode(code);
+            const next = new URLSearchParams(searchParams);
+            if (code) next.set('courseCode', code); else next.delete('courseCode');
+            setSearchParams(next);
+          }}
           onKeywordChange={setKeyword}
           onOnlyAcceptedChange={setOnlyAccepted}
         />

@@ -75,7 +75,7 @@ export const LecturerReviewList: React.FC<LecturerReviewListProps> = ({
                   style={{
                     fontSize: 11,
                     padding: '2px 8px',
-                    borderRadius: 20,
+                    borderRadius: 9,
                     background: 'var(--color-highlight-yellow)',
                     color: 'var(--color-charcoal-ink)',
                   }}
@@ -114,7 +114,7 @@ export const LecturerReviewList: React.FC<LecturerReviewListProps> = ({
             <div
               style={{
                 padding: '10px 14px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: 'var(--color-highlight-yellow)',
                 border: '1px solid var(--color-highlight-yellow)',
                 fontSize: 13,

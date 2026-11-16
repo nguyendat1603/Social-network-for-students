@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+import { useDialog } from '../../../hooks/useDialog';
+import React, { useState } from 'react';
 import { RichTextEditor } from '../../../components/common/RichTextEditor';
 import { useAnonymousMode } from '../../../hooks/useAnonymousMode';
 import { FeedScope, PostType } from '../../../types/feed.types';
@@ -6,6 +7,7 @@ import { CourseItem, FacultyItem } from '../../../types/identity.types';
 
 interface PostComposerModalProps {
   defaultScope: FeedScope;
+  defaultCourseId?: string;
   faculties: FacultyItem[];
   courses: CourseItem[];
   onClose: () => void;
@@ -22,16 +24,18 @@ interface PostComposerModalProps {
 
 export const PostComposerModal: React.FC<PostComposerModalProps> = ({
   defaultScope,
+  defaultCourseId,
   faculties,
   courses,
   onClose,
   onSubmit,
 }) => {
+  const dialogRef = useDialog(onClose);
   const { isAnonymousActive, anonymousHandle } = useAnonymousMode();
   const [feedScope, setFeedScope] = useState<FeedScope>(defaultScope);
   const [postType, setPostType] = useState<PostType>('QUESTION');
   const [facultyId, setFacultyId] = useState('');
-  const [courseId, setCourseId] = useState('');
+  const [courseId, setCourseId] = useState(defaultCourseId || '');
   const [title, setTitle] = useState('');
   const [contentBody, setContentBody] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(isAnonymousActive);
@@ -61,7 +65,7 @@ export const PostComposerModal: React.FC<PostComposerModalProps> = ({
   };
 
   return (
-    <div
+    <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Đăng bài viết" tabIndex={-1}
       style={{
         position: 'fixed',
         inset: 0,
@@ -71,13 +75,18 @@ export const PostComposerModal: React.FC<PostComposerModalProps> = ({
         justifyContent: 'center',
         zIndex: 90,
         padding: 20,
+        overflowY: 'auto',
       }}
     >
       <form
+        className="campus-post-composer"
         onSubmit={handleSubmit}
         style={{
           width: '100%',
           maxWidth: 680,
+          minWidth: 0,
+          maxHeight: 'calc(100dvh - 40px)',
+          overflowY: 'auto',
           backgroundColor: 'var(--bg-card)',
           border: '1px solid var(--border-color)',
           borderRadius: 'var(--radius-lg)',
@@ -178,7 +187,7 @@ export const PostComposerModal: React.FC<PostComposerModalProps> = ({
             <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
               Gắn Học phần (Hoặc gõ #MãMôn trong nội dung)
             </label>
-            <select
+            <select aria-label="Học phần"
               value={courseId}
               onChange={(e) => setCourseId(e.target.value)}
             >
@@ -229,7 +238,7 @@ export const PostComposerModal: React.FC<PostComposerModalProps> = ({
           </label>
         )}
 
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
+        <div className="campus-post-composer-actions" style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
           <button
             type="button"
             onClick={onClose}

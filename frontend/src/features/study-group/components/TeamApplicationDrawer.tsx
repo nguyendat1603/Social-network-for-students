@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+import { useDialog } from '../../../hooks/useDialog';
+import React, { useState } from 'react';
 import { StudyGroupItem } from '../../../types/study-group.types';
 
 interface TeamApplicationDrawerProps {
@@ -15,6 +16,7 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
   onClose,
   onSubmit,
 }) => {
+  const dialogRef = useDialog(onClose, !!group);
   const availableSlots = (group?.slots || []).filter(
     (s) => s.quantity_filled < s.quantity_needed
   );
@@ -47,7 +49,7 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
   };
 
   return (
-    <div
+    <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Ứng tuyển nhóm học" tabIndex={-1}
       style={{
         position: 'fixed',
         inset: 0,
@@ -199,7 +201,7 @@ export const TeamApplicationDrawer: React.FC<TeamApplicationDrawerProps> = ({
               borderRadius: 20,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               fontWeight: 700,
               cursor: 'pointer',
             }}

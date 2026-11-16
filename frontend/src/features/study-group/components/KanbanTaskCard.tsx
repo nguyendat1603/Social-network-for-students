@@ -112,7 +112,7 @@ export const KanbanTaskCard: React.FC<KanbanTaskCardProps> = ({
                   ? 'var(--color-highlight-yellow)'
                   : 'var(--color-fog-mist)',
               border: 'none',
-              color: nextStatus === 'DONE' ? '#34d399' : '#60a5fa',
+              color: nextStatus === 'DONE' ? '#347052' : '#446878',
               fontSize: 11,
               fontWeight: 600,
               cursor: 'pointer',

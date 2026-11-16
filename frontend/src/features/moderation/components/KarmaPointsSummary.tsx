@@ -32,7 +32,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 20,
+            borderRadius: 9,
             padding: 20,
             display: 'flex',
             flexDirection: 'column',
@@ -46,7 +46,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
             style={{
               fontSize: 36,
               fontWeight: 800,
-              color: isPositive ? '#34d399' : '#f87171',
+              color: isPositive ? '#347052' : '#f87171',
               marginTop: 6,
             }}
           >
@@ -73,7 +73,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 20,
+            borderRadius: 9,
             padding: 20,
             display: 'flex',
             flexDirection: 'column',
@@ -103,7 +103,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 20,
+            borderRadius: 9,
             padding: 20,
             display: 'flex',
             flexDirection: 'column',
@@ -136,7 +136,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
         style={{
           background: 'var(--bg-secondary)',
           border: '1px solid var(--border-color)',
-          borderRadius: 20,
+          borderRadius: 9,
           padding: 20,
         }}
       >
@@ -165,8 +165,8 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding: '10px 14px',
-                    borderRadius: 20,
-                    background: 'rgba(15, 23, 42, 0.55)',
+                    borderRadius: 9,
+                    background: 'var(--bg-elevated)',
                     border: '1px solid var(--border-color)',
                   }}
                 >
@@ -186,7 +186,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
                     style={{
                       fontSize: 14,
                       fontWeight: 700,
-                      color: isPlus ? '#34d399' : '#f87171',
+                      color: isPlus ? '#347052' : '#f87171',
                     }}
                   >
                     {isPlus ? `+${tx.points_delta}` : tx.points_delta} Karma

@@ -17,7 +17,7 @@ interface ModerationQueueTableProps {
 
 const REASON_LABELS: Record<string, { label: string; color: string }> = {
   LEAKED_EXAM: { label: 'Đề thi cấm leak', color: 'var(--color-charcoal-ink)' },
-  SCAM_HOUSING: { label: 'Lừa đảo phòng trọ', color: '#fb923c' },
+  SCAM_HOUSING: { label: 'Lừa đảo phòng trọ', color: '#8b6227' },
   HARASSMENT_TOXIC: { label: 'Công kích / Độc hại', color: '#f43f5e' },
   COPYRIGHT_WRONG_DOC: { label: 'Tài liệu sai / Bản quyền', color: '#eab308' },
   SPAM: { label: 'Spam quảng cáo', color: 'var(--color-graphite)' },
@@ -34,7 +34,7 @@ export const ModerationQueueTable: React.FC<ModerationQueueTableProps> = ({
         style={{
           background: 'var(--bg-secondary)',
           border: '1px solid var(--border-color)',
-          borderRadius: 20,
+          borderRadius: 9,
           padding: 36,
           textAlign: 'center',
           color: 'var(--text-muted)',
@@ -61,7 +61,7 @@ export const ModerationQueueTable: React.FC<ModerationQueueTableProps> = ({
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 20,
+              borderRadius: 9,
               padding: 18,
               display: 'flex',
               flexDirection: 'column',
@@ -84,7 +84,7 @@ export const ModerationQueueTable: React.FC<ModerationQueueTableProps> = ({
                       fontSize: 11,
                       fontWeight: 700,
                       padding: '3px 8px',
-                      borderRadius: 20,
+                      borderRadius: 9,
                       background: 'var(--color-fog-mist)',
                       color: 'var(--color-charcoal-ink)',
                     }}
@@ -96,7 +96,7 @@ export const ModerationQueueTable: React.FC<ModerationQueueTableProps> = ({
                       fontSize: 11,
                       fontWeight: 700,
                       padding: '3px 8px',
-                      borderRadius: 20,
+                      borderRadius: 9,
                       background: 'var(--color-fog-mist)',
                       color: reasonMeta.color,
                     }}
@@ -119,7 +119,7 @@ export const ModerationQueueTable: React.FC<ModerationQueueTableProps> = ({
                   alignItems: 'center',
                   gap: 8,
                   padding: '6px 12px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'var(--color-fog-mist)',
                   border: '1px solid var(--color-fog-mist)',
                   color: 'var(--color-charcoal-ink)',
@@ -136,7 +136,7 @@ export const ModerationQueueTable: React.FC<ModerationQueueTableProps> = ({
               <div
                 style={{
                   padding: 12,
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'rgba(15, 23, 42, 0.65)',
                   border: '1px solid var(--border-color)',
                   fontSize: 13,
@@ -156,8 +156,8 @@ export const ModerationQueueTable: React.FC<ModerationQueueTableProps> = ({
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '8px 12px',
-                borderRadius: 20,
-                background: 'rgba(30, 41, 59, 0.6)',
+                borderRadius: 9,
+                background: 'var(--bg-elevated)',
                 border: '1px solid var(--border-color)',
                 fontSize: 12,
               }}
@@ -242,7 +242,7 @@ export const ModerationQueueTable: React.FC<ModerationQueueTableProps> = ({
                 }
                 style={{
                   padding: '7px 14px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'var(--color-fog-mist)',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-secondary)',
@@ -266,7 +266,7 @@ export const ModerationQueueTable: React.FC<ModerationQueueTableProps> = ({
                 }
                 style={{
                   padding: '7px 14px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'var(--color-fog-mist)',
                   border: '1px solid var(--color-fog-mist)',
                   color: 'var(--color-charcoal-ink)',
@@ -283,10 +283,10 @@ export const ModerationQueueTable: React.FC<ModerationQueueTableProps> = ({
                 onClick={() => onSanctionClick(item)}
                 style={{
                   padding: '7px 14px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'var(--brand-primary)',
                   border: 'none',
-                  color: 'var(--color-charcoal-ink)',
+                  color: '#fff',
                   fontSize: 12,
                   fontWeight: 700,
                   cursor: 'pointer',

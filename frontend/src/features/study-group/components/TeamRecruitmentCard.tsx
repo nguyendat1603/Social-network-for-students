@@ -230,7 +230,7 @@ export const TeamRecruitmentCard: React.FC<TeamRecruitmentCardProps> = ({
                 borderRadius: 20,
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: 'var(--color-charcoal-ink)',
+                color: '#fff',
                 fontWeight: 600,
                 fontSize: 13,
                 cursor: 'pointer',

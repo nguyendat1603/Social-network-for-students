@@ -83,7 +83,7 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
           📚 Hồ sơ Học thuật (Academic Profile)
         </h3>
         <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 4 }}>
-          Thông tin dùng để ghép nhóm đồ án (Module 3) và cá nhân hóa bảng tin theo Khoa/Viện & Học phần.
+          Thông tin dùng để ghép nhóm đồ án và cá nhân hóa bảng tin theo Khoa/Viện & Học phần.
         </p>
       </div>
 
@@ -91,7 +91,7 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
         <div
           style={{
             padding: '10px 14px',
-            borderRadius: 20,
+            borderRadius: 9,
             background: 'var(--color-highlight-yellow)',
             color: 'var(--color-charcoal-ink)',
             fontSize: 13,
@@ -105,7 +105,7 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
         <div
           style={{
             padding: '10px 14px',
-            borderRadius: 20,
+            borderRadius: 9,
             background: 'var(--color-fog-mist)',
             color: 'var(--color-charcoal-ink)',
             fontSize: 13,
@@ -123,10 +123,10 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
         }}
       >
         <div>
-          <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+          <label htmlFor="AcademicInfoForm-field-1" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
             Họ và tên sinh viên *
           </label>
-          <input
+          <input id="AcademicInfoForm-field-1"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
@@ -134,10 +134,10 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
         </div>
 
         <div>
-          <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+          <label htmlFor="AcademicInfoForm-field-2" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
             Mã số sinh viên (MSSV)
           </label>
-          <input
+          <input id="AcademicInfoForm-field-2"
             value={studentCode}
             onChange={(e) => setStudentCode(e.target.value)}
             placeholder="VD: 20215340"
@@ -145,10 +145,10 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
         </div>
 
         <div>
-          <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+          <label htmlFor="AcademicInfoForm-field-3" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
             Khoa / Viện / Trường đào tạo
           </label>
-          <select
+          <select id="AcademicInfoForm-field-3"
             value={facultyId}
             onChange={(e) => setFacultyId(e.target.value)}
           >
@@ -162,10 +162,10 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
         </div>
 
         <div>
-          <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+          <label htmlFor="AcademicInfoForm-field-4" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
             Chuyên ngành (Major)
           </label>
-          <input
+          <input id="AcademicInfoForm-field-4"
             value={major}
             onChange={(e) => setMajor(e.target.value)}
             placeholder="VD: Khoa học Máy tính / Kỹ thuật Phần mềm"
@@ -173,10 +173,10 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
         </div>
 
         <div>
-          <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+          <label htmlFor="AcademicInfoForm-field-5" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
             Khóa (Cohort)
           </label>
-          <input
+          <input id="AcademicInfoForm-field-5"
             value={cohort}
             onChange={(e) => setCohort(e.target.value)}
             placeholder="VD: K66, K67, K68"
@@ -184,10 +184,10 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
         </div>
 
         <div>
-          <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+          <label htmlFor="AcademicInfoForm-field-6" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
             Lớp sinh hoạt (Class)
           </label>
-          <input
+          <input id="AcademicInfoForm-field-6"
             value={className}
             onChange={(e) => setClassName(e.target.value)}
             placeholder="VD: IT1-02 K66"
@@ -196,10 +196,10 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
       </div>
 
       <div>
-        <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+        <label htmlFor="AcademicInfoForm-field-7" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
           Mục tiêu nghề nghiệp (Career Goal)
         </label>
-        <input
+        <input id="AcademicInfoForm-field-7"
           value={careerGoal}
           onChange={(e) => setCareerGoal(e.target.value)}
           placeholder="VD: Backend Engineer (Distributed Systems), AI Researcher..."
@@ -207,10 +207,10 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
       </div>
 
       <div>
-        <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+        <label htmlFor="AcademicInfoForm-field-8" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
           Giới thiệu bản thân & Định hướng học tập (Bio)
         </label>
-        <textarea
+        <textarea id="AcademicInfoForm-field-8"
           rows={3}
           value={bio}
           onChange={(e) => setBio(e.target.value)}
@@ -226,10 +226,10 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
           disabled={saving}
           style={{
             background: 'var(--brand-primary)',
-            color: 'var(--color-charcoal-ink)',
+            color: '#fff',
             border: 'none',
             padding: '10px 22px',
-            borderRadius: 20,
+            borderRadius: 9,
             fontWeight: 600,
           }}
         >

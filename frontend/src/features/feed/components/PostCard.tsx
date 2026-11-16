@@ -13,8 +13,7 @@ interface PostCardProps {
 
 export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
   const navigate = useNavigate();
-  const [subscribed, setSubscribed] = useState(false);
-  const [sharedToast, setSharedToast] = useState(false);
+  const [shareStatus, setShareStatus] = useState('');
 
   const authorName = post.is_anonymous
     ? `@${post.author?.anonymous_handle || 'SinhVienAnDanh'}`
@@ -48,15 +47,18 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
     minute: '2-digit',
   });
 
-  const handleShare = () => {
-    const url = `${window.location.origin}/feed/posts/${post.id}`;
-    navigator.clipboard?.writeText(url).catch(() => {});
-    setSharedToast(true);
-    setTimeout(() => setSharedToast(false), 1800);
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(`${window.location.origin}/feed/posts/${post.id}`);
+      setShareStatus('Đã chép liên kết');
+    } catch {
+      setShareStatus('Không thể sao chép. Hãy mở chi tiết và chép địa chỉ trang.');
+    }
   };
 
   return (
     <article className="substack-post-item">
+      {shareStatus && <p role="status">{shareStatus}</p>}
       {/* 1. Author Row + Top-right 'Theo dõi' (Subscribe) Link in #ff6719 */}
       <div
         style={{
@@ -133,17 +135,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
         </div>
 
         {/* Inline 'Theo dõi' (Subscribe) Link in #ff6719 */}
-        <button
-          type="button"
-          onClick={() => setSubscribed((prev) => !prev)}
-          className="substack-subscribe-link"
-          style={{
-            color: subscribed ? 'var(--color-stone)' : 'var(--color-signal-orange)',
-            flexShrink: 0,
-          }}
-        >
-          {subscribed ? 'Đã theo dõi' : 'Theo dõi'}
-        </button>
+
       </div>
 
       {/* 2. Substack AI / Academic Annotation Badge Row */}
@@ -309,7 +301,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
               <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
               <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
             </svg>
-            <span>{sharedToast ? 'Đã chép link!' : 'Chia sẻ'}</span>
+            <span>{shareStatus || 'Chia sẻ'}</span>
           </button>
 
           <Link

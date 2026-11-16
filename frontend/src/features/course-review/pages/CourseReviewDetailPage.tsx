@@ -27,10 +27,12 @@ export const CourseReviewDetailPage: React.FC = () => {
   const [lecturers, setLecturers] = useState<LecturerItem[]>([]);
   const [reviews, setReviews] = useState<CourseReviewItem[]>([]);
   const [showWriteModal, setShowWriteModal] = useState(false);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   const loadDetail = useCallback(async () => {
     if (!courseCode) return;
+    setError('');
     setLoading(true);
     try {
       const res = await courseReviewService.getCourseReviewDetail(courseCode);
@@ -38,6 +40,8 @@ export const CourseReviewDetailPage: React.FC = () => {
       setAggregate(res.aggregate);
       setLecturers(res.lecturers);
       setReviews(res.reviews);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to load reviews.');
     } finally {
       setLoading(false);
     }
@@ -47,16 +51,18 @@ export const CourseReviewDetailPage: React.FC = () => {
     loadDetail();
   }, [loadDetail]);
 
+  if (error) return <MainLayout pageClassName="campus-page campus-reviews"><p role="alert">{error}</p><button type="button" onClick={loadDetail}>Retry</button></MainLayout>;
+
   if (loading || !course || !aggregate) {
     return (
-      <MainLayout>
+      <MainLayout pageClassName="campus-page campus-reviews">
         <div>Đang tải dữ liệu đánh giá học phần #{courseCode}...</div>
       </MainLayout>
     );
   }
 
   return (
-    <MainLayout>
+    <MainLayout pageClassName="campus-page campus-reviews">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Link to={APP_ROUTES.COURSE_REVIEWS} style={{ fontSize: 13 }}>
           ← Quay lại Danh mục Học phần
@@ -89,7 +95,7 @@ export const CourseReviewDetailPage: React.FC = () => {
               to={`/course-reviews/forum?courseCode=${course.code}`}
               style={{
                 padding: '10px 14px',
-                borderRadius: 20,
+                borderRadius: 9,
                 border: '1px solid var(--border-color)',
                 color: 'var(--color-charcoal-ink)',
                 fontSize: 13,
@@ -102,11 +108,11 @@ export const CourseReviewDetailPage: React.FC = () => {
               type="button"
               onClick={() => setShowWriteModal(true)}
               style={{
-                background: '#7c3aed',
-                color: 'var(--color-charcoal-ink)',
+                background: 'var(--brand-primary)',
+                color: '#fff',
                 border: 'none',
                 padding: '10px 18px',
-                borderRadius: 20,
+                borderRadius: 9,
                 fontWeight: 700,
                 fontSize: 13,
               }}

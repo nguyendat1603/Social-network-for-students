@@ -123,3 +123,83 @@
 @media (prefers-reduced-motion: reduce) {
   .shell *, .shell *::before, .shell *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
+/* Compatibility tokens are scoped to the Campus shell, including existing inline styles. */
+.shell {
+  --color-signal-orange: #9f2630;
+  --color-signal-orange-hover: #83202a;
+  --brand-primary: #9f2630;
+  --brand-primary-hover: #83202a;
+  --color-ink: #252b2e;
+  --color-stone: #697478;
+  --color-cloud: #f0f2ee;
+  --color-ash: #cbd2cc;
+  --color-paper: #fff;
+  --color-sand-wash: #f7efec;
+  --color-highlight-yellow: #edf4ee;
+  --text-primary: #252b2e;
+  --text-secondary: #434c50;
+  --text-muted: #697478;
+  --bg-secondary: #f5f5f2;
+  --border-color: #e4e7e5;
+  --font-system-ui: 'Segoe UI', 'Noto Sans', Arial, sans-serif;
+  --font-cahuenga: var(--font-system-ui);
+  --font-spectral: var(--font-system-ui);
+  --radius-buttons: 8px;
+}
+.workspace { background: var(--cs-page); }
+.search { display: flex; align-items: center; border: 1px solid var(--cs-border); border-radius: 8px; background: #f7f8f5; min-width: 0; }
+.search input { width: 220px; min-width: 0; border: 0; background: transparent; padding: 10px; color: var(--cs-ink); font: inherit; font-size: 13px; }
+.search button { border: 0; background: transparent; padding: 8px; color: var(--cs-muted); display: flex; }
+.search svg { width: 18px; height: 18px; }
+.courseTabs { display: flex; flex-wrap: wrap; gap: 22px; padding: 0 0 18px; margin-bottom: 24px; border-bottom: 1px solid var(--cs-border); }
+.shell .courseTabs a { color: var(--cs-red); font-weight: 650; font-size: 13px; }
+.shell :global(.substack-btn-primary), .shell :global(.substack-btn-secondary) { border-radius: 8px; min-height: 40px; box-shadow: none; }
+.shell :global(.substack-post-item) { padding: 26px 0; border-bottom: 1px solid var(--cs-border); background: transparent; }
+.shell :global(.substack-post-item) h2 { font: 750 20px/1.45 var(--cs-font); letter-spacing: -.025em; }
+.shell :global(.campus-welcome) h1 { font-size: clamp(29px, 3vw, 38px); letter-spacing: -.045em; line-height: 1.2; margin: 10px 0 16px; }
+.shell :global(.campus-welcome) p { color: var(--cs-muted); }
+.shell :global(.campus-eyebrow) { font-size: 10px; letter-spacing: .15em; font-weight: 750; }
+.shell :global(.campus-guide) { margin-top: 22px; padding: 16px 18px; background: #f0f2eb; border: 1px solid #e0e6dc; border-radius: 9px; font-size: 13px; }
+.shell :global(.campus-guide) summary { cursor: pointer; font-weight: 700; }
+.shell :global(.campus-quick-actions) { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); padding: 24px 0; border-bottom: 1px solid var(--cs-border); gap: 16px; }
+.shell :global(.campus-quick-actions) a { display: flex; flex-direction: column; gap: 5px; font-size: 14px; }
+.shell :global(.campus-quick-actions) small { color: var(--cs-muted); font-size: 12px; }
+.shell :global(.campus-course-links) { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 0; }
+.shell :global(.campus-course-links) a { border: 1px solid var(--cs-border); border-radius: 7px; padding: 7px 10px; font-size: 12px; }
+.shell :is(input, textarea, select) { max-width: 100%; }
+.shell :is(input, textarea, select):focus-visible { outline: 2px solid var(--cs-red); outline-offset: 2px; }
+.shell :is(button, a) { overflow-wrap: anywhere; }
+.shell button:disabled { cursor: not-allowed; opacity: .55; }
+.main { overflow-wrap: anywhere; }
+.main img { max-width: 100%; }
+.main pre { max-width: 100%; overflow: auto; }
+@media(max-width:810px) {
+  .header { gap: 8px; }
+  .headerActions { gap: 7px; min-width: 0; }
+  .search input { width: 110px; }
+  .location { display: none; }
+  .shell :global(.campus-quick-actions) { grid-template-columns: 1fr; gap: 18px; }
+}
+@media(max-width:540px) {
+  .header { padding: 0 12px; }
+  .search input { width: 85px; font-size: 12px; padding: 8px 4px; }
+  .search button { padding: 6px; }
+  .headerActions { gap: 5px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .shell *, .shell *::before, .shell *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+.mobileBrand { flex-shrink: 0; white-space: nowrap; }
+.shell :global(.campus-chat-bubbles) { bottom: 18px; }
+@media(max-width:810px) {
+  .shell :global(.campus-chat-bubbles) { bottom: 88px !important; }
+}
+@media(max-width:540px) {
+  .search { position: relative; }
+  .search input { width: 0; padding: 0; }
+  .search:focus-within { position: absolute; left: 12px; right: 12px; z-index: 30; }
+  .search:focus-within input { width: 100%; padding: 10px; }
+}
+.shell .courseTabs a[aria-current=page] { color: var(--cs-red); border-bottom: 2px solid var(--cs-red); padding-bottom: 9px; font-weight: 800; }
+.shell .secondaryNav a[aria-current=page] { color: var(--cs-red); background: #f9ebeb; }
+.main:focus { outline: none; }

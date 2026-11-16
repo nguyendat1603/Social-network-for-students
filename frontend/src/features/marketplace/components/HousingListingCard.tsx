@@ -37,7 +37,7 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 20,
+        borderRadius: 9,
         padding: 18,
         display: 'flex',
         flexDirection: 'column',
@@ -58,15 +58,15 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
               fontSize: 11,
               fontWeight: 700,
               padding: '3px 9px',
-              borderRadius: 20,
+              borderRadius: 9,
               background:
                 listing.listing_type === 'ROOMMATE_WANTED'
                   ? 'var(--color-highlight-yellow)'
                   : 'var(--color-fog-mist)',
               color:
                 listing.listing_type === 'ROOMMATE_WANTED'
-                  ? '#34d399'
-                  : '#60a5fa',
+                  ? '#347052'
+                  : '#446878',
             }}
           >
             {listing.listing_type === 'ROOMMATE_WANTED'
@@ -105,8 +105,8 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             style={{
               fontSize: 11,
               padding: '3px 8px',
-              borderRadius: 20,
-              background: 'rgba(30, 41, 59, 0.9)',
+              borderRadius: 9,
+              background: 'var(--bg-elevated)',
               color: 'var(--color-charcoal-ink)',
             }}
           >
@@ -116,11 +116,11 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             style={{
               fontSize: 11,
               padding: '3px 8px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: listing.smoking_allowed
                 ? 'var(--color-sand-wash)'
                 : 'var(--color-highlight-yellow)',
-              color: listing.smoking_allowed ? '#fbbf24' : '#34d399',
+              color: listing.smoking_allowed ? '#8b6227' : '#347052',
             }}
           >
             {listing.smoking_allowed ? '🚬 Cho phép hút thuốc' : '🚭 Không hút thuốc'}
@@ -129,7 +129,7 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             style={{
               fontSize: 11,
               padding: '3px 8px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               color: 'var(--color-charcoal-ink)',
             }}
@@ -140,7 +140,7 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             style={{
               fontSize: 11,
               padding: '3px 8px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               color: 'var(--color-charcoal-ink)',
             }}
@@ -185,7 +185,7 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             }
             style={{
               padding: '6px 12px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               border: '1px solid var(--border-color)',
               color: 'var(--color-charcoal-ink)',
@@ -201,10 +201,10 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             onClick={() => onMessagePoster(listing.poster_id, listing.title)}
             style={{
               padding: '7px 14px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               fontWeight: 600,
               fontSize: 12,
               cursor: 'pointer',

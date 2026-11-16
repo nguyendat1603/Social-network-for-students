@@ -16,6 +16,7 @@ import { MarketplaceItemCard } from '../components/MarketplaceItemCard';
 import { PostMarketplaceItemModal } from '../components/PostMarketplaceItemModal';
 
 export const StudentMarketplacePage: React.FC = () => {
+  const [statusError, setStatusError] = useState('');
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -31,6 +32,7 @@ export const StudentMarketplacePage: React.FC = () => {
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
 
   const loadItems = async () => {
+    setStatusError('');
     setLoading(true);
     try {
       const [itemList, hierarchy] = await Promise.all([
@@ -54,7 +56,7 @@ export const StudentMarketplacePage: React.FC = () => {
         )
       );
     } catch (err) {
-      console.error('Failed to load marketplace items:', err);
+      setStatusError(err instanceof Error ? err.message : 'Không thể tải dữ liệu. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }
@@ -77,14 +79,15 @@ export const StudentMarketplacePage: React.FC = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout pageClassName="campus-page campus-market">
+      {statusError && <p role="alert" className="campus-error">{statusError}</p>}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
         {/* Header & Mode Switch */}
         <div
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 20,
+            borderRadius: 9,
             padding: 20,
             display: 'flex',
             justifyContent: 'space-between',
@@ -97,9 +100,9 @@ export const StudentMarketplacePage: React.FC = () => {
                 to={APP_ROUTES.MARKETPLACE_ITEMS}
                 style={{
                   padding: '6px 12px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'var(--brand-primary)',
-                  color: 'var(--color-charcoal-ink)',
+                  color: '#fff',
                   fontSize: 12,
                   fontWeight: 700,
                 }}
@@ -110,7 +113,7 @@ export const StudentMarketplacePage: React.FC = () => {
                 to={APP_ROUTES.HOUSING_FINDER}
                 style={{
                   padding: '6px 12px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'var(--color-fog-mist)',
                   color: 'var(--text-secondary)',
                   fontSize: 12,
@@ -133,10 +136,10 @@ export const StudentMarketplacePage: React.FC = () => {
             onClick={() => setIsPostModalOpen(true)}
             style={{
               padding: '10px 18px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               fontWeight: 700,
               fontSize: 13,
               cursor: 'pointer',
@@ -160,7 +163,7 @@ export const StudentMarketplacePage: React.FC = () => {
           onApply={loadItems}
         />
 
-        {loading ? (
+        {statusError ? null : loading ? (
           <div style={{ padding: 36, textAlign: 'center', color: 'var(--text-muted)' }}>
             Đang tải mặt hàng...
           </div>
@@ -169,7 +172,7 @@ export const StudentMarketplacePage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 20,
+              borderRadius: 9,
               padding: 36,
               textAlign: 'center',
               color: 'var(--text-secondary)',
@@ -181,7 +184,7 @@ export const StudentMarketplacePage: React.FC = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 290px), 1fr))',
               gap: 16,
             }}
           >
@@ -192,8 +195,10 @@ export const StudentMarketplacePage: React.FC = () => {
                 currentUserId={user?.userId}
                 onMessageSeller={handleMessageSeller}
                 onStatusChange={async (itemId, status) => {
+                  try {
                   await marketplaceService.updateItemStatus(itemId, status);
                   await loadItems();
+                  } catch (err) { setStatusError(err instanceof Error ? err.message : 'Update failed.'); }
                 }}
               />
             ))}

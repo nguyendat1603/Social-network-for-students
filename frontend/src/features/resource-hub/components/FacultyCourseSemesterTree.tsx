@@ -44,7 +44,7 @@ export const FacultyCourseSemesterTree: React.FC<
     : tree.flatMap((f) => f.courses);
 
   return (
-    <div
+    <div className="campus-resource-filters"
       style={{
         backgroundColor: 'var(--bg-card)',
         border: '1px solid var(--border-color)',
@@ -56,10 +56,10 @@ export const FacultyCourseSemesterTree: React.FC<
       }}
     >
       <div>
-        <label style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
+        <label htmlFor="resource-filter-0" style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
           1. Khoa / Viện (Faculty)
         </label>
-        <select
+        <select id="resource-filter-0"
           value={selectedFacultyId}
           onChange={(e) => {
             onSelectFaculty(e.target.value);
@@ -76,10 +76,10 @@ export const FacultyCourseSemesterTree: React.FC<
       </div>
 
       <div>
-        <label style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
+        <label htmlFor="resource-filter-1" style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
           2. Mã môn học (Course)
         </label>
-        <select
+        <select id="resource-filter-1"
           value={selectedCourseId}
           onChange={(e) => onSelectCourse(e.target.value)}
         >
@@ -93,10 +93,10 @@ export const FacultyCourseSemesterTree: React.FC<
       </div>
 
       <div>
-        <label style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
+        <label htmlFor="resource-filter-2" style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
           3. Kỳ học / Năm (Semester)
         </label>
-        <select
+        <select id="resource-filter-2"
           value={selectedSemester}
           onChange={(e) => onSelectSemester(e.target.value)}
         >
@@ -110,10 +110,10 @@ export const FacultyCourseSemesterTree: React.FC<
       </div>
 
       <div>
-        <label style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
+        <label htmlFor="resource-filter-3" style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
           4. Loại tài liệu (Resource Type)
         </label>
-        <select
+        <select id="resource-filter-3"
           value={selectedDocType}
           onChange={(e) =>
             onSelectDocType(e.target.value as DocumentType | '')

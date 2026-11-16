@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+import { useDialog } from '../../../hooks/useDialog';
+import React, { useState } from 'react';
 import { CourseItem, FacultyItem } from '../../../types/identity.types';
 import { DocumentType } from '../../../types/resource-hub.types';
 
@@ -25,16 +26,15 @@ export const UploadResourceModal: React.FC<UploadResourceModalProps> = ({
   onClose,
   onSubmit,
 }) => {
+  const dialogRef = useDialog(onClose);
   const [facultyId, setFacultyId] = useState(faculties[0]?.id || '');
   const [courseId, setCourseId] = useState(courses[0]?.id || '');
   const [semester, setSemester] = useState('2025.1');
   const [docType, setDocType] = useState<DocumentType>('FINAL_EXAM');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [fileUrl, setFileUrl] = useState(
-    'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-  );
-  const [fileName, setFileName] = useState('De_thi_cuoi_ky_IT3080_2025_1.pdf');
+  const [fileUrl, setFileUrl] = useState('');
+  const [fileName, setFileName] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -65,7 +65,7 @@ export const UploadResourceModal: React.FC<UploadResourceModalProps> = ({
   };
 
   return (
-    <div
+    <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Chia sẻ tài liệu" tabIndex={-1}
       style={{
         position: 'fixed',
         inset: 0,
@@ -252,7 +252,7 @@ export const UploadResourceModal: React.FC<UploadResourceModalProps> = ({
             style={{
               background: 'var(--brand-primary)',
               border: 'none',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               padding: '9px 20px',
               borderRadius: 20,
               fontWeight: 700,

@@ -35,7 +35,7 @@ export const LifestyleHabitFilter: React.FC<LifestyleHabitFilterProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 20,
+        borderRadius: 9,
         padding: 14,
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr 1fr auto',
@@ -43,14 +43,14 @@ export const LifestyleHabitFilter: React.FC<LifestyleHabitFilterProps> = ({
         alignItems: 'center',
       }}
     >
-      <select
+      <select aria-label="Loại tin nhà trọ"
         value={listingType}
         onChange={(e) =>
           onListingTypeChange(e.target.value as HousingListingType | '')
         }
         style={{
           padding: '9px 10px',
-          borderRadius: 20,
+          borderRadius: 9,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: 'var(--color-charcoal-ink)',
@@ -69,7 +69,7 @@ export const LifestyleHabitFilter: React.FC<LifestyleHabitFilterProps> = ({
         onChange={(e) => onMaxBudgetChange(e.target.value)}
         style={{
           padding: '9px 12px',
-          borderRadius: 20,
+          borderRadius: 9,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: 'var(--color-charcoal-ink)',
@@ -77,14 +77,14 @@ export const LifestyleHabitFilter: React.FC<LifestyleHabitFilterProps> = ({
         }}
       />
 
-      <select
+      <select aria-label="Giờ giấc sinh hoạt"
         value={sleepSchedule}
         onChange={(e) =>
           onSleepScheduleChange(e.target.value as SleepScheduleHabit | '')
         }
         style={{
           padding: '9px 10px',
-          borderRadius: 20,
+          borderRadius: 9,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: 'var(--color-charcoal-ink)',
@@ -97,14 +97,14 @@ export const LifestyleHabitFilter: React.FC<LifestyleHabitFilterProps> = ({
         <option value="FLEXIBLE">🕒 Linh hoạt</option>
       </select>
 
-      <select
+      <select aria-label="Giới tính ở ghép"
         value={genderPreference}
         onChange={(e) =>
           onGenderChange(e.target.value as GenderPreference | '')
         }
         style={{
           padding: '9px 10px',
-          borderRadius: 20,
+          borderRadius: 9,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
           color: 'var(--color-charcoal-ink)',

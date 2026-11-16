@@ -19,12 +19,17 @@ export const CourseFeedPage: React.FC = () => {
   const [posts, setPosts] = useState<PostItem[]>([]);
   const [showComposer, setShowComposer] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    setSelectedCourseCode(searchParams.get('code') || 'IT3080');
+  }, [searchParams]);
 
   useEffect(() => {
     identityService.getCatalog().then((res) => {
       setFaculties(res.faculties);
       setCourses(res.courses);
-    });
+    }).catch(() => setError('Không thể tải danh sách học phần.'));
   }, []);
 
   const loadFeed = useCallback(async () => {
@@ -35,6 +40,10 @@ export const CourseFeedPage: React.FC = () => {
         courseCode: selectedCourseCode || undefined,
       });
       setPosts(data);
+      setError('');
+    } catch {
+      setPosts([]);
+      setError('Không thể tải bài viết học phần. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }
@@ -66,7 +75,8 @@ export const CourseFeedPage: React.FC = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout onAsk={() => setShowComposer(true)}>
+      {error && <p role="alert">{error} <button type="button" onClick={loadFeed}>Thử lại</button></p>}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div
           style={{
@@ -157,6 +167,7 @@ export const CourseFeedPage: React.FC = () => {
         {showComposer && (
           <PostComposerModal
             defaultScope="COURSE"
+            defaultCourseId={courses.find(course => course.code === selectedCourseCode)?.id}
             faculties={faculties}
             courses={courses}
             onClose={() => setShowComposer(false)}

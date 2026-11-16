@@ -1,6 +1,8 @@
 import React from 'react';
 
 const paths: Record<string, React.ReactNode> = {
+  search: <><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 5 5" /></>,
+  message: <path d="M20 11.5a8 8 0 0 1-8 8 9 9 0 0 1-4-.9L3 20l1.4-4.5a8 8 0 1 1 15.6-4Z" />,
   home: <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z" />,
   book: <path d="M12 7c-2.6-1.8-5.4-2.1-9-1v14c3.6-1.1 6.4-.8 9 1 2.6-1.8 5.4-2.1 9-1V6c-3.6-1.1-6.4-.8-9 1Zm0 0v14" />,
   files: <path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm7 0v5h4M9 12h6M9 16h6" />,

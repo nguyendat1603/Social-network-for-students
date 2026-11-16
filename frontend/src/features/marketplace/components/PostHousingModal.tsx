@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+import { useDialog } from '../../../hooks/useDialog';
+import React, { useState } from 'react';
 import {
   GenderPreference,
   HousingListingType,
@@ -28,6 +29,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
   onClose,
   onSubmit,
 }) => {
+  const dialogRef = useDialog(onClose, isOpen);
   const [listingType, setListingType] =
     useState<HousingListingType>('ROOMMATE_WANTED');
   const [title, setTitle] = useState('');
@@ -75,7 +77,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
   };
 
   return (
-    <div
+    <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Đăng tin nhà trọ" tabIndex={-1}
       style={{
         position: 'fixed',
         inset: 0,
@@ -121,7 +123,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
             style={{
               padding: 10,
               marginBottom: 12,
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               color: 'var(--color-charcoal-ink)',
               fontSize: 13,
@@ -134,15 +136,15 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Loại tin đăng</label>
-              <select
+              <label htmlFor="PostHousingModal-field-1" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Loại tin đăng</label>
+              <select id="PostHousingModal-field-1"
                 value={listingType}
                 onChange={(e) => setListingType(e.target.value as HousingListingType)}
                 style={{
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: 'var(--color-charcoal-ink)',
@@ -153,10 +155,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
               </select>
             </div>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="PostHousingModal-field-2" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Chi phí / người / tháng (VNĐ)
               </label>
-              <input
+              <input id="PostHousingModal-field-2"
                 type="number"
                 required
                 value={monthlyRentVnd}
@@ -165,7 +167,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: 'var(--color-charcoal-ink)',
@@ -175,8 +177,8 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
           </div>
 
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Tiêu đề tin</label>
-            <input
+            <label htmlFor="PostHousingModal-field-3" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Tiêu đề tin</label>
+            <input id="PostHousingModal-field-3"
               required
               placeholder="VD: Tìm 1 bạn nam K67-K69 ở ghép phòng khép kín ngõ Tự Do"
               value={title}
@@ -185,7 +187,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                 width: '100%',
                 marginTop: 4,
                 padding: '9px 12px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: 'var(--color-charcoal-ink)',
@@ -195,10 +197,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
 
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 12 }}>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="PostHousingModal-field-4" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Khu vực / Địa chỉ
               </label>
-              <input
+              <input id="PostHousingModal-field-4"
                 required
                 value={addressDistrict}
                 onChange={(e) => setAddressDistrict(e.target.value)}
@@ -206,7 +208,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: 'var(--color-charcoal-ink)',
@@ -214,10 +216,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
               />
             </div>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="PostHousingModal-field-5" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Cách trường (km)
               </label>
-              <input
+              <input id="PostHousingModal-field-5"
                 type="number"
                 step="0.1"
                 value={distanceToCampusKm}
@@ -226,7 +228,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: 'var(--color-charcoal-ink)',
@@ -237,10 +239,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="PostHousingModal-field-6" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Giờ giấc sinh hoạt
               </label>
-              <select
+              <select id="PostHousingModal-field-6"
                 value={sleepSchedule}
                 onChange={(e) =>
                   setSleepSchedule(e.target.value as SleepScheduleHabit)
@@ -249,7 +251,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: 'var(--color-charcoal-ink)',
@@ -261,10 +263,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
               </select>
             </div>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="PostHousingModal-field-7" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Ưu tiên giới tính
               </label>
-              <select
+              <select id="PostHousingModal-field-7"
                 value={genderPreference}
                 onChange={(e) =>
                   setGenderPreference(e.target.value as GenderPreference)
@@ -273,7 +275,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
                   color: 'var(--color-charcoal-ink)',
@@ -306,10 +308,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
           </div>
 
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+            <label htmlFor="PostHousingModal-field-8" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
               Mô tả tiện ích phòng & yêu cầu bạn cùng phòng
             </label>
-            <textarea
+            <textarea id="PostHousingModal-field-8"
               required
               rows={3}
               placeholder="Điều hòa, nóng lạnh, để xe tầng 1, giờ giấc tự do không chung chủ..."
@@ -319,7 +321,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                 width: '100%',
                 marginTop: 4,
                 padding: 10,
-                borderRadius: 20,
+                borderRadius: 9,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
                 color: 'var(--color-charcoal-ink)',
@@ -333,7 +335,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
               onClick={onClose}
               style={{
                 padding: '9px 16px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: 'transparent',
                 border: '1px solid var(--border-color)',
                 color: 'var(--text-secondary)',
@@ -347,10 +349,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
               disabled={submitting}
               style={{
                 padding: '9px 18px',
-                borderRadius: 20,
+                borderRadius: 9,
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: 'var(--color-charcoal-ink)',
+                color: '#fff',
                 fontWeight: 700,
                 cursor: 'pointer',
               }}

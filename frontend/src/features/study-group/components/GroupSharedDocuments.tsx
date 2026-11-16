@@ -90,7 +90,7 @@ export const GroupSharedDocuments: React.FC<GroupSharedDocumentsProps> = ({
             borderRadius: 20,
             background: 'var(--brand-primary)',
             border: 'none',
-            color: 'var(--color-charcoal-ink)',
+            color: '#fff',
             fontWeight: 600,
             fontSize: 12,
             cursor: 'pointer',

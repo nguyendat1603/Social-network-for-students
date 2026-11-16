@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+import { useDialog } from '../../../hooks/useDialog';
+import React, { useId, useState } from 'react';
 import { LecturerItem } from '../../../types/course-review.types';
 
 interface WriteAnonymousReviewModalProps {
@@ -25,6 +26,8 @@ interface WriteAnonymousReviewModalProps {
 export const WriteAnonymousReviewModal: React.FC<
   WriteAnonymousReviewModalProps
 > = ({ courseId, courseCode, lecturers, onClose, onSubmit }) => {
+  const ratingId = useId();
+  const dialogRef = useDialog(onClose);
   const [lecturerId, setLecturerId] = useState('');
   const [semester, setSemester] = useState('2025.1');
   const [difficultyScore, setDifficultyScore] = useState(3);
@@ -66,7 +69,7 @@ export const WriteAnonymousReviewModal: React.FC<
   };
 
   return (
-    <div
+    <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Viết đánh giá ẩn danh" tabIndex={-1}
       style={{
         position: 'fixed',
         inset: 0,
@@ -111,7 +114,7 @@ export const WriteAnonymousReviewModal: React.FC<
           <div
             style={{
               padding: '10px 14px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               color: 'var(--color-charcoal-ink)',
               fontSize: 13,
@@ -129,10 +132,10 @@ export const WriteAnonymousReviewModal: React.FC<
           }}
         >
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+            <label htmlFor="WriteAnonymousReviewModal-field-1" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
               Giảng viên phụ trách (Tùy chọn)
             </label>
-            <select
+            <select id="WriteAnonymousReviewModal-field-1"
               value={lecturerId}
               onChange={(e) => setLecturerId(e.target.value)}
             >
@@ -146,10 +149,10 @@ export const WriteAnonymousReviewModal: React.FC<
           </div>
 
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+            <label htmlFor="WriteAnonymousReviewModal-field-2" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
               Kỳ học (YYYY.1/2/3) *
             </label>
-            <input
+            <input id="WriteAnonymousReviewModal-field-2"
               required
               value={semester}
               onChange={(e) => setSemester(e.target.value)}
@@ -158,10 +161,10 @@ export const WriteAnonymousReviewModal: React.FC<
           </div>
 
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+            <label htmlFor="WriteAnonymousReviewModal-field-3" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
               Điểm đạt/kỳ vọng
             </label>
-            <select
+            <select id="WriteAnonymousReviewModal-field-3"
               value={expectedGrade}
               onChange={(e) => setExpectedGrade(e.target.value)}
             >
@@ -200,12 +203,12 @@ export const WriteAnonymousReviewModal: React.FC<
               val: readingLoadScore,
               set: setReadingLoadScore,
             },
-          ].map((item) => (
+          ].map((item, index) => (
             <div key={item.label}>
-              <label style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
+              <label htmlFor={`${ratingId}-rating-${index}`} style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
                 {item.label} (1-5★)
               </label>
-              <select
+              <select id={`${ratingId}-rating-${index}`}
                 value={item.val}
                 onChange={(e) => item.set(Number(e.target.value))}
               >
@@ -220,10 +223,10 @@ export const WriteAnonymousReviewModal: React.FC<
         </div>
 
         <div>
-          <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+          <label htmlFor="WriteAnonymousReviewModal-field-5" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
             Nhận xét chi tiết về học phần, bài tập lớn và cách chấm điểm *
           </label>
-          <textarea
+          <textarea id="WriteAnonymousReviewModal-field-5"
             rows={4}
             required
             minLength={15}
@@ -234,10 +237,10 @@ export const WriteAnonymousReviewModal: React.FC<
         </div>
 
         <div>
-          <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+          <label htmlFor="WriteAnonymousReviewModal-field-6" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
             Bí kíp / Lời khuyên cho khóa sau (Tips for Juniors)
           </label>
-          <input
+          <input id="WriteAnonymousReviewModal-field-6"
             value={tipsForJunior}
             onChange={(e) => setTipsForJunior(e.target.value)}
             placeholder="VD: Nên làm BTL sớm từ tuần 4, đọc kỹ slide chương 3..."
@@ -253,7 +256,7 @@ export const WriteAnonymousReviewModal: React.FC<
               border: '1px solid var(--border-color)',
               color: 'var(--text-secondary)',
               padding: '9px 16px',
-              borderRadius: 20,
+              borderRadius: 9,
             }}
           >
             Hủy
@@ -262,11 +265,11 @@ export const WriteAnonymousReviewModal: React.FC<
             type="submit"
             disabled={submitting}
             style={{
-              background: '#7c3aed',
+              background: 'var(--brand-primary)',
               border: 'none',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               padding: '9px 20px',
-              borderRadius: 20,
+              borderRadius: 9,
               fontWeight: 700,
             }}
           >

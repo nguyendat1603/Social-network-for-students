@@ -56,7 +56,7 @@ export const RegisterEduPage: React.FC = () => {
   };
 
   return (
-    <div
+    <div className="campus-auth"
       style={{
         minHeight: '100vh',
         display: 'flex',
@@ -88,7 +88,7 @@ export const RegisterEduPage: React.FC = () => {
             style={{
               marginTop: 16,
               padding: '10px 14px',
-              borderRadius: 20,
+              borderRadius: 9,
               background: 'var(--color-fog-mist)',
               color: 'var(--color-charcoal-ink)',
               fontSize: 13,
@@ -108,10 +108,10 @@ export const RegisterEduPage: React.FC = () => {
           }}
         >
           <div>
-            <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+            <label htmlFor="RegisterEduPage-field-1" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
               Email sinh viên trường (.edu / .edu.vn) *
             </label>
-            <input
+            <input id="RegisterEduPage-field-1"
               type="email"
               required
               placeholder="VD: dat.nt215340@sis.hust.edu.vn"
@@ -122,10 +122,10 @@ export const RegisterEduPage: React.FC = () => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="RegisterEduPage-field-2" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Họ và tên thật *
               </label>
-              <input
+              <input id="RegisterEduPage-field-2"
                 required
                 placeholder="Nguyễn Thành Đạt"
                 value={fullName}
@@ -134,10 +134,10 @@ export const RegisterEduPage: React.FC = () => {
             </div>
 
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="RegisterEduPage-field-3" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Mật khẩu (tối thiểu 6 ký tự) *
               </label>
-              <input
+              <input id="RegisterEduPage-field-3"
                 type="password"
                 required
                 minLength={6}
@@ -150,10 +150,10 @@ export const RegisterEduPage: React.FC = () => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="RegisterEduPage-field-4" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 MSSV (Tự động điền từ email nếu để trống)
               </label>
-              <input
+              <input id="RegisterEduPage-field-4"
                 placeholder="VD: 20215340"
                 value={studentCode}
                 onChange={(e) => setStudentCode(e.target.value)}
@@ -161,10 +161,10 @@ export const RegisterEduPage: React.FC = () => {
             </div>
 
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="RegisterEduPage-field-5" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Khoa / Viện đào tạo
               </label>
-              <select
+              <select id="RegisterEduPage-field-5"
                 value={facultyId}
                 onChange={(e) => setFacultyId(e.target.value)}
               >
@@ -180,10 +180,10 @@ export const RegisterEduPage: React.FC = () => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="RegisterEduPage-field-6" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Khóa (Cohort)
               </label>
-              <input
+              <input id="RegisterEduPage-field-6"
                 placeholder="K66"
                 value={cohort}
                 onChange={(e) => setCohort(e.target.value)}
@@ -191,10 +191,10 @@ export const RegisterEduPage: React.FC = () => {
             </div>
 
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="RegisterEduPage-field-7" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Chuyên ngành
               </label>
-              <input
+              <input id="RegisterEduPage-field-7"
                 placeholder="Khoa học Máy tính"
                 value={major}
                 onChange={(e) => setMajor(e.target.value)}
@@ -202,10 +202,10 @@ export const RegisterEduPage: React.FC = () => {
             </div>
 
             <div>
-              <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+              <label htmlFor="RegisterEduPage-field-8" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
                 Lớp sinh hoạt
               </label>
-              <input
+              <input id="RegisterEduPage-field-8"
                 placeholder="IT1-02"
                 value={className}
                 onChange={(e) => setClassName(e.target.value)}
@@ -219,10 +219,10 @@ export const RegisterEduPage: React.FC = () => {
             style={{
               marginTop: 8,
               background: 'var(--brand-primary)',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               border: 'none',
               padding: '12px',
-              borderRadius: 20,
+              borderRadius: 9,
               fontWeight: 700,
               fontSize: 14,
             }}

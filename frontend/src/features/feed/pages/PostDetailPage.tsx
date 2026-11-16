@@ -53,7 +53,7 @@ export const PostDetailPage: React.FC = () => {
 
   if (loading || !post) {
     return (
-      <MainLayout>
+      <MainLayout courseCode={post?.courseTags?.[0]?.code}>
         <div>Đang tải chi tiết bài thảo luận...</div>
       </MainLayout>
     );
@@ -64,7 +64,7 @@ export const PostDetailPage: React.FC = () => {
     Boolean(user && post.author?.id && post.author.id === user.userId);
 
   return (
-    <MainLayout>
+    <MainLayout courseCode={post?.courseTags?.[0]?.code}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Link to={APP_ROUTES.CAMPUS_FEED} style={{ fontSize: 13 }}>
           ← Quay lại Bảng tin Học thuật
@@ -122,7 +122,7 @@ export const PostDetailPage: React.FC = () => {
               style={{
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: 'var(--color-charcoal-ink)',
+                color: '#fff',
                 padding: '9px 18px',
                 borderRadius: 20,
                 fontWeight: 700,

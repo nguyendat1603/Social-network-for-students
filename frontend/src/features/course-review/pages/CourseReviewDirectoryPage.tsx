@@ -15,6 +15,7 @@ export const CourseReviewDirectoryPage: React.FC = () => {
   const [selectedFacultyId, setSelectedFacultyId] = useState('');
   const [courses, setCourses] = useState<CourseWithAggregate[]>([]);
   const [lecturers, setLecturers] = useState<LecturerItem[]>([]);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export const CourseReviewDirectoryPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    setError('');
     setLoading(true);
     courseReviewService
       .getDirectory(selectedFacultyId || undefined)
@@ -32,11 +34,13 @@ export const CourseReviewDirectoryPage: React.FC = () => {
         setCourses(res.courses);
         setLecturers(res.lecturers);
       })
+      .catch(err => setError(err instanceof Error ? err.message : 'Unable to load reviews.'))
       .finally(() => setLoading(false));
   }, [selectedFacultyId]);
 
   return (
-    <MainLayout>
+    <MainLayout pageClassName="campus-page campus-reviews">
+      {error && <p role="alert">{error}</p>}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
         <div
           style={{
@@ -58,9 +62,9 @@ export const CourseReviewDirectoryPage: React.FC = () => {
             to={APP_ROUTES.SUBJECT_QA_FORUM}
             style={{
               background: 'var(--brand-primary)',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               padding: '10px 16px',
-              borderRadius: 20,
+              borderRadius: 9,
               fontWeight: 700,
               fontSize: 13,
             }}
@@ -70,10 +74,10 @@ export const CourseReviewDirectoryPage: React.FC = () => {
         </div>
 
         <div>
-          <label style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+          <label htmlFor="CourseReviewDirectoryPage-field-1" style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
             Lọc theo Khoa / Viện:
           </label>
-          <select
+          <select id="CourseReviewDirectoryPage-field-1"
             value={selectedFacultyId}
             onChange={(e) => setSelectedFacultyId(e.target.value)}
             style={{ marginTop: 4 }}
@@ -88,12 +92,12 @@ export const CourseReviewDirectoryPage: React.FC = () => {
         </div>
 
         {loading ? (
-          <div>Đang tải danh mục review từ Supabase Online...</div>
+          <div>Đang tải danh mục review...</div>
         ) : (
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(310px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 290px), 1fr))',
               gap: 16,
             }}
           >
@@ -122,7 +126,7 @@ export const CourseReviewDirectoryPage: React.FC = () => {
                   <span
                     style={{
                       padding: '4px 10px',
-                      borderRadius: 20,
+                      borderRadius: 9,
                       background: 'var(--color-fog-mist)',
                       color: 'var(--color-charcoal-ink)',
                       fontWeight: 800,
@@ -172,7 +176,7 @@ export const CourseReviewDirectoryPage: React.FC = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
               gap: 12,
             }}
           >
@@ -181,7 +185,7 @@ export const CourseReviewDirectoryPage: React.FC = () => {
                 key={l.id}
                 style={{
                   padding: 14,
-                  borderRadius: 20,
+                  borderRadius: 9,
                   background: 'var(--bg-primary)',
                   border: '1px solid var(--border-color)',
                 }}

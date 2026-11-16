@@ -1,4 +1,5 @@
-﻿import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { studyGroupService } from '../../../services/study-group.service';
 import { resourceHubService } from '../../../services/resource-hub.service';
@@ -8,11 +9,15 @@ import { CreateRecruitmentModal } from '../components/CreateRecruitmentModal';
 import { TeamApplicationDrawer } from '../components/TeamApplicationDrawer';
 
 export const TeammateMatchingPage: React.FC = () => {
+  const [params, setParams] = useSearchParams();
+  const code = params.get('code');
   const [groups, setGroups] = useState<StudyGroupItem[]>([]);
   const [courses, setCourses] = useState<Array<{ id: number; code: string; name: string }>>([]);
   const [loading, setLoading] = useState(true);
 
-  const [courseId, setCourseId] = useState<number | undefined>(undefined);
+  const courseId = courses.find(course => course.code === code)?.id;
+  const [error, setError] = useState('');
+  const requestVersion = useRef(0);
   const [targetGrade, setTargetGrade] = useState<TargetGradeGoal | ''>('');
   const [roleName, setRoleName] = useState('');
   const [onlyRecruiting, setOnlyRecruiting] = useState(true);
@@ -23,19 +28,12 @@ export const TeammateMatchingPage: React.FC = () => {
     useState<StudyGroupItem | null>(null);
 
   const loadData = async () => {
+    const version = ++requestVersion.current;
     setLoading(true);
+    setError('');
     try {
-      const [groupList, hierarchy] = await Promise.all([
-        studyGroupService.listStudyGroups({
-          courseId,
-          targetGrade: targetGrade || undefined,
-          roleName: roleName || undefined,
-          onlyRecruiting,
-          search: search || undefined,
-        }),
-        resourceHubService.getHierarchyTree(),
-      ]);
-      setGroups(groupList);
+      const hierarchy = await resourceHubService.getHierarchyTree();
+      if (version !== requestVersion.current) return;
       setCourses(
         (hierarchy || []).flatMap((f) =>
           (f.courses || []).map((c) => ({
@@ -45,19 +43,31 @@ export const TeammateMatchingPage: React.FC = () => {
           }))
         )
       );
+      const scopedCourse = hierarchy.flatMap(faculty => faculty.courses || []).find(course => course.code === code);
+      if (code && !scopedCourse) throw new Error('Không tìm thấy học phần. Vui lòng chọn học phần hợp lệ trong danh sách.');
+      const groupList = await studyGroupService.listStudyGroups({
+        courseId: code ? Number(scopedCourse!.id) : undefined,
+        targetGrade: targetGrade || undefined,
+        roleName: roleName || undefined,
+        onlyRecruiting,
+        search: search || undefined,
+      });
+      if (version === requestVersion.current) setGroups(groupList);
+
     } catch (err) {
-      console.error('Failed to load study groups:', err);
+      if (version === requestVersion.current) setError(err instanceof Error ? err.message : 'Không thể tải nhóm học. Vui lòng thử lại.');
     } finally {
-      setLoading(false);
+      if (version === requestVersion.current) setLoading(false);
     }
   };
 
   useEffect(() => {
     loadData();
-  }, [courseId, targetGrade, onlyRecruiting]);
+    return () => { requestVersion.current++; };
+  }, [code, targetGrade, onlyRecruiting]);
 
   return (
-    <MainLayout>
+    <MainLayout pageClassName="campus-page campus-groups">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         {/* Header */}
         <div
@@ -93,7 +103,7 @@ export const TeammateMatchingPage: React.FC = () => {
               borderRadius: 20,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: 'var(--color-charcoal-ink)',
+              color: '#fff',
               fontWeight: 700,
               fontSize: 13,
               cursor: 'pointer',
@@ -133,9 +143,12 @@ export const TeammateMatchingPage: React.FC = () => {
 
           <select
             value={courseId || ''}
-            onChange={(e) =>
-              setCourseId(e.target.value ? Number(e.target.value) : undefined)
-            }
+            onChange={(e) => {
+              const next = new URLSearchParams(params);
+              const course = courses.find(item => item.id === Number(e.target.value));
+              if (course) next.set('code', course.code); else next.delete('code');
+              setParams(next);
+            }}
             style={{
               padding: '9px 10px',
               borderRadius: 20,
@@ -153,7 +166,7 @@ export const TeammateMatchingPage: React.FC = () => {
             ))}
           </select>
 
-          <select
+          <select aria-label="Mục tiêu điểm"
             value={targetGrade}
             onChange={(e) => setTargetGrade(e.target.value as TargetGradeGoal | '')}
             style={{
@@ -207,7 +220,8 @@ export const TeammateMatchingPage: React.FC = () => {
         </div>
 
         {/* List */}
-        {loading ? (
+        {error && <div role="alert" className="campus-error">{error} <button type="button" onClick={loadData}>Thử lại</button></div>}
+        {error ? null : loading ? (
           <div style={{ padding: 32, textAlign: 'center', color: 'var(--text-muted)' }}>
             Đang tải danh sách nhóm đồ án...
           </div>
