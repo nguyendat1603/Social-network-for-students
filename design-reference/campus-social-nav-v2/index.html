@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="description" content="Campus Social — bản thử nghiệm giao diện lấy học phần và nhu cầu sinh viên làm trung tâm." />
+  <title>Campus Social · Bản xem trước UX</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <svg aria-hidden="true" class="icon-defs" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7c-2.6-1.8-5.4-2.1-9-1v14c3.6-1.1 6.4-.8 9 1 2.6-1.8 5.4-2.1 9-1V6c-3.6-1.1-6.4-.8-9 1Zm0 0v14"/></symbol>
+    <symbol id="i-files" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm7 0v5h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m7-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8 4a4 4 0 0 1 4 4v2m-4-17a4 4 0 0 1 0 8"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17l-6-4-6 4Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Zm-8 12a2 2 0 0 0 4 0"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-8 8 9 9 0 0 1-4-.9L3 20l1.4-4.5a8 8 0 1 1 15.6-4Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4.2 4.2L19 6.5"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m7.8 12 2.7 2.7 5.7-5.7"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 8.1c0 5.2-8.8 11.2-8.8 11.2S3.2 13.3 3.2 8.1A4.6 4.6 0 0 1 12 6.5a4.6 4.6 0 0 1 8.8 1.6Z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 7h16M7 12h10m-7 5h4"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m3 11 18-8-8 18-2.5-7.5L3 11Zm7.5 2.5L21 3"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1 0l2.1-2.1a5 5 0 1 0-7.1-7.1L10.8 5m2.4 6a5 5 0 0 0-7.1 0L4 13.1a5 5 0 0 0 7.1 7.1l1.1-1.1"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22S4 18.4 4 12V5l8-3 8 3v7c0 6.4-8 10-8 10Z"/><path d="m8 12 2.5 2.5L16 9"/></symbol>
+  </svg>
+
+  <div class="preview-banner" role="status">
+    <span class="preview-dot"></span>
+    <strong>Prototype để duyệt UX</strong><span class="preview-separator">·</span>
+    <span class="preview-caption">Dữ liệu và thao tác chỉ để minh họa, chưa kết nối hệ thống thật.</span>
+  </div>
+
+  <a class="skip-link" href="#main-content">Bỏ qua điều hướng, đến nội dung</a>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Điều hướng chính">
+      <button class="brand" data-nav="home" aria-label="Campus Social — trang chủ">
+        <span class="brand-symbol">c<span>.</span></span>
+        <span class="brand-wordmark"><strong>campus</strong><small>HỌC CÙNG NHAU</small></span>
+      </button>
+      <div class="sidebar-section-label">ĐI ĐẾN</div>
+      <nav class="sidebar-nav" id="side-nav">
+        <button class="nav-item active" data-nav="home"><svg><use href="#i-home"></use></svg><span>Trang chủ</span></button>
+        <button class="nav-item" data-nav="course"><svg><use href="#i-book"></use></svg><span>Theo môn học</span></button>
+        <button class="nav-item" data-nav="resources"><svg><use href="#i-files"></use></svg><span>Kho tài liệu</span></button>
+        <button class="nav-item" data-nav="groups"><svg><use href="#i-users"></use></svg><span>Tìm nhóm học / đồ án</span></button>
+        <button class="nav-item" data-nav="saved"><svg><use href="#i-bookmark"></use></svg><span>Bài đã lưu</span></button>
+      </nav>
+
+      <button class="sidebar-help-link" id="sidebar-help">Hướng dẫn sử dụng <span>?</span></button>
+
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section-label">HỌC PHẦN BẠN THEO DÕI</div>
+      <div id="sidebar-courses" class="sidebar-course-list"></div>
+      <button class="sidebar-add-course" id="browse-courses"><svg><use href="#i-plus"></use></svg> Khám phá học phần</button>
+
+      <div class="sidebar-bottom">
+        <div class="community-note"><span class="note-ornament">“</span><p>Một câu hỏi hôm nay có thể giúp cả khóa ngày mai.</p><small>Campus Social</small></div>
+        <button class="user-pill" id="profile-button" aria-label="Xem thông tin tài khoản mẫu">
+          <span class="avatar avatar-self">B</span><span class="user-meta"><strong>Bạn · Sinh viên</strong><small>Chế độ xem trước</small></span><svg><use href="#i-chevron-down"></use></svg>
+        </button>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-location"><span class="topbar-location-dot"></span><span id="current-location">Trang chủ</span></div>
+        <div class="topbar-actions">
+          <button class="header-search" id="top-search-trigger" aria-label="Tìm kiếm"><svg><use href="#i-search"></use></svg><span>Tìm câu hỏi, tài liệu, nhóm...</span><kbd>/</kbd></button>
+          <div class="notification-wrap">
+            <button class="icon-button notification-trigger" id="notification-toggle" aria-label="Thông báo" aria-expanded="false"><svg><use href="#i-bell"></use></svg><span id="notification-count" class="notification-dot"></span></button>
+            <div class="notification-panel hidden" id="notification-panel" role="dialog" aria-label="Thông báo mẫu"></div>
+          </div>
+          <button class="top-ask-button" id="top-ask"><svg><use href="#i-plus"></use></svg> Đặt câu hỏi</button>
+        </div>
+      </header>
+
+      <div class="content-layout">
+        <main id="main-content" class="main-content" tabindex="-1" aria-live="polite"></main>
+        <aside id="context-rail" class="context-rail" aria-label="Thông tin liên quan"></aside>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mobile-tabbar" aria-label="Điều hướng điện thoại">
+    <button class="mobile-tab active" data-nav="home"><svg><use href="#i-home"></use></svg><span>Trang chủ</span></button>
+    <button class="mobile-tab" data-nav="course"><svg><use href="#i-book"></use></svg><span>Học phần</span></button>
+    <button class="mobile-tab" data-nav="resources"><svg><use href="#i-files"></use></svg><span>Tài liệu</span></button>
+    <button class="mobile-tab" data-nav="groups"><svg><use href="#i-users"></use></svg><span>Tìm nhóm</span></button>
+    <button class="mobile-tab" data-nav="saved"><svg><use href="#i-bookmark"></use></svg><span>Đã lưu</span></button>
+  </nav>
+
+  <div id="modal-root" class="modal-root hidden"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

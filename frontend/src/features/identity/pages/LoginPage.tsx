@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { APP_ROUTES } from '../../../config/routes.config';
 import { useAuth } from '../../../hooks/useAuth';
 import { identityService } from '../../../services/identity.service';
+import { DemoAccess } from '../../../demo/DemoAccess';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -180,6 +181,7 @@ export const LoginPage: React.FC = () => {
           Chưa có tài khoản sinh viên?{' '}
           <Link to={APP_ROUTES.REGISTER_EDU}>Đăng ký & Xác thực OTP .edu</Link>
         </div>
+        {import.meta.env.DEV && <DemoAccess />}
       </div>
     </div>
   );

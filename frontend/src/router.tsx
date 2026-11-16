@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { APP_ROUTES } from './config/routes.config';
 import { useAuth } from './hooks/useAuth';
+import { useDemoStore } from './demo/demo.store';
+import { DemoUnavailable } from './demo/DemoMode';
 import { AcademicProfilePage } from './features/identity/pages/AcademicProfilePage';
 import { LoginPage } from './features/identity/pages/LoginPage';
 import { OtpVerificationPage } from './features/identity/pages/OtpVerificationPage';
@@ -25,10 +27,13 @@ import { NotificationsPage } from './features/communication/pages/NotificationsP
 import { AcademicKarmaPage } from './features/moderation/pages/AcademicKarmaPage';
 import { AdminModerationDashboardPage } from './features/moderation/pages/AdminModerationDashboardPage';
 
-const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({
+const ProtectedRoute: React.FC<{ children: React.ReactElement; demoAllowed?: boolean }> = ({
   children,
+  demoAllowed = true,
 }) => {
   const { isAuthenticated } = useAuth();
+  const demo = useDemoStore(state => state.active);
+  if (import.meta.env.DEV && demo) return demoAllowed ? children : <DemoUnavailable />;
   if (!isAuthenticated) {
     return <Navigate to={APP_ROUTES.LOGIN} replace />;
   }
@@ -37,6 +42,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({
 
 export const AppRouter: React.FC = () => {
   const { isAuthenticated } = useAuth();
+  const demo = useDemoStore(state => state.active);
 
   return (
     <BrowserRouter>
@@ -46,7 +52,7 @@ export const AppRouter: React.FC = () => {
           element={
             <Navigate
               to={
-                isAuthenticated
+                isAuthenticated || (import.meta.env.DEV && demo)
                   ? APP_ROUTES.CAMPUS_FEED
                   : APP_ROUTES.LOGIN
               }
@@ -63,7 +69,7 @@ export const AppRouter: React.FC = () => {
         <Route
           path={APP_ROUTES.ACADEMIC_PROFILE}
           element={
-            <ProtectedRoute>
+            <ProtectedRoute demoAllowed={false}>
               <AcademicProfilePage />
             </ProtectedRoute>
           }
@@ -213,7 +219,7 @@ export const AppRouter: React.FC = () => {
         <Route
           path={APP_ROUTES.MODERATION_DASHBOARD}
           element={
-            <ProtectedRoute>
+            <ProtectedRoute demoAllowed={false}>
               <AdminModerationDashboardPage />
             </ProtectedRoute>
           }

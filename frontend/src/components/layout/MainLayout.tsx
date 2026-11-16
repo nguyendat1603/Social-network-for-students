@@ -2,12 +2,20 @@ import React from 'react';
 import { Navbar } from './Navbar';
 import { Sidebar } from './Sidebar';
 import { RightSidebar } from './RightSidebar';
+import { CampusAppShell } from './CampusAppShell';
+import { useDemoStore } from '../../demo/demo.store';
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  variant?: 'legacy' | 'campus';
+  onAsk?: () => void;
 }
 
-export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout: React.FC<MainLayoutProps> = ({ children, variant = 'legacy', onAsk }) => {
+  const demo = useDemoStore(state => state.active);
+  if (variant === 'campus') {
+    return <CampusAppShell onAsk={onAsk}>{children}</CampusAppShell>;
+  }
   return (
     <div
       style={{
@@ -39,7 +47,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         >
           {children}
         </main>
-        <RightSidebar />
+        {!(import.meta.env.DEV && demo) && <RightSidebar />}
       </div>
     </div>
   );

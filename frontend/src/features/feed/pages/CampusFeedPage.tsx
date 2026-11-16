@@ -62,9 +62,10 @@ export const CampusFeedPage: React.FC = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout variant="campus" onAsk={() => setShowComposer(true)}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div
+          data-campus-feed-header
           style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -99,6 +100,7 @@ export const CampusFeedPage: React.FC = () => {
         <ContextualFeedTabs />
 
         <div
+          data-campus-feed-filters
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr auto',
