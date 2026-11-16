@@ -5,6 +5,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import { useTypewriter } from '../../../hooks/useTypewriter';
 import { identityService } from '../../../services/identity.service';
 import { FacultyItem } from '../../../types/identity.types';
+import { DemoAccess } from '../../../demo/DemoAccess';
 
 type ParticleKind = 'BOOK' | 'PAPER' | 'NOTE_PAGE' | 'LETTER';
 
@@ -833,6 +834,7 @@ export const LandingAuthPage: React.FC = () => {
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
               </svg>
             </button>
+            {import.meta.env.DEV && <DemoAccess />}
           </div>
         </div>
       </main>

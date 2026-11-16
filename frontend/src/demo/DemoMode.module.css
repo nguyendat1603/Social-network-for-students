@@ -1,0 +1,14 @@
+.access { margin-top: 24px; border-top: 1px solid #e4e7e5; padding-top: 20px; color: #252b2e; font: 13px/1.55 'Segoe UI', 'Noto Sans', Arial, sans-serif; }
+.access h2 { font-size: 16px; margin-bottom: 6px; }
+.access p { color: #697478; margin-bottom: 12px; }
+.access label { display: block; font-weight: 600; margin-bottom: 6px; }
+.access input { background: white; color: #252b2e; border: 1px solid #d5dad7; border-radius: 8px; }
+.access form > button { margin-top: 10px; background: #faf0f0; color: #9f2630; border: 1px solid #d5b4b5; border-radius: 8px; padding: 9px 13px; box-shadow: none; font: 700 13px/1.5 'Segoe UI', Arial, sans-serif; }
+.access form > button:hover { background: #f5e4e4; box-shadow: none; }
+.access [role='alert'] { color: #9f2630; margin-top: 8px; }
+.banner { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 16px; padding: 7px 16px; background: #f1efe8; color: #655943; border-bottom: 1px solid #e6e0d2; font: 12px/1.5 'Segoe UI', Arial, sans-serif; }
+.banner button { background: white; border: 1px solid #d5dad7; color: #9f2630; border-radius: 7px; padding: 5px 10px; font: inherit; }
+.notice { flex-basis: 100%; text-align: center; }
+.unavailable { max-width: 620px; margin: 60px auto; padding: 24px; color: #252b2e; font: 15px/1.6 'Segoe UI', Arial, sans-serif; }
+.unavailable h1 { font-size: 24px; }
+.unavailable a { color: #9f2630; display: inline-block; margin-top: 16px; }

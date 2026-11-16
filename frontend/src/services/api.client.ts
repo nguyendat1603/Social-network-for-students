@@ -1,4 +1,5 @@
 import { API_CONFIG } from '../config/api.config';
+import { isDemoMode } from '../demo/demo.store';
 
 export interface ApiEnvelope<T> {
   success: boolean;
@@ -15,6 +16,14 @@ export async function apiRequest<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
+  if (import.meta.env.DEV && isDemoMode()) {
+    if ((options.method || 'GET').toUpperCase() !== 'GET') {
+      window.dispatchEvent(new Event('campus-demo-write-blocked'));
+      throw new Error('Thao tác này cần đăng nhập thật. Chế độ demo chỉ cho phép xem.');
+    }
+    const { demoRead } = await import('../demo/demo.fixtures');
+    return demoRead(endpoint) as T;
+  }
   const accessToken = localStorage.getItem('mxh_hssv_access_token');
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',

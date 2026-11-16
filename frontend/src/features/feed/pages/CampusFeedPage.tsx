@@ -200,10 +200,10 @@ export const CampusFeedPage: React.FC = () => {
     .toUpperCase();
 
   return (
-    <MainLayout>
+    <MainLayout variant="campus" onAsk={() => setShowComposer(true)}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         {/* 1. SUBSTACK HERO BANNER CARD (Teal/dark gradient, Cahuenga 32px white heading) */}
-        <section className="substack-hero-banner">
+        <section className="substack-hero-banner" data-campus-feed-header>
           {/* Subtle decorative editorial pen/notebook geometry in right background */}
           <svg
             width="180"
@@ -371,6 +371,7 @@ export const CampusFeedPage: React.FC = () => {
           <ContextualFeedTabs />
 
           <div
+            data-campus-feed-filters
             style={{
               display: 'flex',
               alignItems: 'center',

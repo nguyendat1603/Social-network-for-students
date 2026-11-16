@@ -34,6 +34,7 @@ export const VoteEndorseBar: React.FC<VoteEndorseBarProps> = ({
       <button
         type="button"
         onClick={() => onVote('UPVOTE')}
+        aria-label="Upvote bài viết"
         title="Hữu ích / Upvote bài viết"
         style={{
           display: 'inline-flex',
@@ -102,6 +103,7 @@ export const VoteEndorseBar: React.FC<VoteEndorseBarProps> = ({
       <button
         type="button"
         onClick={() => onVote('HELPFUL')}
+        aria-label="Đề cử hữu ích"
         title="Đề cử nội dung học thuật chất lượng"
         style={{
           display: 'inline-flex',
@@ -135,6 +137,7 @@ export const VoteEndorseBar: React.FC<VoteEndorseBarProps> = ({
       <button
         type="button"
         onClick={() => onVote('DOWNVOTE')}
+        aria-label="Downvote bài viết"
         title="Giảm điểm bài viết"
         style={{
           display: 'inline-flex',

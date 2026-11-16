@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { APP_ROUTES } from '../../config/routes.config';
 import { useAuth } from '../../hooks/useAuth';
+import { useDemoStore } from '../../demo/demo.store';
 import { VerifiedStudentBadge } from '../common/VerifiedStudentBadge';
 import { AnonymousSwitch } from '../common/AnonymousSwitch';
 import { RealtimeNotificationBell } from '../../features/communication/components/RealtimeNotificationBell';
@@ -15,7 +16,10 @@ const PEER_AVATARS = [
 ];
 
 export const Navbar: React.FC = () => {
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user: sessionUser, isAuthenticated: sessionAuthenticated, logout } = useAuth();
+  const demo = useDemoStore(state => state.active);
+  const user = import.meta.env.DEV && demo ? null : sessionUser;
+  const isAuthenticated = sessionAuthenticated && !(import.meta.env.DEV && demo);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -83,7 +87,7 @@ export const Navbar: React.FC = () => {
             color: 'var(--color-graphite)',
           }}
         >
-          [supabase: connected]
+          {import.meta.env.DEV && demo ? 'Demo · Không kết nối backend' : '[supabase: connected]'}
         </span>
       </div>
 

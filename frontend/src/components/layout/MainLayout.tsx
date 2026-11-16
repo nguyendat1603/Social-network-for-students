@@ -3,13 +3,24 @@ import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../config/routes.config';
 import { Sidebar } from './Sidebar';
 import { RightSidebar } from './RightSidebar';
+import { CampusAppShell } from './CampusAppShell';
+import { useDemoStore } from '../../demo/demo.store';
 import { FloatingChatBubbles } from './FloatingChatBubbles';
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  variant?: 'legacy' | 'campus';
+  onAsk?: () => void;
 }
 
-export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout: React.FC<MainLayoutProps> = ({ children, variant = 'legacy', onAsk }) => {
+  const demo = useDemoStore(state => state.active);
+  if (variant === 'campus') {
+    return <CampusAppShell onAsk={onAsk}>
+      {children}
+      {!(import.meta.env.DEV && demo) && <FloatingChatBubbles />}
+    </CampusAppShell>;
+  }
   return (
     <div
       style={{
@@ -103,12 +114,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         >
           {children}
         </main>
-
-        <RightSidebar />
+        {!(import.meta.env.DEV && demo) && <RightSidebar />}
       </div>
 
       {/* Facebook-style Floating Chat Bubbles & Popup Chat Windows (Bottom-Right) */}
-      <FloatingChatBubbles />
+      {!(import.meta.env.DEV && demo) && <FloatingChatBubbles />}
     </div>
   );
 };
