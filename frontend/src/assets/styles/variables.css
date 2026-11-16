@@ -1,54 +1,115 @@
 :root {
-  /* Canvas & Card Surfaces (Figma Design.txt: Canvas #F8FAFC, Surface #FFFFFF) */
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --bg-card: #ffffff;
-  --bg-elevated: #f1f5f9;
-  --bg-input: #f8fafc;
-  --bg-input-hover: #f1f5f9;
+  /* ==========================================================================
+   * SUBSTACK — STYLE REFERENCE TOKENS ("orange ink on a newsroom desk")
+   * Theme: Light
+   * ========================================================================== */
 
-  /* Typography / Content Colors (Figma Design.txt: #0F172A, #475569, #64748B) */
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --text-white: #ffffff;
+  /* Colors */
+  --color-signal-orange: #ff6719;
+  --color-signal-orange-hover: #e85a10;
+  --color-ink: #363737;
+  --color-paper: #ffffff;
+  --color-charcoal: #232525;
+  --color-stone: #777777;
+  --color-ash: #b6b6b6;
+  --color-mist: #c8c8c8;
+  --color-cloud: #eeeeee;
+  --color-slate: #5e5e5e;
+  --color-black: #000000;
 
-  /* Facebook Blue Action Buttons & Brand */
-  --brand-primary: #1877f2;       /* Facebook Blue */
-  --brand-hover: #166fe5;         /* Facebook Blue Hover */
-  --brand-active: #0e5aab;        /* Facebook Blue Pressed */
-  --brand-light: #e7f3ff;         /* Facebook Blue Tint / Pill */
-  --brand-indigo: #4338ca;        /* Academic Indigo from Design.txt */
+  /* Typography — Font Families */
+  --font-system-ui: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Plus Jakarta Sans', sans-serif;
+  --font-cahuenga: 'Cahuenga', 'Newsreader', Charter, 'Iowan Old Style', 'Source Serif Pro', Georgia, serif;
+  --font-spectral: 'Spectral', Charter, 'Iowan Old Style', Georgia, serif;
+  --font-jetbrains-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-apple-system-ui-serif: -apple-system-ui-serif, ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
 
-  /* Instagram Vibrant Gradients & Accents */
-  --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-  --ig-badge: linear-gradient(135deg, #405de6 0%, #5851db 20%, #833ab4 40%, #c13584 60%, #e1306c 80%, #fd1d1d 100%);
-  --ig-pink: #e1306c;
-  --ig-purple: #833ab4;
-  --ig-orange: #fd1d1d;
-  --ig-gold: #f09433;
+  /* Typography — Scale */
+  --text-caption: 12px;
+  --leading-caption: 1.2;
+  --text-body-sm: 13px;
+  --text-body: 15px;
+  --leading-body: 1.54;
+  --text-subheading: 20px;
+  --leading-subheading: 1.6;
+  --text-heading-sm: 24px;
+  --leading-heading-sm: 1.25;
+  --text-heading: 32px;
+  --leading-heading: 1.24;
 
-  /* Academic Semantic Badges (From Design.txt) */
-  --accent-emerald: #10b981;      /* Verified student tick / Accepted Answer */
-  --accent-amber: #f59e0b;        /* Academic Karma / Ratings */
-  --accent-rose: #f43f5e;         /* Moderation / Reports / Deadline */
-  --accent-sky: #0ea5e9;          /* Study Groups / Channels */
-  --accent-violet: #8b5cf6;       /* Honors / Special tags */
-  --danger: #ef4444;
+  /* Typography — Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
-  /* Borders, Outlines & Shadows (From Design.txt) */
-  --border-color: #e2e8f0;        /* Subtle border #E2E8F0 */
-  --border-subtle: #f1f5f9;
-  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
-  --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  /* Spacing */
+  --spacing-unit: 4px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
 
-  /* Radius (From Design.txt: 6px, 8px, 10px, 12px, 16px, 9999px) */
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  /* Layout */
+  --page-max-width: 1200px;
+  --section-gap: 32px;
+  --card-padding: 20px;
+  --element-gap: 8px;
+
+  /* Border Radius */
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
   --radius-full: 9999px;
+
+  /* Named Radii */
+  --radius-tags: 9999px;
+  --radius-cards: 12px;
+  --radius-inputs: 12px;
+  --radius-buttons: 9999px;
+  --radius-badges: 9999px;
+
+  /* Shadows */
+  --shadow-subtle: rgba(255, 255, 255, 0.2) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.1) 0px -1px 0px 0px inset;
+  --shadow-sm: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  --shadow-sm-2: rgba(0, 0, 0, 0.08) 0px 2px 8px 0px;
+
+  /* Surfaces */
+  --surface-canvas: #ffffff;
+  --surface-recessed: #eeeeee;
+  --surface-divider: #c8c8c8;
+
+  /* Compatibility mappings for other modules */
+  --color-charcoal-ink: #363737;
+  --color-paper-white: #ffffff;
+  --color-concrete-gray: #ffffff;
+  --color-fog-mist: #eeeeee;
+  --color-ash-border: #eeeeee;
+  --color-smoke: #b6b6b6;
+  --color-graphite: #777777;
+  --color-pure-black: #000000;
+  --color-sand-wash: #fff7ed;
+  --color-slate-veil: #232525;
+  --color-highlight-yellow: #ffedd5;
+  --color-highlight-cyan: #f3f4f6;
+
+  --brand-primary: #ff6719;
+  --brand-primary-hover: #e85a10;
+  --text-primary: #363737;
+  --text-secondary: #5e5e5e;
+  --text-muted: #777777;
+  --bg-primary: #ffffff;
+  --bg-secondary: #eeeeee;
+  --bg-card: #ffffff;
+  --bg-elevated: #f8f8f8;
+  --bg-input: #ffffff;
+  --border-color: #eeeeee;
+  --border-light: #eeeeee;
+  --font-sans: var(--font-system-ui);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-ibm-plex-mono: var(--font-jetbrains-mono);
+  --danger: #dc2626;
 }

@@ -16,16 +16,15 @@ export const VerifiedStudentBadge: React.FC<VerifiedStudentBadgeProps> = ({
           display: 'inline-flex',
           alignItems: 'center',
           gap: 6,
-          padding: size === 'sm' ? '2px 8px' : '4px 12px',
-          borderRadius: 999,
+          padding: size === 'sm' ? '5px 12px' : '6px 16px',
+          borderRadius: 'var(--radius-badges)',
           fontSize: size === 'sm' ? 11 : 12,
-          fontWeight: 600,
-          backgroundColor: 'rgba(245, 158, 11, 0.12)',
-          color: '#d97706',
-          border: '1px solid rgba(245, 158, 11, 0.3)',
+          fontWeight: 400,
+          backgroundColor: 'var(--color-fog-mist)',
+          color: 'var(--color-graphite)',
         }}
       >
-        ● Chưa xác thực .edu
+        [unverified .edu]
       </span>
     );
   }
@@ -37,16 +36,16 @@ export const VerifiedStudentBadge: React.FC<VerifiedStudentBadgeProps> = ({
         display: 'inline-flex',
         alignItems: 'center',
         gap: 6,
-        padding: size === 'sm' ? '2px 8px' : '4px 12px',
-        borderRadius: 999,
+        padding: size === 'sm' ? '5px 12px' : '6px 16px',
+        borderRadius: 'var(--radius-badges)',
         fontSize: size === 'sm' ? 11 : 12,
-        fontWeight: 600,
-        backgroundColor: 'rgba(16, 185, 129, 0.12)',
-        color: '#059669',
-        border: '1px solid rgba(16, 185, 129, 0.35)',
+        fontWeight: 400,
+        backgroundColor: 'var(--color-paper-white)',
+        color: 'var(--color-charcoal-ink)',
+        boxShadow: 'var(--shadow-sm-2)',
       }}
     >
-      ✓ Verified Student
+      [✓ (<span className="hl-yellow">v</span>)erified .edu]
     </span>
   );
 };

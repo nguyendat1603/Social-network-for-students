@@ -51,7 +51,7 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 14,
+        borderRadius: 20,
         padding: 20,
         display: 'flex',
         flexDirection: 'column',
@@ -78,13 +78,13 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '12px 16px',
-                borderRadius: 10,
+                borderRadius: 20,
                 background: 'rgba(15, 23, 42, 0.55)',
                 border: '1px solid var(--border-color)',
               }}
             >
               <div>
-                <div style={{ fontWeight: 600, fontSize: 14, color: '#fff' }}>
+                <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--color-charcoal-ink)' }}>
                   {REASON_TITLES[s.reason_code] || s.reason_code}
                 </div>
                 <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>
@@ -106,10 +106,10 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
                         width: 55,
                         marginLeft: 6,
                         padding: '4px 6px',
-                        borderRadius: 6,
+                        borderRadius: 20,
                         background: '#ffffff',
                         border: '1px solid var(--border-color)',
-                        color: '#fff',
+                        color: 'var(--color-charcoal-ink)',
                         fontSize: 12,
                       }}
                     />
@@ -130,10 +130,10 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
                     onClick={() => handleSave(s.reason_code)}
                     style={{
                       padding: '5px 12px',
-                      borderRadius: 6,
+                      borderRadius: 20,
                       background: 'var(--brand-primary)',
                       border: 'none',
-                      color: '#fff',
+                      color: 'var(--color-charcoal-ink)',
                       fontSize: 12,
                       fontWeight: 600,
                       cursor: 'pointer',
@@ -163,8 +163,8 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
                       padding: '4px 10px',
                       borderRadius: 999,
                       background: s.is_enabled
-                        ? 'rgba(16, 185, 129, 0.16)'
-                        : 'rgba(148, 163, 184, 0.16)',
+                        ? 'var(--color-highlight-yellow)'
+                        : 'var(--color-fog-mist)',
                       color: s.is_enabled ? '#34d399' : '#94a3b8',
                       fontWeight: 600,
                     }}
@@ -177,8 +177,8 @@ export const AutoModThresholdSettings: React.FC<AutoModThresholdSettingsProps> =
                     onClick={() => startEdit(s)}
                     style={{
                       padding: '5px 10px',
-                      borderRadius: 6,
-                      background: 'rgba(148, 163, 184, 0.14)',
+                      borderRadius: 20,
+                      background: 'var(--color-fog-mist)',
                       border: '1px solid var(--border-color)',
                       color: 'var(--text-secondary)',
                       fontSize: 12,

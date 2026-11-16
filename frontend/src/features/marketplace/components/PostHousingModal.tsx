@@ -121,9 +121,9 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
             style={{
               padding: 10,
               marginBottom: 12,
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.16)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -142,10 +142,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               >
                 <option value="ROOMMATE_WANTED">🤝 Tìm bạn ở ghép</option>
@@ -165,10 +165,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               />
             </div>
@@ -185,10 +185,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                 width: '100%',
                 marginTop: 4,
                 padding: '9px 12px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
               }}
             />
           </div>
@@ -206,10 +206,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               />
             </div>
@@ -226,10 +226,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 12px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               />
             </div>
@@ -249,10 +249,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               >
                 <option value="EARLY_BIRD">🌅 Ngủ sớm trước 23h</option>
@@ -273,10 +273,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                   width: '100%',
                   marginTop: 4,
                   padding: '9px 10px',
-                  borderRadius: 8,
+                  borderRadius: 20,
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  color: '#fff',
+                  color: 'var(--color-charcoal-ink)',
                 }}
               >
                 <option value="ANY">Nam / Nữ đều được</option>
@@ -319,10 +319,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
                 width: '100%',
                 marginTop: 4,
                 padding: 10,
-                borderRadius: 8,
+                borderRadius: 20,
                 background: '#ffffff',
                 border: '1px solid var(--border-color)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
               }}
             />
           </div>
@@ -333,7 +333,7 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
               onClick={onClose}
               style={{
                 padding: '9px 16px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: 'transparent',
                 border: '1px solid var(--border-color)',
                 color: 'var(--text-secondary)',
@@ -347,10 +347,10 @@ export const PostHousingModal: React.FC<PostHousingModalProps> = ({
               disabled={submitting}
               style={{
                 padding: '9px 18px',
-                borderRadius: 8,
+                borderRadius: 20,
                 background: 'var(--brand-primary)',
                 border: 'none',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 fontWeight: 700,
                 cursor: 'pointer',
               }}

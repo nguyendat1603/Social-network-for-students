@@ -13,24 +13,24 @@ export const AnonymousSwitch: React.FC = () => {
         display: 'inline-flex',
         alignItems: 'center',
         gap: 8,
-        padding: '6px 12px',
-        borderRadius: 999,
-        fontSize: 13,
-        fontWeight: 600,
-        border: isAnonymousActive
-          ? '1px solid rgba(139, 92, 246, 0.4)'
-          : '1px solid var(--border-color)',
-        background: isAnonymousActive
-          ? 'rgba(139, 92, 246, 0.1)'
-          : '#ffffff',
-        color: isAnonymousActive ? '#7c3aed' : 'var(--text-secondary)',
-        cursor: 'pointer',
+        padding: '6px 16px',
+        borderRadius: 'var(--radius-buttons)',
+        fontSize: 12,
+        fontWeight: 400,
+        backgroundColor: isAnonymousActive
+          ? 'var(--color-paper-white)'
+          : 'var(--color-fog-mist)',
+        color: 'var(--color-charcoal-ink)',
+        boxShadow: isAnonymousActive ? 'var(--shadow-sm-2)' : 'none',
       }}
     >
-      <span>{isAnonymousActive ? '🎭 Ẩn danh:' : '👤 Danh tính thật'}</span>
-      {isAnonymousActive && (
-        <span style={{ color: '#6d28d9', fontWeight: 700 }}>
-          @{anonymousHandle}
+      {isAnonymousActive ? (
+        <span>
+          [(<span className="hl-cyan">a</span>)nonymous: @{anonymousHandle}]
+        </span>
+      ) : (
+        <span>
+          [(<span className="hl-yellow">r</span>)eal identity]
         </span>
       )}
     </button>

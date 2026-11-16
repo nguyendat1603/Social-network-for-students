@@ -67,7 +67,7 @@ export const TeammateMatchingPage: React.FC = () => {
             alignItems: 'center',
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 14,
+            borderRadius: 20,
             padding: 20,
           }}
         >
@@ -90,10 +90,10 @@ export const TeammateMatchingPage: React.FC = () => {
             onClick={() => setIsCreateOpen(true)}
             style={{
               padding: '10px 18px',
-              borderRadius: 10,
+              borderRadius: 20,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontWeight: 700,
               fontSize: 13,
               cursor: 'pointer',
@@ -108,7 +108,7 @@ export const TeammateMatchingPage: React.FC = () => {
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 12,
+            borderRadius: 20,
             padding: 14,
             display: 'grid',
             gridTemplateColumns: '1.3fr 1fr 1fr 1fr auto',
@@ -123,10 +123,10 @@ export const TeammateMatchingPage: React.FC = () => {
             onKeyDown={(e) => e.key === 'Enter' && loadData()}
             style={{
               padding: '9px 12px',
-              borderRadius: 8,
+              borderRadius: 20,
               background: '#ffffff',
               border: '1px solid var(--border-color)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           />
@@ -138,10 +138,10 @@ export const TeammateMatchingPage: React.FC = () => {
             }
             style={{
               padding: '9px 10px',
-              borderRadius: 8,
+              borderRadius: 20,
               background: '#ffffff',
               border: '1px solid var(--border-color)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -158,10 +158,10 @@ export const TeammateMatchingPage: React.FC = () => {
             onChange={(e) => setTargetGrade(e.target.value as TargetGradeGoal | '')}
             style={{
               padding: '9px 10px',
-              borderRadius: 8,
+              borderRadius: 20,
               background: '#ffffff',
               border: '1px solid var(--border-color)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -179,10 +179,10 @@ export const TeammateMatchingPage: React.FC = () => {
             onKeyDown={(e) => e.key === 'Enter' && loadData()}
             style={{
               padding: '9px 12px',
-              borderRadius: 8,
+              borderRadius: 20,
               background: '#ffffff',
               border: '1px solid var(--border-color)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           />
@@ -216,7 +216,7 @@ export const TeammateMatchingPage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 14,
+              borderRadius: 20,
               padding: 36,
               textAlign: 'center',
               color: 'var(--text-secondary)',

@@ -6,17 +6,17 @@ export const AcceptedAnswerBadge: React.FC = () => {
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: 6,
+        gap: 5,
         padding: '3px 10px',
-        borderRadius: 999,
-        fontSize: 11,
-        fontWeight: 700,
-        backgroundColor: 'rgba(16, 185, 129, 0.18)',
-        color: '#34d399',
-        border: '1px solid rgba(16, 185, 129, 0.45)',
+        borderRadius: 9999,
+        fontSize: 12,
+        fontWeight: 500,
+        backgroundColor: '#fff7f3',
+        border: '1px solid #fed7aa',
+        color: 'var(--color-signal-orange)',
       }}
     >
-      ✓ Accepted Answer (+15 Karma)
+      <span>✓ Đã có lời giải chuẩn · +15 Karma</span>
     </span>
   );
 };

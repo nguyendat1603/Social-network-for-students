@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { CourseItem, FacultyItem } from '../../../types/identity.types';
 import { DocumentType } from '../../../types/resource-hub.types';
 
@@ -98,7 +98,7 @@ export const UploadResourceModal: React.FC<UploadResourceModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            style={{ background: 'transparent', border: 'none', color: '#fff' }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--color-charcoal-ink)' }}
           >
             ✕
           </button>
@@ -108,9 +108,9 @@ export const UploadResourceModal: React.FC<UploadResourceModalProps> = ({
           <div
             style={{
               padding: '10px 14px',
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.15)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -241,7 +241,7 @@ export const UploadResourceModal: React.FC<UploadResourceModalProps> = ({
               border: '1px solid var(--border-color)',
               color: 'var(--text-secondary)',
               padding: '9px 16px',
-              borderRadius: 8,
+              borderRadius: 20,
             }}
           >
             Hủy
@@ -252,9 +252,9 @@ export const UploadResourceModal: React.FC<UploadResourceModalProps> = ({
             style={{
               background: 'var(--brand-primary)',
               border: 'none',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               padding: '9px 20px',
-              borderRadius: 8,
+              borderRadius: 20,
               fontWeight: 700,
             }}
           >

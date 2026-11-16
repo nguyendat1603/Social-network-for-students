@@ -35,7 +35,7 @@ export const LifestyleHabitFilter: React.FC<LifestyleHabitFilterProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 12,
+        borderRadius: 20,
         padding: 14,
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr 1fr auto',
@@ -50,10 +50,10 @@ export const LifestyleHabitFilter: React.FC<LifestyleHabitFilterProps> = ({
         }
         style={{
           padding: '9px 10px',
-          borderRadius: 8,
+          borderRadius: 20,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 13,
         }}
       >
@@ -69,10 +69,10 @@ export const LifestyleHabitFilter: React.FC<LifestyleHabitFilterProps> = ({
         onChange={(e) => onMaxBudgetChange(e.target.value)}
         style={{
           padding: '9px 12px',
-          borderRadius: 8,
+          borderRadius: 20,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 13,
         }}
       />
@@ -84,10 +84,10 @@ export const LifestyleHabitFilter: React.FC<LifestyleHabitFilterProps> = ({
         }
         style={{
           padding: '9px 10px',
-          borderRadius: 8,
+          borderRadius: 20,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 13,
         }}
       >
@@ -104,10 +104,10 @@ export const LifestyleHabitFilter: React.FC<LifestyleHabitFilterProps> = ({
         }
         style={{
           padding: '9px 10px',
-          borderRadius: 8,
+          borderRadius: 20,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 13,
         }}
       >
@@ -122,7 +122,7 @@ export const LifestyleHabitFilter: React.FC<LifestyleHabitFilterProps> = ({
           alignItems: 'center',
           gap: 6,
           fontSize: 12,
-          color: '#34d399',
+          color: 'var(--color-charcoal-ink)',
           fontWeight: 600,
           cursor: 'pointer',
         }}

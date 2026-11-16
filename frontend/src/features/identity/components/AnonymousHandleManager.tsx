@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { AcademicProfile } from '../../../types/identity.types';
 
 interface AnonymousHandleManagerProps {
@@ -37,7 +37,7 @@ export const AnonymousHandleManager: React.FC<AnonymousHandleManagerProps> = ({
       onSubmit={handleSubmit}
       style={{
         background: 'var(--bg-card)',
-        border: '1px solid rgba(139, 92, 246, 0.4)',
+        border: '1px solid var(--color-highlight-cyan)',
         borderRadius: 'var(--radius-lg)',
         padding: 24,
         display: 'flex',
@@ -47,7 +47,7 @@ export const AnonymousHandleManager: React.FC<AnonymousHandleManagerProps> = ({
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <h3 style={{ fontSize: 17, fontWeight: 700, color: '#c4b5fd' }}>
+          <h3 style={{ fontSize: 17, fontWeight: 700, color: 'var(--color-charcoal-ink)' }}>
             🎭 Định danh Ẩn danh (Anonymous Handle)
           </h3>
           <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 4 }}>
@@ -58,8 +58,8 @@ export const AnonymousHandleManager: React.FC<AnonymousHandleManagerProps> = ({
           style={{
             padding: '6px 12px',
             borderRadius: 999,
-            background: 'rgba(139, 92, 246, 0.18)',
-            color: '#ddd6fe',
+            background: 'var(--color-highlight-cyan)',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 13,
             fontWeight: 700,
           }}
@@ -72,9 +72,9 @@ export const AnonymousHandleManager: React.FC<AnonymousHandleManagerProps> = ({
         <div
           style={{
             padding: '10px 14px',
-            borderRadius: 8,
-            background: 'rgba(16, 185, 129, 0.15)',
-            color: '#34d399',
+            borderRadius: 20,
+            background: 'var(--color-highlight-yellow)',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 13,
           }}
         >
@@ -86,9 +86,9 @@ export const AnonymousHandleManager: React.FC<AnonymousHandleManagerProps> = ({
         <div
           style={{
             padding: '10px 14px',
-            borderRadius: 8,
-            background: 'rgba(239, 68, 68, 0.15)',
-            color: '#f87171',
+            borderRadius: 20,
+            background: 'var(--color-fog-mist)',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 13,
           }}
         >
@@ -107,10 +107,10 @@ export const AnonymousHandleManager: React.FC<AnonymousHandleManagerProps> = ({
           disabled={loading}
           style={{
             background: '#7c3aed',
-            color: '#fff',
+            color: 'var(--color-charcoal-ink)',
             border: 'none',
             padding: '0 20px',
-            borderRadius: 8,
+            borderRadius: 20,
             fontWeight: 600,
           }}
         >

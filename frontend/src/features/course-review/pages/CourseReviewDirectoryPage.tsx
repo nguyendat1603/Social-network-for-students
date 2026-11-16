@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { APP_ROUTES } from '../../../config/routes.config';
@@ -58,9 +58,9 @@ export const CourseReviewDirectoryPage: React.FC = () => {
             to={APP_ROUTES.SUBJECT_QA_FORUM}
             style={{
               background: 'var(--brand-primary)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               padding: '10px 16px',
-              borderRadius: 8,
+              borderRadius: 20,
               fontWeight: 700,
               fontSize: 13,
             }}
@@ -122,9 +122,9 @@ export const CourseReviewDirectoryPage: React.FC = () => {
                   <span
                     style={{
                       padding: '4px 10px',
-                      borderRadius: 6,
-                      background: 'rgba(59, 130, 246, 0.18)',
-                      color: '#60a5fa',
+                      borderRadius: 20,
+                      background: 'var(--color-fog-mist)',
+                      color: 'var(--color-charcoal-ink)',
                       fontWeight: 800,
                       fontSize: 13,
                     }}
@@ -181,7 +181,7 @@ export const CourseReviewDirectoryPage: React.FC = () => {
                 key={l.id}
                 style={{
                   padding: 14,
-                  borderRadius: 10,
+                  borderRadius: 20,
                   background: 'var(--bg-primary)',
                   border: '1px solid var(--border-color)',
                 }}

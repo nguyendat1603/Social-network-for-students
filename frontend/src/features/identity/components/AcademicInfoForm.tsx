@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   AcademicProfile,
   FacultyItem,
@@ -91,9 +91,9 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
         <div
           style={{
             padding: '10px 14px',
-            borderRadius: 8,
-            background: 'rgba(16, 185, 129, 0.15)',
-            color: '#34d399',
+            borderRadius: 20,
+            background: 'var(--color-highlight-yellow)',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 13,
           }}
         >
@@ -105,9 +105,9 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
         <div
           style={{
             padding: '10px 14px',
-            borderRadius: 8,
-            background: 'rgba(239, 68, 68, 0.15)',
-            color: '#f87171',
+            borderRadius: 20,
+            background: 'var(--color-fog-mist)',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 13,
           }}
         >
@@ -226,10 +226,10 @@ export const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
           disabled={saving}
           style={{
             background: 'var(--brand-primary)',
-            color: '#fff',
+            color: 'var(--color-charcoal-ink)',
             border: 'none',
             padding: '10px 22px',
-            borderRadius: 8,
+            borderRadius: 20,
             fontWeight: 600,
           }}
         >

@@ -36,7 +36,7 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 12,
+        borderRadius: 20,
         padding: 14,
         display: 'grid',
         gridTemplateColumns: '1.4fr 1fr 1fr 1fr auto',
@@ -51,10 +51,10 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         onKeyDown={(e) => e.key === 'Enter' && onApply()}
         style={{
           padding: '9px 12px',
-          borderRadius: 8,
+          borderRadius: 20,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 13,
         }}
       />
@@ -64,10 +64,10 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         onChange={(e) => onCategoryChange(e.target.value as ItemCategory | '')}
         style={{
           padding: '9px 10px',
-          borderRadius: 8,
+          borderRadius: 20,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 13,
         }}
       >
@@ -84,10 +84,10 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         onChange={(e) => onConditionChange(e.target.value as ItemCondition | '')}
         style={{
           padding: '9px 10px',
-          borderRadius: 8,
+          borderRadius: 20,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 13,
         }}
       >
@@ -106,10 +106,10 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
         onKeyDown={(e) => e.key === 'Enter' && onApply()}
         style={{
           padding: '9px 12px',
-          borderRadius: 8,
+          borderRadius: 20,
           background: '#ffffff',
           border: '1px solid var(--border-color)',
-          color: '#fff',
+          color: 'var(--color-charcoal-ink)',
           fontSize: 13,
         }}
       />
@@ -120,7 +120,7 @@ export const ItemConditionFilter: React.FC<ItemConditionFilterProps> = ({
           alignItems: 'center',
           gap: 6,
           fontSize: 12,
-          color: '#34d399',
+          color: 'var(--color-charcoal-ink)',
           fontWeight: 600,
           cursor: 'pointer',
         }}

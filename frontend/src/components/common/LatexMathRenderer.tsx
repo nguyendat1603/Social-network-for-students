@@ -5,10 +5,6 @@ interface LatexMathRendererProps {
   content: string;
 }
 
-/**
- * Renders rich academic content containing fenced code blocks (```lang ... ```)
- * and LaTeX math expressions ($$...$$ and $...$).
- */
 export const LatexMathRenderer: React.FC<LatexMathRendererProps> = ({
   content,
 }) => {
@@ -53,18 +49,32 @@ export const LatexMathRenderer: React.FC<LatexMathRendererProps> = ({
           <div
             key={idx}
             style={{
-              margin: '10px 0',
-              padding: '10px 14px',
+              margin: '12px 0',
+              padding: '12px 16px',
               borderRadius: 8,
-              backgroundColor: 'rgba(139, 92, 246, 0.12)',
-              border: '1px solid rgba(139, 92, 246, 0.35)',
-              fontFamily: "'Cambria Math', 'Times New Roman', serif",
-              fontSize: 15,
-              color: '#ddd6fe',
+              backgroundColor: '#f8f8f8',
+              borderLeft: '3px solid var(--color-signal-orange)',
+              fontFamily: 'var(--font-jetbrains-mono)',
+              fontSize: 14,
+              lineHeight: 1.43,
+              letterSpacing: '-0.014em',
+              color: 'var(--color-charcoal)',
               overflowX: 'auto',
             }}
           >
-            ∑ LaTeX: <code>{expr}</code>
+            <span
+              style={{
+                fontSize: 11,
+                fontFamily: 'var(--font-system-ui)',
+                fontWeight: 500,
+                color: 'var(--color-stone)',
+                display: 'block',
+                marginBottom: 4,
+              }}
+            >
+              Công thức Toán / LaTeX
+            </span>
+            <code>{expr}</code>
           </div>
         );
       }
@@ -74,11 +84,13 @@ export const LatexMathRenderer: React.FC<LatexMathRendererProps> = ({
           <code
             key={idx}
             style={{
-              padding: '1px 6px',
+              padding: '2px 6px',
               borderRadius: 4,
-              backgroundColor: 'rgba(139, 92, 246, 0.16)',
-              color: '#c4b5fd',
-              fontFamily: "'Cambria Math', 'Times New Roman', serif",
+              backgroundColor: 'var(--color-cloud)',
+              color: 'var(--color-charcoal)',
+              fontFamily: 'var(--font-jetbrains-mono)',
+              fontSize: 14,
+              letterSpacing: '-0.014em',
             }}
           >
             {expr}
@@ -94,7 +106,14 @@ export const LatexMathRenderer: React.FC<LatexMathRendererProps> = ({
   };
 
   return (
-    <div style={{ fontSize: 14, color: 'var(--text-primary)', lineHeight: 1.65 }}>
+    <div
+      style={{
+        fontFamily: 'var(--font-spectral)',
+        fontSize: 18.5,
+        color: 'var(--color-ink)',
+        lineHeight: 1.48,
+      }}
+    >
       {segments.map((seg, i) =>
         seg.type === 'code' ? (
           <CodeSnippetBlock key={i} code={seg.value} language={seg.lang} />

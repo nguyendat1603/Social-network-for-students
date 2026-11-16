@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { DocumentItem } from '../../../types/resource-hub.types';
 import { ResourceReliabilityVote } from './ResourceReliabilityVote';
@@ -26,7 +26,7 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
 }) => {
   const badge = DOC_BADGE_MAP[doc.doc_type] || {
     label: doc.doc_type,
-    color: '#60a5fa',
+    color: 'var(--color-charcoal-ink)',
   };
 
   return (
@@ -56,15 +56,15 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
               fontSize: 11,
               fontWeight: 700,
               padding: '3px 8px',
-              borderRadius: 6,
-              backgroundColor: 'rgba(59, 130, 246, 0.16)',
+              borderRadius: 20,
+              backgroundColor: 'var(--color-fog-mist)',
               color: badge.color,
             }}
           >
             {badge.label}
           </span>
           {doc.course && (
-            <span style={{ fontSize: 12, fontWeight: 700, color: '#60a5fa' }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--color-charcoal-ink)' }}>
               #{doc.course.code}
             </span>
           )}
@@ -80,7 +80,7 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
 
       <Link
         to={`/resources/${doc.id}`}
-        style={{ fontSize: 16, fontWeight: 700, color: '#fff' }}
+        style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-charcoal-ink)' }}
       >
         {doc.title}
       </Link>
@@ -128,9 +128,9 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
             style={{
               background: 'var(--bg-elevated)',
               border: '1px solid var(--border-color)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               padding: '6px 12px',
-              borderRadius: 6,
+              borderRadius: 20,
               fontSize: 12,
               fontWeight: 600,
             }}
@@ -143,9 +143,9 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
             style={{
               background: 'var(--brand-primary)',
               border: 'none',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               padding: '6px 12px',
-              borderRadius: 6,
+              borderRadius: 20,
               fontSize: 12,
               fontWeight: 600,
             }}

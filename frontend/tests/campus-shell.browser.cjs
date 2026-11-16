@@ -88,12 +88,12 @@ async function main() {
     };
     if (demoTest) {
       await send('Page.navigate', { url: `${baseUrl}/login` });
-      await until(`!!document.querySelector('input[type="email"]')`);
+      await until(`Array.from(document.querySelectorAll('button')).some(b => b.textContent.includes('Đăng nhập bằng Mail Trường'))`);
       if (demoTest === 'demo-prod') {
         assert.equal(await evaluate(`!!document.querySelector('#demo-code')`), false);
         await evaluate(`sessionStorage.setItem('campus_dev_demo', 'active')`);
         await send('Page.navigate', { url: `${baseUrl}/feed` });
-        await until(`location.pathname === '/login' && !!document.querySelector('input[type="email"]')`);
+        await until(`location.pathname === '/login' && Array.from(document.querySelectorAll('button')).some(b => b.textContent.includes('Đăng nhập bằng Mail Trường'))`);
         assert.equal(await evaluate(`!!document.querySelector('[data-demo-banner]')`), false);
         console.log('PASS production hides demo access and rejects forged demo storage');
         return;
@@ -108,12 +108,14 @@ async function main() {
       await evaluate(`document.querySelector('#demo-code').closest('form').requestSubmit()`);
       await until(`!!document.querySelector('#demo-code-error')`);
       assert.equal(await evaluate(`sessionStorage.getItem('campus_dev_demo')`), null);
+      // The landing page loads the registration catalog before demo is active.
+      const demoRequestStart = networkRequests.length;
       await setCode('4444');
       await evaluate(`document.querySelector('#demo-code').closest('form').requestSubmit()`);
       await until(`location.pathname === '/feed' && !!document.querySelector('#campus-main article')`);
       assert.equal(await evaluate(`localStorage.getItem('mxh_hssv_access_token')`), null);
       assert.equal(await evaluate(`localStorage.getItem('mxh_hssv_user')`), null);
-      await until(`Array.from(document.querySelectorAll('button')).some(b => b.textContent.includes('Upvote') && b.disabled)`);
+      await until(`!!document.querySelector('button[aria-label="Upvote bài viết"]:disabled')`);
       console.log('PASS incorrect code rejected; 4444 enters demo with no real auth session');
       const screens = ['/feed/posts/demo-post', '/feed/department', '/feed/course?code=IT3080', '/course-reviews', '/course-reviews/IT3080', '/course-reviews/forum', '/resources', '/resources/demo-document', '/study-groups', '/study-groups/demo-group/workspace', '/marketplace', '/marketplace/housing', '/messenger?convId=demo-conversation', '/notifications', '/karma'];
       for (const route of screens) {
@@ -132,7 +134,7 @@ async function main() {
         catch (error) { return error.message; }
       })()`);
       assert.match(writeResult, /đăng nhập thật/);
-      assert.equal(networkRequests.filter(request => /\/api\/v1\//.test(request.url)).length, 0, 'Demo must never contact backend');
+      assert.equal(networkRequests.slice(demoRequestStart).filter(request => /\/api\/v1\//.test(request.url)).length, 0, 'Demo must never contact backend');
       await evaluate(`document.querySelector('[data-demo-banner] button').click()`);
       await until(`location.pathname === '/login' && !!document.querySelector('#demo-code')`);
       assert.equal(await evaluate(`sessionStorage.getItem('campus_dev_demo')`), null);
@@ -170,11 +172,11 @@ async function main() {
     await until(`!document.querySelector('#campus-mobile-explore')`);
     assert.equal(await evaluate(`document.activeElement.getAttribute('aria-controls')`), 'campus-mobile-explore');
     await evaluate(`document.querySelector('summary[aria-label="Tài khoản và chế độ ẩn danh"]').click()`);
-    await evaluate(`Array.from(document.querySelectorAll('details button')).find(b => b.textContent.includes('Danh tính thật')).click()`);
-    await until(`document.querySelector('details').textContent.includes('Ẩn danh:')`);
+    await evaluate(`Array.from(document.querySelectorAll('details button')).find(b => b.textContent.includes('eal identity')).click()`);
+    await until(`document.querySelector('details').textContent.includes('nonymous:')`);
     await evaluate(`document.querySelector('details').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
     await evaluate(`document.querySelector('button[aria-label="Đặt câu hỏi"]').click()`);
-    await until(`Array.from(document.querySelectorAll('h3')).some(h => h.textContent.includes('Post Engine'))`);
+    await until(`Array.from(document.querySelectorAll('h3')).some(h => h.textContent.includes('Xuất bản Bài viết'))`);
     await evaluate(`Array.from(document.querySelectorAll('form button')).find(b => b.textContent.trim() === '✕').click()`);
     console.log('PASS mobile secondary navigation, Escape/focus restoration, anonymous mode, notification badge');
     console.log('PASS header action opens the existing feed composer');

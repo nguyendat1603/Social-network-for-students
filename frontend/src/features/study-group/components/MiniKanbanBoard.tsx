@@ -67,7 +67,7 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
         style={{
           background: 'var(--bg-secondary)',
           border: '1px solid var(--border-color)',
-          borderRadius: 12,
+          borderRadius: 20,
           padding: 14,
           display: 'grid',
           gridTemplateColumns: '1.4fr 1.4fr 1fr 1fr auto',
@@ -82,10 +82,10 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
           onChange={(e) => setTitle(e.target.value)}
           style={{
             padding: '8px 12px',
-            borderRadius: 8,
+            borderRadius: 20,
             background: '#ffffff',
             border: '1px solid var(--border-color)',
-            color: '#fff',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 13,
           }}
         />
@@ -95,10 +95,10 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
           onChange={(e) => setDescription(e.target.value)}
           style={{
             padding: '8px 12px',
-            borderRadius: 8,
+            borderRadius: 20,
             background: '#ffffff',
             border: '1px solid var(--border-color)',
-            color: '#fff',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 13,
           }}
         />
@@ -107,10 +107,10 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
           onChange={(e) => setAssigneeId(e.target.value)}
           style={{
             padding: '8px 10px',
-            borderRadius: 8,
+            borderRadius: 20,
             background: '#ffffff',
             border: '1px solid var(--border-color)',
-            color: '#fff',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 13,
           }}
         >
@@ -127,10 +127,10 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
           onChange={(e) => setDueDate(e.target.value)}
           style={{
             padding: '8px 10px',
-            borderRadius: 8,
+            borderRadius: 20,
             background: '#ffffff',
             border: '1px solid var(--border-color)',
-            color: '#fff',
+            color: 'var(--color-charcoal-ink)',
             fontSize: 13,
           }}
         />
@@ -139,10 +139,10 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
           disabled={creating}
           style={{
             padding: '8px 14px',
-            borderRadius: 8,
+            borderRadius: 20,
             background: 'var(--brand-primary)',
             border: 'none',
-            color: '#fff',
+            color: 'var(--color-charcoal-ink)',
             fontWeight: 600,
             fontSize: 13,
             cursor: 'pointer',
@@ -169,7 +169,7 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
               style={{
                 background: 'var(--bg-secondary)',
                 border: '1px solid var(--border-color)',
-                borderRadius: 12,
+                borderRadius: 20,
                 padding: 12,
                 minHeight: 320,
                 display: 'flex',
@@ -194,8 +194,8 @@ export const MiniKanbanBoard: React.FC<MiniKanbanBoardProps> = ({
                     fontSize: 11,
                     padding: '2px 7px',
                     borderRadius: 999,
-                    background: 'rgba(148, 163, 184, 0.14)',
-                    color: '#fff',
+                    background: 'var(--color-fog-mist)',
+                    color: 'var(--color-charcoal-ink)',
                   }}
                 >
                   {colTasks.length}

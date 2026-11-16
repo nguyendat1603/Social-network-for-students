@@ -37,7 +37,7 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
       style={{
         background: 'var(--bg-secondary)',
         border: '1px solid var(--border-color)',
-        borderRadius: 14,
+        borderRadius: 20,
         padding: 18,
         display: 'flex',
         flexDirection: 'column',
@@ -58,11 +58,11 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
               fontSize: 11,
               fontWeight: 700,
               padding: '3px 9px',
-              borderRadius: 6,
+              borderRadius: 20,
               background:
                 listing.listing_type === 'ROOMMATE_WANTED'
-                  ? 'rgba(16, 185, 129, 0.16)'
-                  : 'rgba(59, 130, 246, 0.16)',
+                  ? 'var(--color-highlight-yellow)'
+                  : 'var(--color-fog-mist)',
               color:
                 listing.listing_type === 'ROOMMATE_WANTED'
                   ? '#34d399'
@@ -84,7 +84,7 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
 
         <h3 style={{ margin: 0, fontSize: 16, color: 'var(--text-primary)' }}>{listing.title}</h3>
 
-        <div style={{ fontSize: 13, color: '#93c5fd' }}>
+        <div style={{ fontSize: 13, color: 'var(--color-charcoal-ink)' }}>
           Khu vực: <strong>{listing.address_district}</strong>
         </div>
 
@@ -105,9 +105,9 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             style={{
               fontSize: 11,
               padding: '3px 8px',
-              borderRadius: 6,
+              borderRadius: 20,
               background: 'rgba(30, 41, 59, 0.9)',
-              color: '#e2e8f0',
+              color: 'var(--color-charcoal-ink)',
             }}
           >
             {SLEEP_LABELS[listing.sleep_schedule] || listing.sleep_schedule}
@@ -116,10 +116,10 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             style={{
               fontSize: 11,
               padding: '3px 8px',
-              borderRadius: 6,
+              borderRadius: 20,
               background: listing.smoking_allowed
-                ? 'rgba(245, 158, 11, 0.16)'
-                : 'rgba(16, 185, 129, 0.16)',
+                ? 'var(--color-sand-wash)'
+                : 'var(--color-highlight-yellow)',
               color: listing.smoking_allowed ? '#fbbf24' : '#34d399',
             }}
           >
@@ -129,9 +129,9 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             style={{
               fontSize: 11,
               padding: '3px 8px',
-              borderRadius: 6,
-              background: 'rgba(59, 130, 246, 0.14)',
-              color: '#93c5fd',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
             }}
           >
             {listing.cooking_allowed ? '🍳 Được nấu ăn' : '🍱 Không nấu ăn'}
@@ -140,16 +140,16 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             style={{
               fontSize: 11,
               padding: '3px 8px',
-              borderRadius: 6,
-              background: 'rgba(148, 163, 184, 0.14)',
-              color: '#cbd5e1',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
             }}
           >
             👤 Ưu tiên: {GENDER_LABELS[listing.gender_preference]}
           </span>
         </div>
 
-        <div style={{ fontSize: 18, fontWeight: 800, color: '#fbbf24' }}>
+        <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--color-charcoal-ink)' }}>
           {Number(listing.monthly_rent_vnd).toLocaleString('vi-VN')} đ / tháng
         </div>
       </div>
@@ -165,7 +165,7 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 12, color: '#fff', fontWeight: 600 }}>
+          <span style={{ fontSize: 12, color: 'var(--color-charcoal-ink)', fontWeight: 600 }}>
             {listing.poster?.full_name || 'Sinh viên'}
           </span>
           <VerifiedStudentBadge
@@ -185,10 +185,10 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             }
             style={{
               padding: '6px 12px',
-              borderRadius: 8,
-              background: 'rgba(148, 163, 184, 0.16)',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
               border: '1px solid var(--border-color)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 12,
               cursor: 'pointer',
             }}
@@ -201,10 +201,10 @@ export const HousingListingCard: React.FC<HousingListingCardProps> = ({
             onClick={() => onMessagePoster(listing.poster_id, listing.title)}
             style={{
               padding: '7px 14px',
-              borderRadius: 8,
+              borderRadius: 20,
               background: 'var(--brand-primary)',
               border: 'none',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               fontWeight: 600,
               fontSize: 12,
               cursor: 'pointer',

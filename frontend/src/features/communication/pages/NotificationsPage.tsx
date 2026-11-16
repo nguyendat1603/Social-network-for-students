@@ -64,7 +64,7 @@ export const NotificationsPage: React.FC = () => {
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 14,
+            borderRadius: 20,
             padding: 20,
             display: 'flex',
             justifyContent: 'space-between',
@@ -88,10 +88,10 @@ export const NotificationsPage: React.FC = () => {
               disabled={busy || loading || loadError}
               style={{
                 padding: '8px 14px',
-                borderRadius: 8,
-                background: 'rgba(59, 130, 246, 0.16)',
-                border: '1px solid rgba(59, 130, 246, 0.4)',
-                color: '#60a5fa',
+                borderRadius: 20,
+                background: 'var(--color-fog-mist)',
+                border: '1px solid var(--color-fog-mist)',
+                color: 'var(--color-charcoal-ink)',
                 fontWeight: 600,
                 fontSize: 12,
                 cursor: busy || loading || loadError ? 'not-allowed' : 'pointer',
@@ -110,7 +110,7 @@ export const NotificationsPage: React.FC = () => {
               aria-pressed={filter === value}
               onClick={() => setFilter(value)}
               style={{
-                padding: '8px 14px', borderRadius: 8,
+                padding: '8px 14px', borderRadius: 20,
                 border: '1px solid var(--border-color)',
                 background: filter === value ? 'var(--brand-primary)' : 'var(--bg-secondary)',
                 color: filter === value ? '#fff' : 'var(--text-primary)', cursor: 'pointer',
@@ -141,7 +141,7 @@ export const NotificationsPage: React.FC = () => {
             style={{
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 14,
+              borderRadius: 20,
               padding: 36,
               textAlign: 'center',
               color: 'var(--text-secondary)',
@@ -157,11 +157,11 @@ export const NotificationsPage: React.FC = () => {
                 style={{
                   background: n.is_read
                     ? 'var(--bg-secondary)'
-                    : 'rgba(59, 130, 246, 0.12)',
+                    : 'var(--color-fog-mist)',
                   border: n.is_read
                     ? '1px solid var(--border-color)'
-                    : '1px solid rgba(59, 130, 246, 0.45)',
-                  borderRadius: 12,
+                    : '1px solid var(--color-fog-mist)',
+                  borderRadius: 20,
                   padding: 16,
                   display: 'flex',
                   justifyContent: 'space-between',
@@ -191,7 +191,7 @@ export const NotificationsPage: React.FC = () => {
                       onClick={() => handleMarkRead(n.id)}
                       aria-label={`Đánh dấu đã đọc: ${n.title}`}
                       style={{
-                        padding: '7px 12px', borderRadius: 8,
+                        padding: '7px 12px', borderRadius: 20,
                         border: '1px solid var(--border-color)',
                         background: 'var(--bg-secondary)', color: 'var(--text-primary)',
                         cursor: busy ? 'not-allowed' : 'pointer', fontSize: 12,
@@ -206,9 +206,9 @@ export const NotificationsPage: React.FC = () => {
                       onClick={() => { if (!n.is_read) void handleMarkRead(n.id); }}
                       style={{
                         padding: '7px 12px',
-                        borderRadius: 8,
+                        borderRadius: 20,
                         background: 'var(--brand-primary)',
-                        color: '#fff',
+                        color: 'var(--color-charcoal-ink)',
                         fontSize: 12,
                         fontWeight: 600,
                         whiteSpace: 'nowrap',

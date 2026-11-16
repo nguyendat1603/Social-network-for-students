@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { APP_ROUTES } from '../../../config/routes.config';
 import { useAuth } from '../../../hooks/useAuth';
@@ -77,7 +77,7 @@ export const OtpVerificationPage: React.FC = () => {
         </h1>
         <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 6 }}>
           Nhập mã OTP gồm 6 chữ số (hiệu lực 5 phút, tối đa 5 lần thử) để kích hoạt huy hiệu{' '}
-          <strong style={{ color: '#34d399' }}>Verified Student</strong>.
+          <strong style={{ color: 'var(--color-charcoal-ink)' }}>Verified Student</strong>.
         </p>
 
         {devPreview && (
@@ -85,15 +85,15 @@ export const OtpVerificationPage: React.FC = () => {
             style={{
               marginTop: 14,
               padding: '10px 14px',
-              borderRadius: 8,
-              background: 'rgba(59, 130, 246, 0.16)',
-              border: '1px solid rgba(59, 130, 246, 0.4)',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              border: '1px solid var(--color-fog-mist)',
               fontSize: 13,
-              color: '#93c5fd',
+              color: 'var(--color-charcoal-ink)',
             }}
           >
             💡 <strong>Dev Mode OTP Preview:</strong> Mã OTP của bạn là{' '}
-            <code style={{ fontSize: 16, fontWeight: 800, color: '#fff' }}>
+            <code style={{ fontSize: 16, fontWeight: 800, color: 'var(--color-charcoal-ink)' }}>
               {devPreview}
             </code>
           </div>
@@ -104,9 +104,9 @@ export const OtpVerificationPage: React.FC = () => {
             style={{
               marginTop: 14,
               padding: '10px 14px',
-              borderRadius: 8,
-              background: 'rgba(16, 185, 129, 0.15)',
-              color: '#34d399',
+              borderRadius: 20,
+              background: 'var(--color-highlight-yellow)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -119,9 +119,9 @@ export const OtpVerificationPage: React.FC = () => {
             style={{
               marginTop: 14,
               padding: '10px 14px',
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.15)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -178,7 +178,7 @@ export const OtpVerificationPage: React.FC = () => {
               color: '#06281e',
               border: 'none',
               padding: '12px',
-              borderRadius: 8,
+              borderRadius: 20,
               fontWeight: 800,
               fontSize: 14,
             }}
@@ -194,7 +194,7 @@ export const OtpVerificationPage: React.FC = () => {
               border: '1px solid var(--border-color)',
               color: 'var(--text-secondary)',
               padding: '10px',
-              borderRadius: 8,
+              borderRadius: 20,
               fontSize: 13,
             }}
           >

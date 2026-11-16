@@ -18,7 +18,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
       <div
         style={{
           display: 'flex',
@@ -32,64 +32,36 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
           onClick={() =>
             insertSnippet('```cpp\n// Nhập code tại đây\nint main() {\n  return 0;\n}\n```')
           }
-          style={{
-            background: 'rgba(24, 119, 242, 0.08)',
-            border: '1px solid rgba(24, 119, 242, 0.25)',
-            color: 'var(--brand-primary)',
-            padding: '4px 10px',
-            borderRadius: 6,
-            fontSize: 12,
-            fontWeight: 600,
-          }}
+          className="school-pill-btn"
+          style={{ padding: '5px 14px', fontSize: 12 }}
         >
-          + Code Snippet (```)
+          + (<span className="hl-cyan">c</span>)ode snippet
         </button>
         <button
           type="button"
           onClick={() =>
             insertSnippet('$$\\int_{0}^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$$')
           }
-          style={{
-            background: 'rgba(139, 92, 246, 0.08)',
-            border: '1px solid rgba(139, 92, 246, 0.25)',
-            color: '#7c3aed',
-            padding: '4px 10px',
-            borderRadius: 6,
-            fontSize: 12,
-            fontWeight: 600,
-          }}
+          className="school-pill-btn"
+          style={{ padding: '5px 14px', fontSize: 12 }}
         >
-          + Công thức LaTeX ($$)
+          + (<span className="hl-yellow">l</span>)atex formula
         </button>
         <button
           type="button"
           onClick={() => insertSnippet('#IT3080 ')}
-          style={{
-            background: 'rgba(16, 185, 129, 0.08)',
-            border: '1px solid rgba(16, 185, 129, 0.25)',
-            color: '#059669',
-            padding: '4px 10px',
-            borderRadius: 6,
-            fontSize: 12,
-            fontWeight: 600,
-          }}
+          className="school-pill-btn"
+          style={{ padding: '5px 14px', fontSize: 12 }}
         >
-          + Tag #IT3080
+          + #IT3080
         </button>
         <button
           type="button"
           onClick={() => insertSnippet('#MI1131 ')}
-          style={{
-            background: 'rgba(16, 185, 129, 0.08)',
-            border: '1px solid rgba(16, 185, 129, 0.25)',
-            color: '#059669',
-            padding: '4px 10px',
-            borderRadius: 6,
-            fontSize: 12,
-            fontWeight: 600,
-          }}
+          className="school-pill-btn"
+          style={{ padding: '5px 14px', fontSize: 12 }}
         >
-          + Tag #MI1131
+          + #MI1131
         </button>
       </div>
 
@@ -97,10 +69,10 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
         rows={rows}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder || 'Nhập nội dung bài viết / câu hỏi của bạn...'}
+        placeholder={placeholder || 'Input your own question or note.'}
         style={{
-          fontFamily: 'inherit',
-          lineHeight: 1.6,
+          fontFamily: 'var(--font-ibm-plex-mono)',
+          lineHeight: 1.5,
           resize: 'vertical',
         }}
       />

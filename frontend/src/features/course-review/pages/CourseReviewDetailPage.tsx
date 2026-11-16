@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+﻿import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { APP_ROUTES } from '../../../config/routes.config';
@@ -89,9 +89,9 @@ export const CourseReviewDetailPage: React.FC = () => {
               to={`/course-reviews/forum?courseCode=${course.code}`}
               style={{
                 padding: '10px 14px',
-                borderRadius: 8,
+                borderRadius: 20,
                 border: '1px solid var(--border-color)',
-                color: '#93c5fd',
+                color: 'var(--color-charcoal-ink)',
                 fontSize: 13,
                 fontWeight: 600,
               }}
@@ -103,10 +103,10 @@ export const CourseReviewDetailPage: React.FC = () => {
               onClick={() => setShowWriteModal(true)}
               style={{
                 background: '#7c3aed',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 border: 'none',
                 padding: '10px 18px',
-                borderRadius: 8,
+                borderRadius: 20,
                 fontWeight: 700,
                 fontSize: 13,
               }}

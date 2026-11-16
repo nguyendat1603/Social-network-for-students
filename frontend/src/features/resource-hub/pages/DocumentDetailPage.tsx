@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+﻿import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { APP_ROUTES } from '../../../config/routes.config';
@@ -59,9 +59,9 @@ export const DocumentDetailPage: React.FC = () => {
           <div
             style={{
               padding: '10px 14px',
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.15)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
@@ -83,7 +83,7 @@ export const DocumentDetailPage: React.FC = () => {
           }}
         >
           <div>
-            <div style={{ fontSize: 12, color: '#60a5fa', fontWeight: 700 }}>
+            <div style={{ fontSize: 12, color: 'var(--color-charcoal-ink)', fontWeight: 700 }}>
               [{doc.faculty?.code}] → #{doc.course?.code} ({doc.course?.name}) → Kỳ {doc.semester} → {doc.doc_type}
             </div>
             <h1 style={{ fontSize: 21, fontWeight: 800, marginTop: 4 }}>
@@ -114,10 +114,10 @@ export const DocumentDetailPage: React.FC = () => {
               onClick={handleDownload}
               style={{
                 background: 'var(--brand-primary)',
-                color: '#fff',
+                color: 'var(--color-charcoal-ink)',
                 border: 'none',
                 padding: '10px 18px',
-                borderRadius: 8,
+                borderRadius: 20,
                 fontWeight: 700,
                 fontSize: 13,
               }}

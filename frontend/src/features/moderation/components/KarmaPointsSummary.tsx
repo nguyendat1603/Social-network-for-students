@@ -32,7 +32,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 14,
+            borderRadius: 20,
             padding: 20,
             display: 'flex',
             flexDirection: 'column',
@@ -59,8 +59,8 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
                 fontWeight: 700,
                 padding: '4px 10px',
                 borderRadius: 999,
-                background: 'rgba(59, 130, 246, 0.16)',
-                color: '#60a5fa',
+                background: 'var(--color-fog-mist)',
+                color: 'var(--color-charcoal-ink)',
               }}
             >
               {summary.tier.badgeLabel}
@@ -73,7 +73,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 14,
+            borderRadius: 20,
             padding: 20,
             display: 'flex',
             flexDirection: 'column',
@@ -87,7 +87,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
             style={{
               fontSize: 28,
               fontWeight: 700,
-              color: '#34d399',
+              color: 'var(--color-charcoal-ink)',
               marginTop: 6,
             }}
           >
@@ -103,7 +103,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
-            borderRadius: 14,
+            borderRadius: 20,
             padding: 20,
             display: 'flex',
             flexDirection: 'column',
@@ -136,7 +136,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
         style={{
           background: 'var(--bg-secondary)',
           border: '1px solid var(--border-color)',
-          borderRadius: 14,
+          borderRadius: 20,
           padding: 20,
         }}
       >
@@ -165,7 +165,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding: '10px 14px',
-                    borderRadius: 10,
+                    borderRadius: 20,
                     background: 'rgba(15, 23, 42, 0.55)',
                     border: '1px solid var(--border-color)',
                   }}
@@ -173,7 +173,7 @@ export const KarmaPointsSummary: React.FC<KarmaPointsSummaryProps> = ({ summary 
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <span style={{ fontSize: 18 }}>{meta.icon}</span>
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 600, color: '#fff' }}>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-charcoal-ink)' }}>
                         {meta.label}
                       </div>
                       <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>

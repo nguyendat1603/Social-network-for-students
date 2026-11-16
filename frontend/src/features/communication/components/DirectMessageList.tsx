@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { ConversationItem } from '../../../types/communication.types';
 
 interface DirectMessageListProps {
@@ -40,12 +40,12 @@ export const DirectMessageList: React.FC<DirectMessageListProps> = ({
             style={{
               textAlign: 'left',
               padding: '10px 12px',
-              borderRadius: 10,
+              borderRadius: 20,
               border: '1px solid var(--border-color)',
               background: isActive
-                ? 'rgba(59, 130, 246, 0.2)'
+                ? 'var(--color-fog-mist)'
                 : 'rgba(15, 23, 42, 0.5)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               cursor: 'pointer',
             }}
           >

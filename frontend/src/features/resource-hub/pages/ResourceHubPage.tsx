@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+﻿import React, { useCallback, useEffect, useState } from 'react';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { PdfViewerModal } from '../../../components/common/PdfViewerModal';
 import { identityService } from '../../../services/identity.service';
@@ -110,10 +110,10 @@ export const ResourceHubPage: React.FC = () => {
             onClick={() => setShowUploadModal(true)}
             style={{
               background: 'var(--brand-primary)',
-              color: '#fff',
+              color: 'var(--color-charcoal-ink)',
               border: 'none',
               padding: '10px 18px',
-              borderRadius: 8,
+              borderRadius: 20,
               fontWeight: 700,
               fontSize: 13,
             }}
@@ -126,9 +126,9 @@ export const ResourceHubPage: React.FC = () => {
           <div
             style={{
               padding: '10px 14px',
-              borderRadius: 8,
-              background: 'rgba(239, 68, 68, 0.15)',
-              color: '#f87171',
+              borderRadius: 20,
+              background: 'var(--color-fog-mist)',
+              color: 'var(--color-charcoal-ink)',
               fontSize: 13,
             }}
           >
