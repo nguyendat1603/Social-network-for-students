@@ -22,7 +22,13 @@ export class DirectMessageService {
     // Verify target user exists
     const { data: targetUser } = await supabase
       .from('users')
-      .select('id, full_name, avatar_url, is_verified_student')
+      .select(
+        `
+        id,
+        is_verified_student,
+        academic_profile:academic_profiles(full_name, avatar_url, student_code)
+      `
+      )
       .eq('id', targetUserId)
       .maybeSingle();
 

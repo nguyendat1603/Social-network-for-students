@@ -1,6 +1,7 @@
 import { supabase } from '../../../database';
 import { AppError } from '../../../common/errors/app.error';
 import { KARMA_RULES } from '../../../common/constants/karma-rules.constant';
+import { normalizeUserWithProfile } from '../../../common/utils/profile.util';
 import { academicKarmaService } from '../../moderation/services/academic-karma.service';
 import {
   CreateMarketplaceItemDTO,
@@ -17,11 +18,9 @@ export class ItemListingService {
         *,
         seller:users!marketplace_items_seller_id_fkey(
           id,
-          full_name,
-          avatar_url,
           karma_points,
           is_verified_student,
-          academic_profile:academic_profiles(student_id, cohort, major)
+          academic_profile:academic_profiles(full_name, avatar_url, student_code, cohort, major)
         ),
         course:courses(id, code, name),
         images:marketplace_item_images(id, image_url, display_order)
@@ -58,7 +57,10 @@ export class ItemListingService {
       throw new AppError(error.message, 500, 'DB_ERROR');
     }
 
-    return data || [];
+    return (data || []).map((item) => ({
+      ...item,
+      seller: normalizeUserWithProfile(item.seller),
+    }));
   }
 
   async createItem(sellerId: string, dto: CreateMarketplaceItemDTO) {
@@ -76,12 +78,17 @@ export class ItemListingService {
         is_free: dto.isFree,
         condition: dto.condition,
         status: 'AVAILABLE',
-        pickup_location: dto.pickupLocation || null,
+        pickup_location: dto.pickupLocation || 'Khuôn viên trường',
       })
       .select(
         `
         *,
-        seller:users!marketplace_items_seller_id_fkey(id, full_name, avatar_url, karma_points, is_verified_student),
+        seller:users!marketplace_items_seller_id_fkey(
+          id,
+          karma_points,
+          is_verified_student,
+          academic_profile:academic_profiles(full_name, avatar_url, student_code, cohort, major)
+        ),
         course:courses(id, code, name)
       `
       )
@@ -100,7 +107,10 @@ export class ItemListingService {
       await supabase.from('marketplace_item_images').insert(imageRows);
     }
 
-    return item;
+    return {
+      ...item,
+      seller: normalizeUserWithProfile(item.seller),
+    };
   }
 
   async updateItemStatus(itemId: string, userId: string, status: ItemStatus) {

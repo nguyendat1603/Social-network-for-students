@@ -15,7 +15,8 @@ const VALID_GRADES: TargetGradeGoal[] = ['A+', 'A', 'B+', 'PASS'];
 const VALID_KANBAN_STATUSES: KanbanTaskStatus[] = ['TODO', 'IN_PROGRESS', 'REVIEW', 'DONE'];
 
 export const validateCreateStudyGroup = (body: Record<string, unknown>): CreateStudyGroupDTO => {
-  const courseId = Number(body.courseId);
+  const courseId =
+    body.courseId !== undefined && body.courseId !== null ? String(body.courseId).trim() : '';
   const semester = typeof body.semester === 'string' ? body.semester.trim() : '2026.1';
   const groupName = typeof body.groupName === 'string' ? body.groupName.trim() : '';
   const projectTopic =
@@ -23,7 +24,7 @@ export const validateCreateStudyGroup = (body: Record<string, unknown>): CreateS
   const targetGrade = (body.targetGrade as TargetGradeGoal) || 'A';
   const maxMembers = Number(body.maxMembers || 4);
 
-  if (!courseId || Number.isNaN(courseId)) {
+  if (!courseId) {
     throw new AppError('Vui lòng chọn học phần cho nhóm đồ án', 400, 'VALIDATION_ERROR');
   }
   if (!groupName || groupName.length < 3) {
@@ -159,12 +160,18 @@ export const validateCreateGroupDocument = (
 ): CreateGroupDocumentDTO => {
   const title = typeof body.title === 'string' ? body.title.trim() : '';
   const fileUrl = typeof body.fileUrl === 'string' ? body.fileUrl.trim() : '';
+  const fileName =
+    typeof body.fileName === 'string' && body.fileName.trim()
+      ? body.fileName.trim()
+      : title
+      ? `${title.replace(/\s+/g, '_')}.pdf`
+      : 'group-document.pdf';
   const fileSizeBytes =
     typeof body.fileSizeBytes === 'number'
-      ? body.fileSizeBytes
+      ? Math.max(0, Math.floor(body.fileSizeBytes))
       : body.fileSizeBytes
-      ? Number(body.fileSizeBytes)
-      : undefined;
+      ? Math.max(0, Math.floor(Number(body.fileSizeBytes)))
+      : 0;
 
   if (!title || !fileUrl) {
     throw new AppError('Vui lòng nhập tên tài liệu và đường dẫn file', 400, 'VALIDATION_ERROR');
@@ -173,6 +180,7 @@ export const validateCreateGroupDocument = (
   return {
     title,
     fileUrl,
+    fileName,
     fileSizeBytes,
   };
 };

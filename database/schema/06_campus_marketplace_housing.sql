@@ -18,8 +18,10 @@ BEGIN
 
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'item_condition') THEN
         CREATE TYPE public.item_condition AS ENUM (
+            'NEW',
             'NEW_100',
             'LIKE_NEW_90',
+            'USED_GOOD',
             'GOOD_80',
             'SLIGHTLY_DAMAGED'
         );

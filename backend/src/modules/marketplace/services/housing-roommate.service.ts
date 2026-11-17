@@ -1,5 +1,6 @@
 import { supabase } from '../../../database';
 import { AppError } from '../../../common/errors/app.error';
+import { normalizeUserWithProfile } from '../../../common/utils/profile.util';
 import {
   CreateHousingListingDTO,
   HousingFilterQuery,
@@ -15,11 +16,9 @@ export class HousingRoommateService {
         *,
         poster:users!housing_listings_poster_id_fkey(
           id,
-          full_name,
-          avatar_url,
           karma_points,
           is_verified_student,
-          academic_profile:academic_profiles(student_id, cohort, major)
+          academic_profile:academic_profiles(full_name, avatar_url, student_code, cohort, major)
         )
       `
       )
@@ -51,7 +50,7 @@ export class HousingRoommateService {
     }
     if (filters.search) {
       query = query.or(
-        `title.ilike.%${filters.search}%,address_district.ilike.%${filters.search}%,description.ilike.%${filters.search}%`
+        `title.ilike.%${filters.search}%,address_area.ilike.%${filters.search}%,description.ilike.%${filters.search}%`
       );
     }
 
@@ -60,7 +59,11 @@ export class HousingRoommateService {
       throw new AppError(error.message, 500, 'DB_ERROR');
     }
 
-    return data || [];
+    return (data || []).map((row) => ({
+      ...row,
+      address_district: row.address_area ?? row.address_district ?? '',
+      poster: normalizeUserWithProfile(row.poster),
+    }));
   }
 
   async createHousingListing(posterId: string, dto: CreateHousingListingDTO) {
@@ -71,8 +74,8 @@ export class HousingRoommateService {
         listing_type: dto.listingType,
         title: dto.title,
         description: dto.description,
-        address_district: dto.addressDistrict,
-        distance_to_campus_km: dto.distanceToCampusKm ?? null,
+        address_area: dto.addressDistrict,
+        distance_to_campus_km: dto.distanceToCampusKm ?? 1.0,
         monthly_rent_vnd: dto.monthlyRentVnd,
         max_budget_vnd: dto.maxBudgetVnd ?? dto.monthlyRentVnd,
         sleep_schedule: dto.sleepSchedule,
@@ -84,7 +87,12 @@ export class HousingRoommateService {
       .select(
         `
         *,
-        poster:users!housing_listings_poster_id_fkey(id, full_name, avatar_url, karma_points, is_verified_student)
+        poster:users!housing_listings_poster_id_fkey(
+          id,
+          karma_points,
+          is_verified_student,
+          academic_profile:academic_profiles(full_name, avatar_url, student_code, cohort, major)
+        )
       `
       )
       .single();
@@ -97,7 +105,11 @@ export class HousingRoommateService {
       );
     }
 
-    return data;
+    return {
+      ...data,
+      address_district: data.address_area ?? dto.addressDistrict,
+      poster: normalizeUserWithProfile(data.poster),
+    };
   }
 
   async updateHousingStatus(listingId: string, userId: string, status: HousingStatus) {
@@ -126,7 +138,10 @@ export class HousingRoommateService {
       throw new AppError(error?.message || 'Không thể cập nhật trạng thái', 500, 'UPDATE_FAILED');
     }
 
-    return updated;
+    return {
+      ...updated,
+      address_district: updated.address_area ?? updated.address_district ?? '',
+    };
   }
 }
 

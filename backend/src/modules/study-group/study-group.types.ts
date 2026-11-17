@@ -10,7 +10,7 @@ export interface RecruitmentSlotInput {
 }
 
 export interface CreateStudyGroupDTO {
-  courseId: number;
+  courseId: string;
   semester: string;
   groupName: string;
   projectTopic?: string;
@@ -20,7 +20,7 @@ export interface CreateStudyGroupDTO {
 }
 
 export interface StudyGroupFilterQuery {
-  courseId?: number;
+  courseId?: string;
   targetGrade?: TargetGradeGoal;
   roleName?: string;
   onlyRecruiting?: boolean;
@@ -57,5 +57,6 @@ export interface UpdateKanbanTaskDTO {
 export interface CreateGroupDocumentDTO {
   title: string;
   fileUrl: string;
+  fileName?: string;
   fileSizeBytes?: number;
 }

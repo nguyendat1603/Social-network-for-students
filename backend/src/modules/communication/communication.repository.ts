@@ -1,5 +1,6 @@
 import { supabase } from '../../database';
 import { AppError } from '../../common/errors/app.error';
+import { normalizeUserWithProfile } from '../../common/utils/profile.util';
 import { SendMessageDTO } from './communication.types';
 
 export class CommunicationRepository {
@@ -23,11 +24,15 @@ export class CommunicationRepository {
       .select(
         `
         *,
-        study_group:study_groups!conversations_study_group_id_fkey(id, group_name, course:courses(code, name)),
+        study_group:study_groups!conversations_study_group_id_fkey(id, name, course:courses(code, name)),
         participants:conversation_participants(
           user_id,
           last_read_at,
-          user:users(id, full_name, avatar_url, is_verified_student)
+          user:users(
+            id,
+            is_verified_student,
+            academic_profile:academic_profiles(full_name, avatar_url, student_code)
+          )
         )
       `
       )
@@ -48,9 +53,13 @@ export class CommunicationRepository {
             id,
             content,
             message_type,
-            file_name,
+            attachment_url,
+            attachment_name,
             created_at,
-            sender:users!messages_sender_id_fkey(id, full_name)
+            sender:users!messages_sender_id_fkey(
+              id,
+              academic_profile:academic_profiles(full_name, avatar_url, student_code)
+            )
           `
           )
           .eq('conversation_id', conv.id)
@@ -58,9 +67,34 @@ export class CommunicationRepository {
           .limit(1)
           .maybeSingle();
 
+        const normalizedParticipants = (conv.participants || []).map(
+          (p: { user_id: string; last_read_at?: string | null; user?: any }) => ({
+            ...p,
+            user: normalizeUserWithProfile(p.user),
+          })
+        );
+
+        const normalizedStudyGroup = conv.study_group
+          ? {
+              ...conv.study_group,
+              group_name: conv.study_group.name ?? conv.study_group.group_name,
+            }
+          : null;
+
+        const normalizedLatestMsg = latestMsg
+          ? {
+              ...latestMsg,
+              file_url: latestMsg.attachment_url ?? null,
+              file_name: latestMsg.attachment_name ?? null,
+              sender: normalizeUserWithProfile(latestMsg.sender),
+            }
+          : null;
+
         return {
           ...conv,
-          latest_message: latestMsg || null,
+          study_group: normalizedStudyGroup,
+          participants: normalizedParticipants,
+          latest_message: normalizedLatestMsg,
         };
       })
     );
@@ -93,7 +127,11 @@ export class CommunicationRepository {
       .select(
         `
         *,
-        sender:users!messages_sender_id_fkey(id, full_name, avatar_url, is_verified_student)
+        sender:users!messages_sender_id_fkey(
+          id,
+          is_verified_student,
+          academic_profile:academic_profiles(full_name, avatar_url, student_code)
+        )
       `
       )
       .eq('conversation_id', conversationId)
@@ -115,27 +153,40 @@ export class CommunicationRepository {
       .eq('conversation_id', conversationId)
       .eq('user_id', userId);
 
-    return data || [];
+    return (data || []).map((m) => ({
+      ...m,
+      file_url: m.attachment_url ?? m.file_url ?? null,
+      file_name: m.attachment_name ?? m.file_name ?? null,
+      sender: normalizeUserWithProfile(m.sender),
+    }));
   }
 
   async createMessage(conversationId: string, senderId: string, dto: SendMessageDTO) {
     await this.assertParticipant(conversationId, senderId);
+
+    const contentText =
+      dto.content && dto.content.trim().length > 0
+        ? dto.content.trim()
+        : dto.fileName || 'Đính kèm tệp';
 
     const { data, error } = await supabase
       .from('messages')
       .insert({
         conversation_id: conversationId,
         sender_id: senderId,
-        message_type: dto.messageType || 'TEXT',
-        content: dto.content || null,
-        file_url: dto.fileUrl || null,
-        file_name: dto.fileName || null,
-        file_size_bytes: dto.fileSizeBytes || null,
+        message_type: dto.messageType || (dto.fileUrl ? 'FILE' : 'TEXT'),
+        content: contentText,
+        attachment_url: dto.fileUrl || null,
+        attachment_name: dto.fileName || null,
       })
       .select(
         `
         *,
-        sender:users!messages_sender_id_fkey(id, full_name, avatar_url, is_verified_student)
+        sender:users!messages_sender_id_fkey(
+          id,
+          is_verified_student,
+          academic_profile:academic_profiles(full_name, avatar_url, student_code)
+        )
       `
       )
       .single();
@@ -149,7 +200,13 @@ export class CommunicationRepository {
       .update({ last_message_at: new Date().toISOString() })
       .eq('id', conversationId);
 
-    return data;
+    return {
+      ...data,
+      file_url: data.attachment_url ?? dto.fileUrl ?? null,
+      file_name: data.attachment_name ?? dto.fileName ?? null,
+      file_size_bytes: dto.fileSizeBytes ?? null,
+      sender: normalizeUserWithProfile(data.sender),
+    };
   }
 }
 

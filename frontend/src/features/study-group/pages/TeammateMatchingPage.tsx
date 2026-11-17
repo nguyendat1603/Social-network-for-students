@@ -12,7 +12,7 @@ export const TeammateMatchingPage: React.FC = () => {
   const [params, setParams] = useSearchParams();
   const code = params.get('code');
   const [groups, setGroups] = useState<StudyGroupItem[]>([]);
-  const [courses, setCourses] = useState<Array<{ id: number; code: string; name: string }>>([]);
+  const [courses, setCourses] = useState<Array<{ id: string; code: string; name: string }>>([]);
   const [loading, setLoading] = useState(true);
 
   const courseId = courses.find(course => course.code === code)?.id;
@@ -37,7 +37,7 @@ export const TeammateMatchingPage: React.FC = () => {
       setCourses(
         (hierarchy || []).flatMap((f) =>
           (f.courses || []).map((c) => ({
-            id: Number(c.id),
+            id: String(c.id),
             code: c.code,
             name: c.name,
           }))
@@ -46,7 +46,7 @@ export const TeammateMatchingPage: React.FC = () => {
       const scopedCourse = hierarchy.flatMap(faculty => faculty.courses || []).find(course => course.code === code);
       if (code && !scopedCourse) throw new Error('Không tìm thấy học phần. Vui lòng chọn học phần hợp lệ trong danh sách.');
       const groupList = await studyGroupService.listStudyGroups({
-        courseId: code ? Number(scopedCourse!.id) : undefined,
+        courseId: code ? String(scopedCourse!.id) : undefined,
         targetGrade: targetGrade || undefined,
         roleName: roleName || undefined,
         onlyRecruiting,
@@ -145,7 +145,7 @@ export const TeammateMatchingPage: React.FC = () => {
             value={courseId || ''}
             onChange={(e) => {
               const next = new URLSearchParams(params);
-              const course = courses.find(item => item.id === Number(e.target.value));
+              const course = courses.find(item => String(item.id) === e.target.value);
               if (course) next.set('code', course.code); else next.delete('code');
               setParams(next);
             }}

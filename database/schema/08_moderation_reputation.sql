@@ -160,3 +160,31 @@ WITH CHECK (
           AND users.role IN ('ADMIN', 'MODERATOR')
     )
 );
+
+-- 6. KARMA LEDGER TABLE (Immutable Transaction Ledger for Academic Karma)
+CREATE TABLE IF NOT EXISTS public.karma_ledger (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    action_type VARCHAR(60) NOT NULL,
+    points_delta INTEGER NOT NULL,
+    reference_type VARCHAR(50),
+    reference_id TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT uq_karma_ledger_event UNIQUE (user_id, action_type, reference_type, reference_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_karma_ledger_user_created ON public.karma_ledger (user_id, created_at DESC);
+
+ALTER TABLE public.karma_ledger ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "karma_ledger_select_own_or_mod"
+ON public.karma_ledger FOR SELECT
+TO authenticated
+USING (
+    user_id = auth.uid()
+    OR EXISTS (
+        SELECT 1 FROM public.users
+        WHERE users.id = auth.uid()
+          AND users.role IN ('ADMIN', 'MODERATOR')
+    )
+);

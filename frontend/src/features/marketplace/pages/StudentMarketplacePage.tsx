@@ -21,7 +21,7 @@ export const StudentMarketplacePage: React.FC = () => {
   const navigate = useNavigate();
 
   const [items, setItems] = useState<MarketplaceItem[]>([]);
-  const [courses, setCourses] = useState<Array<{ id: number; code: string; name: string }>>([]);
+  const [courses, setCourses] = useState<Array<{ id: string; code: string; name: string }>>([]);
   const [loading, setLoading] = useState(true);
 
   const [category, setCategory] = useState<ItemCategory | ''>('');
@@ -49,7 +49,7 @@ export const StudentMarketplacePage: React.FC = () => {
       setCourses(
         (hierarchy || []).flatMap((f) =>
           (f.courses || []).map((c) => ({
-            id: Number(c.id),
+            id: String(c.id),
             code: c.code,
             name: c.name,
           }))

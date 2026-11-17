@@ -7,13 +7,13 @@ import {
 
 interface PostMarketplaceItemModalProps {
   isOpen: boolean;
-  courses: Array<{ id: number; code: string; name: string }>;
+  courses: Array<{ id: string | number; code: string; name: string }>;
   onClose: () => void;
   onSubmit: (payload: {
     title: string;
     description: string;
     category: ItemCategory;
-    courseId?: number | null;
+    courseId?: string | null;
     priceVnd: number;
     isFree: boolean;
     condition: ItemCondition;
@@ -50,7 +50,7 @@ export const PostMarketplaceItemModal: React.FC<PostMarketplaceItemModalProps> =
         title,
         description,
         category,
-        courseId: courseId ? Number(courseId) : null,
+        courseId: courseId ? String(courseId) : null,
         priceVnd: isFree ? 0 : Number(priceVnd),
         isFree,
         condition,

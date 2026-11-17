@@ -15,7 +15,10 @@ export class StudyGroupController {
   async listStudyGroups(req: Request, res: Response, next: NextFunction) {
     try {
       const filters = {
-        courseId: req.query.courseId ? Number(req.query.courseId) : undefined,
+        courseId:
+          typeof req.query.courseId === 'string' && req.query.courseId.trim()
+            ? req.query.courseId.trim()
+            : undefined,
         targetGrade: (req.query.targetGrade as TargetGradeGoal) || undefined,
         roleName: typeof req.query.roleName === 'string' ? req.query.roleName : undefined,
         onlyRecruiting:
