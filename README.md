@@ -1,5 +1,7 @@
 # 🎓 MXH_HSSV — Nền Tảng Mạng Xã Hội Học Thuật & Đời Sống Sinh Viên
 
+> **Trạng thái rà soát 17/11/2026:** dự án có UI và API cho tám module nhưng chưa sẵn sàng phát hành công khai. Một số mô tả dưới đây là mục tiêu ban đầu, chưa phản ánh đầy đủ giới hạn triển khai. Đọc [mục lục tài liệu](docs/README.md), [đặc tả API hiện tại](docs/api-specification.md), [hướng dẫn triển khai](docs/deployment-guide.md) và [báo cáo tính năng/blocker](docs/feature-audit.md) trước khi tích hợp hoặc chạy production. SSO/email OTP/realtime/storage và các chênh lệch code–schema cần được xử lý; chưa có bằng chứng xác nhận trạng thái bảo mật của database cloud.
+
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-18-cyan.svg)](https://react.dev/)
@@ -28,8 +30,8 @@
   - Xác thực & Phân quyền: JWT (Access Token 1 ngày + Refresh Token 7 ngày) + RBAC (`UNVERIFIED_USER`, `VERIFIED_STUDENT`, `MODERATOR`, `ADMIN`).
   - Validation dữ liệu chặt chẽ với logic sanitize nội dung XSS và trích xuất hashtag học phần tự động.
 - **Database & Cloud**: Supabase Online PostgreSQL 16
-  - **35 bảng dữ liệu** chuẩn hóa quan hệ (1NF - 3NF).
-  - Kích hoạt **Row-Level Security (RLS)** trên 100% các bảng với **0 cảnh báo bảo mật**.
+  - **34 bảng có DDL trong repo**; `karma_ledger` được code sử dụng nhưng chưa có schema tương ứng.
+  - SQL có khai báo **Row-Level Security (RLS)**; chưa kiểm chứng policy và cảnh báo bảo mật trên database cloud trong lần rà soát này.
   - Tìm kiếm toàn văn (Full-Text Search) với PostgreSQL text search vector.
 - **Frontend**: React 18 + TypeScript + Vite + Zustand
   - Quản lý trạng thái xác thực và hồ sơ người dùng qua Zustand store bền vững (LocalStorage sync).

@@ -1,5 +1,7 @@
 # Tài Liệu Đặc Tả MVP (Minimum Viable Product) — Nền Tảng Mạng Xã Hội Sinh Viên (MXH_HSSV)
 
+> **Cập nhật đối chiếu 17/11/2026:** tài liệu này mô tả mục tiêu nghiệp vụ ban đầu, không chứng nhận tám module đã hoàn thành. Hợp đồng hiện có và các sai khác nằm tại [API](api-specification.md), [kiến trúc](architecture.md), [dữ liệu/ERD](database-erd.md) và [triển khai](deployment-guide.md). Xem [báo cáo tính năng](feature-audit.md) để quyết định phạm vi thực tế và các cơ chế nên giản lược. Các công nghệ/tính năng được đề xuất dưới đây như Redis, Socket.IO, gửi email, OAuth provider, KaTeX và pipeline storage chưa được triển khai đầy đủ trong source hiện tại. Phạm vi loại bỏ/hoãn chỉ là đề xuất, chưa được chủ dự án phê duyệt.
+
 > **Tài liệu chuẩn (Single Source of Truth)**: Tài liệu này định nghĩa phạm vi nghiệp vụ MVP, kiến trúc kỹ thuật, mô hình dữ liệu cốt lõi, hợp đồng API và quy tắc nghiệp vụ cho 8 phân hệ của hệ thống `MXH_HSSV`. Mọi `SKILL.md` của từng module đều lấy tài liệu này làm cơ sở triển khai.
 
 ---
