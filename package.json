@@ -4,6 +4,7 @@
   "private": true,
   "description": "Mạng xã hội học thuật sinh viên (MXH_HSSV) - Supabase Online PostgreSQL",
   "scripts": {
+    "dev": "node scripts/run.mjs",
     "dev:backend": "npm --prefix backend run dev",
     "dev:frontend": "npm --prefix frontend run dev",
     "build:backend": "npm --prefix backend run build",
