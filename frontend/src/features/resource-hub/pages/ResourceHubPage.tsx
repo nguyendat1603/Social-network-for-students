@@ -16,7 +16,7 @@ import { UploadResourceModal } from '../components/UploadResourceModal';
 
 export const ResourceHubPage: React.FC = () => {
   const [params, setParams] = useSearchParams();
-  const code = params.get('code');
+  const code = params.get('code') || params.get('courseCode');
   const [tree, setTree] = useState<HierarchyFacultyNode[]>([]);
   const [faculties, setFaculties] = useState<FacultyItem[]>([]);
   const [courses, setCourses] = useState<CourseItem[]>([]);
@@ -175,7 +175,7 @@ export const ResourceHubPage: React.FC = () => {
           >
             {catalogError || statusError}
             <button type="button" onClick={() => catalogState === 'error' ? loadHierarchyAndCatalog() : loadDocuments()}>Thử lại</button>
-            {code && <button type="button" onClick={() => { const next = new URLSearchParams(params); next.delete('code'); setParams(next); }}>Xem tất cả tài liệu</button>}
+            {code && <button type="button" data-demo-read-action onClick={() => { const next = new URLSearchParams(params); next.delete('code'); next.delete('courseCode'); setParams(next); }}>Xem tất cả tài liệu</button>}
           </div>
         )}
 
@@ -191,6 +191,7 @@ export const ResourceHubPage: React.FC = () => {
             const next = new URLSearchParams(params);
             const course = courses.find(item => item.id === id);
             if (course) next.set('code', course.code); else next.delete('code');
+            next.delete('courseCode');
             setParams(next);
           }}
           onSelectSemester={setSelectedSemester}

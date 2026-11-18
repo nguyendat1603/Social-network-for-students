@@ -4,6 +4,7 @@ export const APP_ROUTES = {
   VERIFY_OTP: '/verify-otp',
   SSO_CALLBACK: '/oauth/callback',
   ACADEMIC_PROFILE: '/profile',
+  COURSES: '/courses',
 
   // Module 2: Academic Feed
   CAMPUS_FEED: '/feed',

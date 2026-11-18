@@ -174,6 +174,18 @@ Hệ thống đã có sẵn file mẫu `.env.example`. Tạo các file `.env` c�
 
 ### 5. Khởi động Ứng dụng
 
+Chạy một lệnh tại thư mục gốc để khởi động backend, chờ API sẵn sàng, chạy frontend và tự mở trình duyệt:
+
+```bash
+npm run dev
+```
+
+Web mở tại **`http://localhost:5173`**. Nhấn **Ctrl+C** để dừng cả hai server. Cần cài dependencies và cấu hình `.env` theo các bước trên trước lần chạy đầu tiên. Nếu cổng đang được sử dụng, hãy dừng server cũ rồi chạy lại.
+
+Có thể chạy trực tiếp `node scripts/run.mjs`, hoặc dùng `npm run dev -- --no-open` để không tự mở trình duyệt.
+
+Nếu muốn chạy riêng từng phần:
+
 Mở **2 cửa sổ Terminal song song**:
 
 #### 🔹 Terminal 1: Khởi động Backend API Server

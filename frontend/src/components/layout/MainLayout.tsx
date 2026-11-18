@@ -15,6 +15,6 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children, onAsk, pageCla
   const demo = useDemoStore(state => state.active);
   return <CampusAppShell onAsk={onAsk} courseCode={courseCode}>
     <div className={pageClassName}>{children}</div>
-    {!(import.meta.env.DEV && demo) && <FloatingChatBubbles />}
+    {!demo && <FloatingChatBubbles />}
   </CampusAppShell>;
 };

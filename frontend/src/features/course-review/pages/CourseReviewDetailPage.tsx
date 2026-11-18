@@ -64,7 +64,7 @@ export const CourseReviewDetailPage: React.FC = () => {
   return (
     <MainLayout pageClassName="campus-page campus-reviews">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <Link to={APP_ROUTES.COURSE_REVIEWS} style={{ fontSize: 13 }}>
+        <Link to={APP_ROUTES.COURSES} style={{ fontSize: 13 }}>
           ← Quay lại Danh mục Học phần
         </Link>
 

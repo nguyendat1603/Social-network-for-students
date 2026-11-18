@@ -5,9 +5,10 @@ import { TargetGradeGoal } from '../../../types/study-group.types';
 interface CreateRecruitmentModalProps {
   isOpen: boolean;
   courses: Array<{ id: string | number; code: string; name: string }>;
+  defaultCourseId?: string | number;
   onClose: () => void;
   onSubmit: (payload: {
-    courseId: string;
+    courseId: string | number;
     semester: string;
     groupName: string;
     projectTopic?: string;
@@ -24,11 +25,12 @@ interface CreateRecruitmentModalProps {
 export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
   isOpen,
   courses,
+  defaultCourseId,
   onClose,
   onSubmit,
 }) => {
   const dialogRef = useDialog(onClose, isOpen);
-  const [courseId, setCourseId] = useState<string>(String(courses[0]?.id || '1'));
+  const [courseId, setCourseId] = useState<string | number>(defaultCourseId || courses[0]?.id || '');
   const [semester, setSemester] = useState('2026.1');
   const [groupName, setGroupName] = useState('');
   const [projectTopic, setProjectTopic] = useState('');
@@ -56,7 +58,7 @@ export const CreateRecruitmentModal: React.FC<CreateRecruitmentModalProps> = ({
     setSubmitting(true);
     try {
       await onSubmit({
-        courseId: String(courseId || courses[0]?.id || '1'),
+        courseId,
         semester,
         groupName,
         projectTopic: projectTopic || undefined,

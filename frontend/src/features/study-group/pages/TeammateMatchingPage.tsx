@@ -10,9 +10,9 @@ import { TeamApplicationDrawer } from '../components/TeamApplicationDrawer';
 
 export const TeammateMatchingPage: React.FC = () => {
   const [params, setParams] = useSearchParams();
-  const code = params.get('code');
+  const code = params.get('code') || params.get('courseCode');
   const [groups, setGroups] = useState<StudyGroupItem[]>([]);
-  const [courses, setCourses] = useState<Array<{ id: string; code: string; name: string }>>([]);
+  const [courses, setCourses] = useState<Array<{ id: string | number; code: string; name: string }>>([]);
   const [loading, setLoading] = useState(true);
 
   const courseId = courses.find(course => course.code === code)?.id;
@@ -37,7 +37,7 @@ export const TeammateMatchingPage: React.FC = () => {
       setCourses(
         (hierarchy || []).flatMap((f) =>
           (f.courses || []).map((c) => ({
-            id: String(c.id),
+            id: c.id,
             code: c.code,
             name: c.name,
           }))
@@ -46,7 +46,7 @@ export const TeammateMatchingPage: React.FC = () => {
       const scopedCourse = hierarchy.flatMap(faculty => faculty.courses || []).find(course => course.code === code);
       if (code && !scopedCourse) throw new Error('Không tìm thấy học phần. Vui lòng chọn học phần hợp lệ trong danh sách.');
       const groupList = await studyGroupService.listStudyGroups({
-        courseId: code ? String(scopedCourse!.id) : undefined,
+        courseId: code ? scopedCourse!.id : undefined,
         targetGrade: targetGrade || undefined,
         roleName: roleName || undefined,
         onlyRecruiting,
@@ -83,7 +83,7 @@ export const TeammateMatchingPage: React.FC = () => {
         >
           <div>
             <h1 style={{ margin: 0, fontSize: 22, color: 'var(--text-primary)' }}>
-              🤝 Tìm Nhóm & Quản lý Đồ án (Teammate Matching)
+              Nhóm học & đồ án
             </h1>
             <p
               style={{
@@ -141,12 +141,13 @@ export const TeammateMatchingPage: React.FC = () => {
             }}
           />
 
-          <select
+          <select aria-label="Học phần"
             value={courseId || ''}
             onChange={(e) => {
               const next = new URLSearchParams(params);
               const course = courses.find(item => String(item.id) === e.target.value);
               if (course) next.set('code', course.code); else next.delete('code');
+              next.delete('courseCode');
               setParams(next);
             }}
             style={{
@@ -252,8 +253,10 @@ export const TeammateMatchingPage: React.FC = () => {
       </div>
 
       <CreateRecruitmentModal
+        key={`${isCreateOpen}-${courseId || 'all'}`}
         isOpen={isCreateOpen}
         courses={courses}
+        defaultCourseId={courseId}
         onClose={() => setIsCreateOpen(false)}
         onSubmit={async (payload) => {
           await studyGroupService.createStudyGroup(payload);

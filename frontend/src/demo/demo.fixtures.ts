@@ -1,5 +1,6 @@
-// Development-only, read-only dataset. Never merged with backend responses.
-// Loaded dynamically behind import.meta.env.DEV in api.client.ts.
+// Read-only mock dataset. Never merged with backend responses.
+// Loaded dynamically for the mock account in api.client.ts.
+import { sampleId, sampleAuthors, sampleFaculties, sampleCourses, samplePosts, sampleComments } from './sample-data';
 const created = '2026-11-12T08:00:00Z';
 const faculty = { id: '1', code: 'CNTT', name: 'Khoa Công nghệ thông tin · Demo', description: 'Dữ liệu minh họa' };
 const course = { id: '1', code: 'IT3080', name: 'Mạng máy tính · Demo', faculty_id: '1', credits: 3, description: 'Học phần minh họa để xem giao diện.' };
@@ -48,26 +49,99 @@ const conversation = {
   latest_message: { id: 'demo-message', content: 'Tin nhắn minh họa · chỉ xem.', message_type: 'TEXT', created_at: created, sender: author },
 };
 const tier = { tierCode: 'VERIFIED_MEMBER', badgeLabel: 'Minh họa', dailyDownloadLimit: 0, canCreateCustomGroup: false, nextTierPoints: 50 };
+const documents = sampleCourses.map((item, i) => ({
+  ...document, id: sampleId(7, i), course_id: item.id, faculty_id: item.faculty_id,
+  title: `[Mẫu] Ghi chú ôn tập ${item.name.replace(' · Mẫu', '')}`,
+  description: 'Tệp PDF minh họa bố cục, không phải tài liệu giảng dạy hoặc đề thi thật.',
+  course: item, faculty: sampleFaculties.find(f => f.id === item.faculty_id),
+  uploader: sampleAuthors[i % 30], uploader_id: sampleAuthors[i % 30].id,
+  semester: i % 2 ? '2026.1' : '2025.2',
+  doc_type: (['SUMMARY_NOTE', 'ASSIGNMENT_PROJECT', 'LECTURE_SLIDE', 'MIDTERM_EXAM', 'FINAL_EXAM'] as const)[i % 5],
+}));
+const groups = sampleCourses.slice(0, 10).map((item, i) => ({
+  ...group, id: sampleId(8, i), course_id: item.id, course: item,
+  group_name: `[Mẫu] Cùng học ${item.name.replace(' · Mẫu', '')}`,
+  project_topic: i % 2 ? 'Ôn tập và giải bài theo tuần' : 'Xây dựng bài tập lớn theo nhóm',
+  leader_id: sampleAuthors[i].id, leader: sampleAuthors[i], member_count: 2,
+  target_grade: (['A', 'B+', 'PASS'] as const)[i % 3], is_recruiting: i % 4 !== 0,
+  slots: [{ ...group.slots[0], id: sampleId(9, i), group_id: sampleId(8, i), role_name: i % 2 ? 'Tổng hợp tài liệu' : 'Lập trình', required_skills: i % 2 ? ['Ghi chú', 'Thuyết trình'] : ['JavaScript', 'Git'] }],
+}));
 
 export function demoRead(endpoint: string): unknown {
-  if (!import.meta.env.DEV) throw new Error('Demo không khả dụng trong production.');
   const url = new URL(endpoint, 'https://demo.invalid');
   const path = url.pathname;
   const q = url.searchParams;
+  const requestedCode = q.get('courseCode');
+  if (requestedCode && sampleCourses.some(c => c.code === `DEMO-${requestedCode}`)) q.set('courseCode', `DEMO-${requestedCode}`);
   let value: unknown;
-  if (path === '/identity/catalog') value = { faculties: [faculty], courses: [course] };
+  if (path === '/identity/catalog') value = { faculties: sampleFaculties, courses: sampleCourses };
   else if (path === '/feed' || path === '/course-reviews/forum/search') {
-    const matches = (!q.get('courseCode') || q.get('courseCode') === course.code) && (!q.get('courseId') || q.get('courseId') === course.id)
-      && (!q.get('q') || `${post.title} ${post.content_body}`.toLocaleLowerCase('vi').includes(q.get('q')!.toLocaleLowerCase('vi'))) && q.get('onlyAccepted') !== 'true';
-    value = matches ? [{ ...post, feed_scope: q.get('scope') || 'COURSE' }] : [];
+    const matching = samplePosts.filter(item =>
+      (path !== '/course-reviews/forum/search' || item.post_type === 'QUESTION') &&
+      (!q.get('courseCode') || q.get('courseCode') === item.course.code) &&
+      (!q.get('courseId') || q.get('courseId') === item.course_id) &&
+      (!q.get('facultyId') || q.get('facultyId') === item.faculty_id) &&
+      (!q.get('postType') || q.get('postType') === item.post_type) &&
+      (!(q.get('courseId') || q.get('courseCode')) ? !q.get('scope') || q.get('scope') === item.feed_scope : true) &&
+      (!q.get('q') || `${item.title} ${item.content_body}`.toLocaleLowerCase('vi').includes(q.get('q')!.toLocaleLowerCase('vi'))) &&
+      (q.get('onlyAccepted') !== 'true' || !!item.accepted_comment_id) &&
+      (q.get('sort') !== 'unanswered' || (item.post_type === 'QUESTION' && !item.accepted_comment_id)));
+    matching.sort((a, b) => q.get('sort') === 'hot'
+      ? b.upvote_count - a.upvote_count || b.comment_count - a.comment_count || b.created_at.localeCompare(a.created_at)
+      : b.created_at.localeCompare(a.created_at));
+    const limit = Math.min(50, Math.max(1, Number(q.get('limit')) || 20));
+    const offset = (Math.max(1, Number(q.get('page')) || 1) - 1) * limit;
+    value = matching.slice(offset, offset + limit).map(item => item.is_anonymous
+      ? { ...item, author: { anonymous_handle: item.author.anonymous_handle } } : item);
+  }
+  else if (path.startsWith('/feed/posts/') && samplePosts.some(item => item.id === path.split('/').pop())) {
+    const item = samplePosts.find(item => item.id === path.split('/').pop())!;
+    const comments = sampleComments.filter(comment => comment.post_id === item.id);
+    value = { ...item, author: item.is_anonymous ? { anonymous_handle: item.author.anonymous_handle } : item.author,
+      comments: comments.filter(comment => !comment.parent_comment_id).map(comment => ({
+        ...comment, replies: comments.filter(reply => reply.parent_comment_id === comment.id),
+      })) };
   }
   else if (path === '/feed/posts/demo-post') value = post;
-  else if (path === '/course-reviews/directory') value = { courses: [{ ...course, faculty, aggregate }], lecturers: [] };
+  else if (path === '/course-reviews/directory') value = { courses: sampleCourses.map(c => ({ ...c, faculty: sampleFaculties.find(f => f.id === c.faculty_id), aggregate })), lecturers: [] };
+  else if (path.startsWith('/course-reviews/courses/') && sampleCourses.some(c => c.code === path.split('/').pop() || c.code === `DEMO-${path.split('/').pop()}`)) {
+    value = { course: sampleCourses.find(c => c.code === path.split('/').pop() || c.code === `DEMO-${path.split('/').pop()}`), aggregate, lecturers: [], reviews: [] };
+  }
   else if (path === '/course-reviews/courses/IT3080') value = { course, aggregate, lecturers: [], reviews: [] };
-  else if (path === '/resources/hierarchy') value = [{ ...faculty, courses: [{ ...course, documentCount: 1, semesters: ['2026.1'] }] }];
-  else if (path === '/resources') value = (!q.get('q') || document.title.toLowerCase().includes(q.get('q')!.toLowerCase())) && (!q.get('courseCode') || q.get('courseCode') === course.code) && (!q.get('docType') || q.get('docType') === document.doc_type) && (!q.get('semester') || q.get('semester') === document.semester) ? [document] : [];
+  else if (path === '/resources/hierarchy') value = sampleFaculties.map(item => ({
+    ...item, courses: sampleCourses.filter(c => c.faculty_id === item.id).map(c => ({
+      ...c, documentCount: 1, semesters: documents.filter(d => d.course_id === c.id).map(d => d.semester),
+    })),
+  }));
+  else if (path === '/resources') value = documents.filter(item =>
+    (!q.get('q') || item.title.toLocaleLowerCase('vi').includes(q.get('q')!.toLocaleLowerCase('vi'))) &&
+    (!q.get('courseCode') || q.get('courseCode') === item.course.code) &&
+    (!q.get('courseId') || q.get('courseId') === item.course_id) &&
+    (!q.get('facultyId') || q.get('facultyId') === item.faculty_id) &&
+    (!q.get('docType') || q.get('docType') === item.doc_type) &&
+    (!q.get('semester') || q.get('semester') === item.semester));
+  else if (path.startsWith('/resources/') && documents.some(d => d.id === path.split('/').pop())) value = documents.find(d => d.id === path.split('/').pop());
   else if (path === '/resources/demo-document') value = document;
-  else if (path === '/study-groups') value = (!q.get('targetGrade') || q.get('targetGrade') === group.target_grade) && (!q.get('search') || group.group_name.toLowerCase().includes(q.get('search')!.toLowerCase())) ? [group] : [];
+  else if (path === '/study-groups') value = groups.filter(item =>
+    (!q.get('targetGrade') || q.get('targetGrade') === item.target_grade) &&
+    (!q.get('courseId') || q.get('courseId') === item.course_id) &&
+    (!q.get('onlyRecruiting') || item.is_recruiting === (q.get('onlyRecruiting') === 'true')) &&
+    (!q.get('roleName') || item.slots.some(slot => slot.role_name.toLowerCase().includes(q.get('roleName')!.toLowerCase()))) &&
+    (!q.get('search') || `${item.group_name} ${item.project_topic}`.toLocaleLowerCase('vi').includes(q.get('search')!.toLocaleLowerCase('vi'))));
+  else if (/^\/study-groups\/[^/]+\/workspace$/.test(path) && groups.some(g => g.id === path.split('/')[2])) {
+    const selected = groups.find(g => g.id === path.split('/')[2])!;
+    value = {
+      group: selected, myMembership: { group_id: selected.id, user_id: 'demo-viewer', member_role: 'MEMBER', assigned_role: 'Người xem demo' },
+      members: [selected.leader, sampleAuthors[29]].map((a, i) => ({
+        group_id: selected.id, user_id: a.id, member_role: i ? 'MEMBER' : 'LEAD',
+        assigned_role: i ? 'Tổng hợp' : 'Điều phối', joined_at: created, user: { ...a, skills: [] },
+      })), slots: selected.slots,
+      tasks: ['Thống nhất đề cương', 'Chuẩn bị nội dung', 'Kiểm tra kết quả'].map((title, i) => ({
+        id: `${selected.id}-task-${i}`, group_id: selected.id, title,
+        status: ['DONE', 'IN_PROGRESS', 'TODO'][i], position_order: i, created_at: created,
+      })), documents: [], applications: [], conversationId: conversation.id,
+    };
+  }
   else if (path === '/study-groups/demo-group/workspace') value = {
     group, myMembership: { group_id: group.id, user_id: 'demo-viewer', member_role: 'MEMBER', assigned_role: 'Người xem demo' },
     members: [{ group_id: group.id, user_id: author.id, member_role: 'LEAD', assigned_role: 'Điều phối', joined_at: created, user: { ...author, skills: [] } }],

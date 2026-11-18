@@ -11,6 +11,7 @@ import { RegisterEduPage } from './features/identity/pages/RegisterEduPage';
 import { SsoCallbackPage } from './features/identity/pages/SsoCallbackPage';
 import { CampusFeedPage } from './features/feed/pages/CampusFeedPage';
 import { CourseFeedPage } from './features/feed/pages/CourseFeedPage';
+import { CourseDirectoryPage } from './features/feed/pages/CourseDirectoryPage';
 import { DepartmentFeedPage } from './features/feed/pages/DepartmentFeedPage';
 import { PostDetailPage } from './features/feed/pages/PostDetailPage';
 import { TeammateMatchingPage } from './features/study-group/pages/TeammateMatchingPage';
@@ -33,7 +34,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactElement; demoAllowed?: boo
 }) => {
   const { isAuthenticated } = useAuth();
   const demo = useDemoStore(state => state.active);
-  if (import.meta.env.DEV && demo) return demoAllowed ? children : <DemoUnavailable />;
+   if (demo) return demoAllowed ? children : <DemoUnavailable />;
   if (!isAuthenticated) {
     return <Navigate to={APP_ROUTES.LOGIN} replace />;
   }
@@ -52,7 +53,7 @@ export const AppRouter: React.FC = () => {
           element={
             <Navigate
               to={
-                isAuthenticated || (import.meta.env.DEV && demo)
+                isAuthenticated || demo
                   ? APP_ROUTES.CAMPUS_FEED
                   : APP_ROUTES.LOGIN
               }
@@ -76,6 +77,7 @@ export const AppRouter: React.FC = () => {
         />
 
         {/* Module 2: Academic Discussion & Feed */}
+        <Route path={APP_ROUTES.COURSES} element={<ProtectedRoute><CourseDirectoryPage /></ProtectedRoute>} />
         <Route
           path={APP_ROUTES.CAMPUS_FEED}
           element={

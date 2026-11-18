@@ -5,13 +5,15 @@ import { CourseTagPill } from '../../../components/common/CourseTagPill';
 import { LatexMathRenderer } from '../../../components/common/LatexMathRenderer';
 import { AcceptedAnswerBadge } from './AcceptedAnswerBadge';
 import { VoteEndorseBar } from './VoteEndorseBar';
+import styles from './PostCard.module.css';
 
 interface PostCardProps {
   post: PostItem;
   onVote: (postId: string, voteType: VoteType) => void;
+  compact?: boolean;
 }
 
-export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
+export const PostCard: React.FC<PostCardProps> = ({ post, onVote, compact = false }) => {
   const navigate = useNavigate();
   const [shareStatus, setShareStatus] = useState('');
 
@@ -55,6 +57,38 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onVote }) => {
       setShareStatus('Không thể sao chép. Hãy mở chi tiết và chép địa chỉ trang.');
     }
   };
+
+  if (compact) return (
+    <article className={styles.card}>
+      <header className={styles.authorRow}>
+        <span className={`${styles.avatar} ${post.is_anonymous ? styles.anonymous : ''}`} aria-hidden="true">{initials}</span>
+        <div className={styles.authorInfo}>
+          <strong>{authorName}</strong>
+          <time dateTime={post.created_at}>{formattedTime}</time>
+        </div>
+        <span className={styles.type}>{post.post_type === 'QUESTION' ? 'Hỏi đáp' : post.post_type === 'ANNOUNCEMENT' ? 'Thông báo' : 'Chia sẻ'}</span>
+      </header>
+      <h2 className={styles.title}><Link to={`/feed/posts/${post.id}`}>{post.title}</Link></h2>
+      <div className={styles.preview}><LatexMathRenderer content={post.content_body} /></div>
+      <Link className={styles.readMore} to={`/feed/posts/${post.id}`}>Xem thêm →</Link>
+      {(post.accepted_comment_id || !!post.courseTags?.length) && <div className={styles.tags}>
+        {post.courseTags?.map(tag => <CourseTagPill key={tag.id} code={tag.code} name={tag.name} />)}
+        {post.accepted_comment_id && <AcceptedAnswerBadge />}
+      </div>}
+      <footer className={styles.actions}>
+        <VoteEndorseBar
+          upvoteCount={post.upvote_count}
+          downvoteCount={post.downvote_count}
+          helpfulCount={post.helpful_count}
+          commentCount={post.comment_count}
+          onVote={type => onVote(post.id, type)}
+          onOpenComments={() => navigate(`/feed/posts/${post.id}`)}
+        />
+        <button type="button" onClick={handleShare}>Chia sẻ</button>
+      </footer>
+      {shareStatus && <p className={styles.shareStatus} role="status">{shareStatus}</p>}
+    </article>
+  );
 
   return (
     <article className="substack-post-item">

@@ -1,0 +1,13 @@
+# Deploy the frontend only; never upload local credentials or backend files.
+.env
+.env.*
+**/.env
+**/.env.*
+backend
+database
+docs
+.agent
+.git
+**/node_modules
+**/dist
+**/*.log

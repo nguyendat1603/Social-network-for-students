@@ -16,6 +16,8 @@ export const feedService = {
     postType?: PostType;
     sort?: 'new' | 'hot' | 'unanswered';
     q?: string;
+    page?: number;
+    limit?: number;
   }) {
     const qs = new URLSearchParams();
     if (params.scope) qs.set('scope', params.scope);
@@ -25,6 +27,8 @@ export const feedService = {
     if (params.postType) qs.set('postType', params.postType);
     if (params.sort) qs.set('sort', params.sort);
     if (params.q) qs.set('q', params.q);
+    if (params.page) qs.set('page', String(params.page));
+    if (params.limit) qs.set('limit', String(params.limit));
 
     const queryStr = qs.toString() ? `?${qs.toString()}` : '';
     return apiRequest<PostItem[]>(`/feed${queryStr}`);

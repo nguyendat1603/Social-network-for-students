@@ -14,9 +14,16 @@ import {
 const VALID_GRADES: TargetGradeGoal[] = ['A+', 'A', 'B+', 'PASS'];
 const VALID_KANBAN_STATUSES: KanbanTaskStatus[] = ['TODO', 'IN_PROGRESS', 'REVIEW', 'DONE'];
 
+// Deployed catalogs may use legacy integer IDs or UUIDs. Never coerce UUIDs to NaN.
+export const validateStudyGroupCourseId = (value: unknown): string | number => {
+  if (typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value)) return value;
+  if ((typeof value === 'number' || (typeof value === 'string' && /^\d+$/.test(value)))
+    && Number.isSafeInteger(Number(value)) && Number(value) > 0) return Number(value);
+  throw new AppError('Vui lòng chọn học phần hợp lệ cho nhóm đồ án', 400, 'VALIDATION_ERROR');
+};
+
 export const validateCreateStudyGroup = (body: Record<string, unknown>): CreateStudyGroupDTO => {
-  const courseId =
-    body.courseId !== undefined && body.courseId !== null ? String(body.courseId).trim() : '';
+  const courseId = validateStudyGroupCourseId(body.courseId);
   const semester = typeof body.semester === 'string' ? body.semester.trim() : '2026.1';
   const groupName = typeof body.groupName === 'string' ? body.groupName.trim() : '';
   const projectTopic =
@@ -24,9 +31,6 @@ export const validateCreateStudyGroup = (body: Record<string, unknown>): CreateS
   const targetGrade = (body.targetGrade as TargetGradeGoal) || 'A';
   const maxMembers = Number(body.maxMembers || 4);
 
-  if (!courseId) {
-    throw new AppError('Vui lòng chọn học phần cho nhóm đồ án', 400, 'VALIDATION_ERROR');
-  }
   if (!groupName || groupName.length < 3) {
     throw new AppError('Tên nhóm đồ án phải từ 3 ký tự trở lên', 400, 'VALIDATION_ERROR');
   }

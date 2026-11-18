@@ -4,16 +4,16 @@ import { APP_ROUTES } from '../../../config/routes.config';
 
 export const ContextualFeedTabs: React.FC = () => {
   const tabs = [
-    { label: 'Toàn trường Bách Khoa', to: APP_ROUTES.CAMPUS_FEED },
-    { label: 'Theo Trường / Viện', to: APP_ROUTES.DEPARTMENT_FEED },
-    { label: 'Theo Học phần (#MãMôn)', to: APP_ROUTES.COURSE_FEED },
+    { label: 'Toàn trường', to: APP_ROUTES.CAMPUS_FEED },
+    { label: 'Khoa / Viện', to: APP_ROUTES.DEPARTMENT_FEED },
+    { label: 'Học phần', to: APP_ROUTES.COURSES },
   ];
 
   return (
-    <div
+    <nav aria-label="Phạm vi bản tin"
       style={{
         display: 'flex',
-        gap: 20,
+        gap: 24,
         borderBottom: '1px solid var(--color-cloud)',
         paddingBottom: 0,
         overflowX: 'auto',
@@ -26,7 +26,7 @@ export const ContextualFeedTabs: React.FC = () => {
           end
           style={({ isActive }) => ({
             padding: '10px 2px 12px',
-            fontSize: 15,
+            fontSize: 13,
             fontWeight: isActive ? 600 : 500,
             color: isActive ? 'var(--color-ink)' : 'var(--color-stone)',
             borderBottom: isActive
@@ -40,6 +40,6 @@ export const ContextualFeedTabs: React.FC = () => {
           {t.label}
         </NavLink>
       ))}
-    </div>
+    </nav>
   );
 };
