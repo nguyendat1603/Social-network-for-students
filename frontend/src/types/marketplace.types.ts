@@ -24,7 +24,7 @@ export interface MarketplaceItem {
   title: string;
   description: string;
   category: ItemCategory;
-  course_id?: number | null;
+  course_id?: string | number | null;
   price_vnd: number;
   is_free: boolean;
   condition: ItemCondition;
@@ -44,7 +44,7 @@ export interface MarketplaceItem {
     };
   };
   course?: {
-    id: number;
+    id: string | number;
     code: string;
     name: string;
   } | null;

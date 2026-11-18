@@ -122,6 +122,15 @@ export class ModerationController {
 
   async getAutoModSettings(req: Request, res: Response, next: NextFunction) {
     try {
+      const userRole = req.user!.role;
+      if (userRole !== 'ADMIN' && userRole !== 'MODERATOR') {
+        throw new AppError(
+          'Chỉ Quản trị viên / Kiểm duyệt viên mới có quyền xem cấu hình tự động.',
+          403,
+          'FORBIDDEN'
+        );
+      }
+
       const data = await moderationService.getAutoModSettings();
       sendSuccess(res, data);
     } catch (error) {
@@ -137,7 +146,14 @@ export class ModerationController {
       }
 
       const reasonCode = String(req.params.reasonCode);
-      const thresholdCount = Number(req.body.thresholdCount || 5);
+      const thresholdCount = Number(req.body.thresholdCount);
+      if (!Number.isInteger(thresholdCount) || thresholdCount < 1) {
+        throw new AppError(
+          'Ngưỡng báo cáo tự động phải là số nguyên dương (>= 1).',
+          400,
+          'VALIDATION_ERROR'
+        );
+      }
       const isEnabled = req.body.isEnabled !== undefined ? Boolean(req.body.isEnabled) : true;
 
       const data = await moderationService.updateAutoModSetting(

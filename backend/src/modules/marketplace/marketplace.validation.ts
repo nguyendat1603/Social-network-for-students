@@ -20,8 +20,10 @@ const VALID_CATEGORIES: ItemCategory[] = [
 ];
 const VALID_CONDITIONS: ItemCondition[] = [
   'NEW',
+  'NEW_100',
   'LIKE_NEW_90',
   'USED_GOOD',
+  'GOOD_80',
   'SLIGHTLY_DAMAGED',
 ];
 const VALID_ITEM_STATUSES: ItemStatus[] = ['AVAILABLE', 'RESERVED', 'SOLD'];
@@ -41,8 +43,10 @@ export const validateCreateMarketplaceItem = (
   const rawPrice = Number(body.priceVnd || 0);
   const priceVnd = isFree ? 0 : Math.max(0, rawPrice);
   const courseId =
-    body.courseId !== undefined && body.courseId !== null && body.courseId !== ''
-      ? Number(body.courseId)
+    body.courseId !== undefined &&
+    body.courseId !== null &&
+    String(body.courseId).trim() !== ''
+      ? String(body.courseId).trim()
       : null;
   const pickupLocation =
     typeof body.pickupLocation === 'string' ? body.pickupLocation.trim() : undefined;
@@ -91,7 +95,11 @@ export const validateCreateHousingListing = (
   const title = typeof body.title === 'string' ? body.title.trim() : '';
   const description = typeof body.description === 'string' ? body.description.trim() : '';
   const addressDistrict =
-    typeof body.addressDistrict === 'string' ? body.addressDistrict.trim() : '';
+    typeof body.addressDistrict === 'string'
+      ? body.addressDistrict.trim()
+      : typeof body.addressArea === 'string'
+      ? body.addressArea.trim()
+      : '';
   const distanceToCampusKm =
     body.distanceToCampusKm !== undefined &&
     body.distanceToCampusKm !== null &&

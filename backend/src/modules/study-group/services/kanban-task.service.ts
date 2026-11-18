@@ -1,6 +1,7 @@
 import { supabase } from '../../../database';
 import { AppError } from '../../../common/errors/app.error';
 import { KARMA_RULES } from '../../../common/constants/karma-rules.constant';
+import { normalizeUserWithProfile } from '../../../common/utils/profile.util';
 import { academicKarmaService } from '../../moderation/services/academic-karma.service';
 import { CreateKanbanTaskDTO, UpdateKanbanTaskDTO } from '../study-group.types';
 import { groupWorkspaceService } from './group-workspace.service';
@@ -33,7 +34,10 @@ export class KanbanTaskService {
       .select(
         `
         *,
-        assignee:users!kanban_tasks_assignee_id_fkey(id, full_name, avatar_url)
+        assignee:users!kanban_tasks_assignee_id_fkey(
+          id,
+          academic_profile:academic_profiles(full_name, avatar_url, student_code)
+        )
       `
       )
       .single();
@@ -42,7 +46,10 @@ export class KanbanTaskService {
       throw new AppError(error?.message || 'Không thể tạo công việc Kanban', 500, 'TASK_CREATE_FAILED');
     }
 
-    return data;
+    return {
+      ...data,
+      assignee: normalizeUserWithProfile(data.assignee),
+    };
   }
 
   async updateTask(groupId: string, taskId: string, userId: string, dto: UpdateKanbanTaskDTO) {
@@ -78,7 +85,10 @@ export class KanbanTaskService {
       .select(
         `
         *,
-        assignee:users!kanban_tasks_assignee_id_fkey(id, full_name, avatar_url)
+        assignee:users!kanban_tasks_assignee_id_fkey(
+          id,
+          academic_profile:academic_profiles(full_name, avatar_url, student_code)
+        )
       `
       )
       .single();
@@ -106,7 +116,10 @@ export class KanbanTaskService {
       }
     }
 
-    return updatedTask;
+    return {
+      ...updatedTask,
+      assignee: normalizeUserWithProfile(updatedTask.assignee),
+    };
   }
 
   async deleteTask(groupId: string, taskId: string, userId: string) {

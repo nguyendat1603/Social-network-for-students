@@ -145,17 +145,15 @@ export class AcademicKarmaService {
   ): Promise<KarmaLeaderboardItem[]> {
     const limit = query.limit || 20;
 
-    let dbQuery = supabase
+    const dbQuery = supabase
       .from('users')
       .select(
         `
         id,
-        full_name,
-        avatar_url,
         karma_points,
         role,
         is_verified_student,
-        academic_profile:academic_profiles(student_code, major, faculty_id)
+        academic_profile:academic_profiles(full_name, avatar_url, student_code, major, faculty_id)
       `
       )
       .eq('is_verified_student', true)
@@ -176,8 +174,8 @@ export class AcademicKarmaService {
       return {
         rank: index + 1,
         userId: u.id,
-        fullName: u.full_name,
-        avatarUrl: u.avatar_url,
+        fullName: profile?.full_name || 'Sinh viên',
+        avatarUrl: profile?.avatar_url || null,
         studentCode: profile?.student_code || null,
         major: profile?.major || null,
         facultyId: profile?.faculty_id || null,

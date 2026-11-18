@@ -57,5 +57,6 @@ export interface UpdateKanbanTaskDTO {
 export interface CreateGroupDocumentDTO {
   title: string;
   fileUrl: string;
+  fileName?: string;
   fileSizeBytes?: number;
 }

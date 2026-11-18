@@ -1,4 +1,5 @@
 import { supabase } from '../../../database';
+import { normalizeUserWithProfile } from '../../../common/utils/profile.util';
 import { DispatchNotificationPayload } from '../communication.types';
 
 export class RealtimeNotificationService {
@@ -25,7 +26,10 @@ export class RealtimeNotificationService {
       .select(
         `
         *,
-        actor:users!notifications_actor_id_fkey(id, full_name, avatar_url)
+        actor:users!notifications_actor_id_fkey(
+          id,
+          academic_profile:academic_profiles(full_name, avatar_url, student_code)
+        )
       `
       )
       .single();
@@ -35,28 +39,47 @@ export class RealtimeNotificationService {
       return null;
     }
 
-    return data;
+    return {
+      ...data,
+      actor: normalizeUserWithProfile(data.actor),
+    };
   }
 
   async listNotifications(userId: string, limit = 30) {
-    const { data, error } = await supabase
-      .from('notifications')
-      .select(
+    const [{ data, error }, { count: totalUnreadCount }] = await Promise.all([
+      supabase
+        .from('notifications')
+        .select(
+          `
+          *,
+          actor:users!notifications_actor_id_fkey(
+            id,
+            academic_profile:academic_profiles(full_name, avatar_url, student_code)
+          )
         `
-        *,
-        actor:users!notifications_actor_id_fkey(id, full_name, avatar_url)
-      `
-      )
-      .eq('recipient_id', userId)
-      .order('created_at', { ascending: false })
-      .limit(limit);
+        )
+        .eq('recipient_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(limit),
+      supabase
+        .from('notifications')
+        .select('*', { count: 'exact', head: true })
+        .eq('recipient_id', userId)
+        .eq('is_read', false),
+    ]);
 
     if (error) {
       throw new Error(error.message);
     }
 
-    const items = data || [];
-    const unreadCount = items.filter((n) => !n.is_read).length;
+    const items = (data || []).map((n) => ({
+      ...n,
+      actor: normalizeUserWithProfile(n.actor),
+    }));
+
+    const fallbackUnread = items.filter((n) => !n.is_read).length;
+    const unreadCount =
+      typeof totalUnreadCount === 'number' ? totalUnreadCount : fallbackUnread;
 
     return {
       items,

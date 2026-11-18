@@ -84,6 +84,7 @@ CREATE TABLE IF NOT EXISTS public.notifications (
     body TEXT NOT NULL,
     reference_type VARCHAR(50),
     reference_id UUID,
+    reference_url TEXT,
     is_read BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

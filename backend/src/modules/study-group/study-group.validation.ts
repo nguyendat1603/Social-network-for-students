@@ -164,12 +164,18 @@ export const validateCreateGroupDocument = (
 ): CreateGroupDocumentDTO => {
   const title = typeof body.title === 'string' ? body.title.trim() : '';
   const fileUrl = typeof body.fileUrl === 'string' ? body.fileUrl.trim() : '';
+  const fileName =
+    typeof body.fileName === 'string' && body.fileName.trim()
+      ? body.fileName.trim()
+      : title
+      ? `${title.replace(/\s+/g, '_')}.pdf`
+      : 'group-document.pdf';
   const fileSizeBytes =
     typeof body.fileSizeBytes === 'number'
-      ? body.fileSizeBytes
+      ? Math.max(0, Math.floor(body.fileSizeBytes))
       : body.fileSizeBytes
-      ? Number(body.fileSizeBytes)
-      : undefined;
+      ? Math.max(0, Math.floor(Number(body.fileSizeBytes)))
+      : 0;
 
   if (!title || !fileUrl) {
     throw new AppError('Vui lòng nhập tên tài liệu và đường dẫn file', 400, 'VALIDATION_ERROR');
@@ -178,6 +184,7 @@ export const validateCreateGroupDocument = (
   return {
     title,
     fileUrl,
+    fileName,
     fileSizeBytes,
   };
 };

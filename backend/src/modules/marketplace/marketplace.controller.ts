@@ -23,7 +23,10 @@ export class MarketplaceController {
       const filters = {
         category: (req.query.category as ItemCategory) || undefined,
         condition: (req.query.condition as ItemCondition) || undefined,
-        courseId: req.query.courseId ? Number(req.query.courseId) : undefined,
+        courseId:
+          typeof req.query.courseId === 'string' && req.query.courseId.trim()
+            ? req.query.courseId.trim()
+            : undefined,
         maxPriceVnd: req.query.maxPriceVnd ? Number(req.query.maxPriceVnd) : undefined,
         onlyFree: req.query.onlyFree === 'true' ? true : undefined,
         status: (req.query.status as ItemStatus) || undefined,

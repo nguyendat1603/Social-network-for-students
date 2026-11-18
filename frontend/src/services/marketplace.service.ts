@@ -15,7 +15,7 @@ export const marketplaceService = {
   listItems(params?: {
     category?: ItemCategory;
     condition?: ItemCondition;
-    courseId?: number;
+    courseId?: string | number;
     maxPriceVnd?: number;
     onlyFree?: boolean;
     status?: ItemStatus;
@@ -40,7 +40,7 @@ export const marketplaceService = {
     title: string;
     description: string;
     category: ItemCategory;
-    courseId?: number | null;
+    courseId?: string | number | null;
     priceVnd: number;
     isFree: boolean;
     condition: ItemCondition;

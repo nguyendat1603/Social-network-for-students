@@ -14,7 +14,7 @@ export interface RecruitmentSlot {
 
 export interface StudyGroupItem {
   id: string;
-  course_id: number;
+  course_id: string | number;
   semester: string;
   group_name: string;
   project_topic?: string | null;
@@ -24,7 +24,7 @@ export interface StudyGroupItem {
   leader_id: string;
   created_at: string;
   course?: {
-    id: number;
+    id: string | number;
     code: string;
     name: string;
   };

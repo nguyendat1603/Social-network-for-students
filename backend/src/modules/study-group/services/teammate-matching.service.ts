@@ -1,5 +1,6 @@
 import { supabase } from '../../../database';
 import { AppError } from '../../../common/errors/app.error';
+import { normalizeUserWithProfile } from '../../../common/utils/profile.util';
 import {
   ApplyToStudyGroupDTO,
   CreateStudyGroupDTO,
@@ -16,8 +17,8 @@ export class TeammateMatchingService {
       .insert({
         course_id: dto.courseId,
         semester: dto.semester,
-        group_name: dto.groupName,
-        project_topic: dto.projectTopic || null,
+        name: dto.groupName,
+        description: dto.projectTopic || null,
         target_grade: dto.targetGrade,
         max_members: dto.maxMembers,
         is_recruiting: true,
@@ -50,23 +51,29 @@ export class TeammateMatchingService {
       group_id: group.id,
       user_id: leaderId,
       member_role: 'LEAD',
-      assigned_role: 'Team Leader',
+      assigned_position: 'Team Leader',
     });
+
+    const groupName = group.name ?? dto.groupName;
 
     // Auto-create PROJECT_GROUP conversation in Module 7
     await groupChatService.ensureProjectGroupConversation({
       studyGroupId: group.id,
-      groupName: group.group_name,
+      groupName,
       leaderId,
     });
 
-    return group;
+    return {
+      ...group,
+      group_name: groupName,
+      project_topic: group.description ?? dto.projectTopic ?? null,
+    };
   }
 
   async applyToStudyGroup(groupId: string, applicantId: string, dto: ApplyToStudyGroupDTO) {
     const { data: group } = await supabase
       .from('study_groups')
-      .select('id, group_name, is_recruiting, leader_id')
+      .select('id, name, is_recruiting, leader_id')
       .eq('id', groupId)
       .maybeSingle();
 
@@ -113,7 +120,7 @@ export class TeammateMatchingService {
           group_id: groupId,
           slot_id: dto.slotId,
           applicant_id: applicantId,
-          cover_letter: dto.coverLetter,
+          cover_note: dto.coverLetter,
           portfolio_url: dto.portfolioUrl || null,
           status: 'PENDING',
         },
@@ -131,11 +138,14 @@ export class TeammateMatchingService {
       actorId: applicantId,
       type: 'GROUP_INVITE',
       title: 'Đơn ứng tuyển nhóm đồ án mới',
-      body: `Có ứng viên mới đăng ký vị trí ${slot.role_name} trong nhóm "${group.group_name}".`,
+      body: `Có ứng viên mới đăng ký vị trí ${slot.role_name} trong nhóm "${group.name}".`,
       referenceUrl: `/study-groups/${groupId}/workspace`,
     });
 
-    return application;
+    return {
+      ...application,
+      cover_letter: application.cover_note ?? dto.coverLetter,
+    };
   }
 
   async reviewApplication(
@@ -152,8 +162,11 @@ export class TeammateMatchingService {
         `
         *,
         slot:recruitment_slots(*),
-        applicant:users!group_applications_applicant_id_fkey(id, full_name),
-        group:study_groups(id, group_name, max_members)
+        applicant:users!group_applications_applicant_id_fkey(
+          id,
+          academic_profile:academic_profiles(full_name, avatar_url, student_code)
+        ),
+        group:study_groups(id, name, max_members)
       `
       )
       .eq('id', applicationId)
@@ -182,6 +195,9 @@ export class TeammateMatchingService {
       throw new AppError(updateError.message, 500, 'APPLICATION_UPDATE_FAILED');
     }
 
+    const normalizedApplicant = normalizeUserWithProfile(application.applicant);
+    const groupTitle = application.group?.name || 'Nhóm đồ án';
+
     if (dto.status === 'APPROVED') {
       const roleName = application.slot?.role_name || 'Member';
 
@@ -191,7 +207,7 @@ export class TeammateMatchingService {
           group_id: groupId,
           user_id: application.applicant_id,
           member_role: 'MEMBER',
-          assigned_role: roleName,
+          assigned_position: roleName,
         },
         { onConflict: 'group_id,user_id' }
       );
@@ -228,7 +244,7 @@ export class TeammateMatchingService {
       await groupChatService.addMemberToProjectGroupChat({
         studyGroupId: groupId,
         userId: application.applicant_id,
-        memberName: application.applicant?.full_name || 'Thành viên mới',
+        memberName: normalizedApplicant?.full_name || 'Thành viên mới',
         roleName,
       });
 
@@ -237,7 +253,7 @@ export class TeammateMatchingService {
         actorId: leaderId,
         type: 'APPLICATION_STATUS',
         title: 'Đơn ứng tuyển nhóm đồ án đã được duyệt!',
-        body: `Chúc mừng! Bạn đã trở thành ${roleName} của nhóm "${application.group?.group_name}".`,
+        body: `Chúc mừng! Bạn đã trở thành ${roleName} của nhóm "${groupTitle}".`,
         referenceUrl: `/study-groups/${groupId}/workspace`,
       });
     } else {
@@ -246,12 +262,15 @@ export class TeammateMatchingService {
         actorId: leaderId,
         type: 'APPLICATION_STATUS',
         title: 'Cập nhật kết quả ứng tuyển nhóm đồ án',
-        body: `Đơn ứng tuyển vào nhóm "${application.group?.group_name}" chưa phù hợp lần này.`,
+        body: `Đơn ứng tuyển vào nhóm "${groupTitle}" chưa phù hợp lần này.`,
         referenceUrl: `/study-groups`,
       });
     }
 
-    return updatedApp;
+    return {
+      ...updatedApp,
+      cover_letter: updatedApp.cover_note ?? updatedApp.cover_letter ?? '',
+    };
   }
 }
 

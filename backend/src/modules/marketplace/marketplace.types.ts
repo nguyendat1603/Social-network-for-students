@@ -7,8 +7,10 @@ export type ItemCategory =
 
 export type ItemCondition =
   | 'NEW'
+  | 'NEW_100'
   | 'LIKE_NEW_90'
   | 'USED_GOOD'
+  | 'GOOD_80'
   | 'SLIGHTLY_DAMAGED';
 
 export type ItemStatus = 'AVAILABLE' | 'RESERVED' | 'SOLD';
@@ -22,7 +24,7 @@ export interface CreateMarketplaceItemDTO {
   title: string;
   description: string;
   category: ItemCategory;
-  courseId?: number | null;
+  courseId?: string | null;
   priceVnd: number;
   isFree: boolean;
   condition: ItemCondition;
@@ -33,7 +35,7 @@ export interface CreateMarketplaceItemDTO {
 export interface MarketplaceItemFilterQuery {
   category?: ItemCategory;
   condition?: ItemCondition;
-  courseId?: number;
+  courseId?: string;
   maxPriceVnd?: number;
   onlyFree?: boolean;
   status?: ItemStatus;
