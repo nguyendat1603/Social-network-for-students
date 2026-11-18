@@ -18,11 +18,12 @@ const PEER_AVATARS = [
 export const Navbar: React.FC = () => {
   const { user: sessionUser, isAuthenticated: sessionAuthenticated, logout } = useAuth();
   const demo = useDemoStore(state => state.active);
-  const user = import.meta.env.DEV && demo ? null : sessionUser;
-  const isAuthenticated = sessionAuthenticated && !(import.meta.env.DEV && demo);
+  const user = demo ? null : sessionUser;
+  const isAuthenticated = sessionAuthenticated && !demo;
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    useDemoStore.getState().exit();
     logout();
     navigate(APP_ROUTES.LOGIN);
   };
@@ -87,7 +88,7 @@ export const Navbar: React.FC = () => {
             color: 'var(--color-graphite)',
           }}
         >
-          {import.meta.env.DEV && demo ? 'Demo · Không kết nối backend' : '[supabase: connected]'}
+          {demo ? 'Tài khoản mock · Chỉ xem' : '[supabase: connected]'}
         </span>
       </div>
 

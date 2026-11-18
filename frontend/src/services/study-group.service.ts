@@ -11,7 +11,7 @@ import {
 
 export const studyGroupService = {
   listStudyGroups(params?: {
-    courseId?: number;
+    courseId?: string | number;
     targetGrade?: TargetGradeGoal;
     roleName?: string;
     onlyRecruiting?: boolean;
@@ -31,7 +31,7 @@ export const studyGroupService = {
   },
 
   createStudyGroup(payload: {
-    courseId: number;
+    courseId: string | number;
     semester: string;
     groupName: string;
     projectTopic?: string;

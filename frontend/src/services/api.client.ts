@@ -16,7 +16,7 @@ export async function apiRequest<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
-  if (import.meta.env.DEV && isDemoMode()) {
+  if (isDemoMode()) {
     if ((options.method || 'GET').toUpperCase() !== 'GET') {
       window.dispatchEvent(new Event('campus-demo-write-blocked'));
       throw new Error('Thao tác này cần đăng nhập thật. Chế độ demo chỉ cho phép xem.');

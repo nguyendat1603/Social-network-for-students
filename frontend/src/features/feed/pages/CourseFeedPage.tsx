@@ -1,60 +1,72 @@
-﻿import React, { useCallback, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+﻿import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { APP_ROUTES } from '../../../config/routes.config';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { feedService } from '../../../services/feed.service';
 import { identityService } from '../../../services/identity.service';
 import { CourseItem, FacultyItem } from '../../../types/identity.types';
 import { PostItem, VoteType } from '../../../types/feed.types';
-import { ContextualFeedTabs } from '../components/ContextualFeedTabs';
 import { PostCard } from '../components/PostCard';
 import { PostComposerModal } from '../components/PostComposerModal';
 
 export const CourseFeedPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialCode = searchParams.get('code') || 'IT3080';
+  const selectedCourseCode = searchParams.get('code') || searchParams.get('courseCode') || '';
 
   const [faculties, setFaculties] = useState<FacultyItem[]>([]);
   const [courses, setCourses] = useState<CourseItem[]>([]);
-  const [selectedCourseCode, setSelectedCourseCode] = useState(initialCode);
   const [posts, setPosts] = useState<PostItem[]>([]);
   const [showComposer, setShowComposer] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const requestVersion = useRef(0);
+  const [catalogLoading, setCatalogLoading] = useState(true);
 
   useEffect(() => {
-    setSelectedCourseCode(searchParams.get('code') || 'IT3080');
-  }, [searchParams]);
-
-  useEffect(() => {
+    let active = true;
     identityService.getCatalog().then((res) => {
+      if (!active) return;
       setFaculties(res.faculties);
       setCourses(res.courses);
-    }).catch(() => setError('Không thể tải danh sách học phần.'));
+    }).catch(() => { if (active) setError('Không thể tải danh sách học phần.'); })
+      .finally(() => { if (active) setCatalogLoading(false); });
+    return () => { active = false; };
   }, []);
 
   const loadFeed = useCallback(async () => {
+    const version = ++requestVersion.current;
+    if (!selectedCourseCode || catalogLoading) { setPosts([]); setLoading(false); return; }
+    if (!courses.some(course => course.code === selectedCourseCode)) {
+      setPosts([]);
+      setError('Không tìm thấy học phần. Hãy chọn một môn trong danh sách.');
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     try {
       const data = await feedService.listPosts({
         scope: 'COURSE',
         courseCode: selectedCourseCode || undefined,
+        postType: 'DISCUSSION',
       });
+      if (version !== requestVersion.current) return;
       setPosts(data);
       setError('');
     } catch {
+      if (version !== requestVersion.current) return;
       setPosts([]);
       setError('Không thể tải bài viết học phần. Vui lòng thử lại.');
     } finally {
-      setLoading(false);
+      if (version === requestVersion.current) setLoading(false);
     }
-  }, [selectedCourseCode]);
+  }, [selectedCourseCode, courses, catalogLoading]);
 
   useEffect(() => {
     loadFeed();
+    return () => { requestVersion.current++; };
   }, [loadFeed]);
 
   const handleSelectCourse = (code: string) => {
-    setSelectedCourseCode(code);
     setSearchParams({ code });
   };
 
@@ -75,7 +87,7 @@ export const CourseFeedPage: React.FC = () => {
   };
 
   return (
-    <MainLayout onAsk={() => setShowComposer(true)}>
+    <MainLayout>
       {error && <p role="alert">{error} <button type="button" onClick={loadFeed}>Thử lại</button></p>}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div
@@ -97,53 +109,33 @@ export const CourseFeedPage: React.FC = () => {
                 lineHeight: 1.24,
               }}
             >
-              Chuyên đề Học phần #{selectedCourseCode}
+              Thảo luận {selectedCourseCode ? `· ${selectedCourseCode}` : 'học phần'}
             </h1>
             <p style={{ fontSize: 14, color: 'var(--color-stone)', marginTop: 4 }}>
-              Tự động gom mọi bài giảng, đề cương &amp; câu hỏi gắn thẻ #{selectedCourseCode}.
+              Trao đổi cách học, kinh nghiệm và bài tập lớn. Câu hỏi cần lời giải nằm trong tab Hỏi đáp.
             </p>
           </div>
           <button
             type="button"
+            disabled={!courses.some(course => course.code === selectedCourseCode)}
             onClick={() => setShowComposer(true)}
             className="substack-btn-primary"
           >
-            + Đặt câu hỏi cho #{selectedCourseCode}
+            + Đăng bài thảo luận
           </button>
         </div>
 
-        <ContextualFeedTabs />
+        <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 13 }}>
+          Học phần
+          <select value={selectedCourseCode} onChange={event => handleSelectCourse(event.target.value)} disabled={catalogLoading}>
+            <option value="">Chọn một học phần</option>
+            {courses.map(course => <option key={course.id} value={course.code}>{course.code} · {course.name}</option>)}
+          </select>
+        </label>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-          {courses.map((c) => (
-            <button
-              key={c.id}
-              type="button"
-              onClick={() => handleSelectCourse(c.code)}
-              style={{
-                padding: '7px 14px',
-                borderRadius: 999,
-                fontSize: 12,
-                fontWeight: 700,
-                border: '1px solid var(--border-color)',
-                background:
-                  selectedCourseCode === c.code
-                    ? 'var(--brand-primary)'
-                    : 'var(--bg-secondary)',
-                color:
-                  selectedCourseCode === c.code
-                    ? '#fff'
-                    : 'var(--text-secondary)',
-              }}
-            >
-              #{c.code} · {c.name}
-            </button>
-          ))}
-        </div>
-
-        {loading ? (
+        {catalogLoading || loading ? (
           <div>Đang tải bài viết của học phần #{selectedCourseCode}...</div>
-        ) : posts.length === 0 ? (
+        ) : !selectedCourseCode ? <p>Chọn một môn ở trên hoặc <Link to={APP_ROUTES.COURSES}>xem danh mục học phần</Link>.</p> : posts.length === 0 ? (
           <div
             style={{
               padding: 32,
@@ -154,7 +146,7 @@ export const CourseFeedPage: React.FC = () => {
               color: 'var(--text-muted)',
             }}
           >
-            Chưa có bài viết nào gắn thẻ #{selectedCourseCode}.
+            Chưa có bài thảo luận cho học phần này. Bạn có thể xem câu hỏi trong tab Hỏi đáp.
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -167,6 +159,7 @@ export const CourseFeedPage: React.FC = () => {
         {showComposer && (
           <PostComposerModal
             defaultScope="COURSE"
+            defaultPostType="DISCUSSION"
             defaultCourseId={courses.find(course => course.code === selectedCourseCode)?.id}
             faculties={faculties}
             courses={courses}

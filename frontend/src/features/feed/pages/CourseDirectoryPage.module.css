@@ -1,0 +1,16 @@
+.directory { display: flex; flex-direction: column; gap: 22px; }
+.directory h1 { font-size: 28px; margin: 0 0 8px; }
+.directory header p { color: var(--cs-muted); margin: 0; font-size: 14px; }
+.filters { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; }
+.filters label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-weight: 650; }
+.filters input, .filters select { width: 100%; min-width: 0; padding: 11px 12px; background: white; border: 1px solid var(--cs-border); border-radius: 8px; font: inherit; font-size: 14px; color: var(--cs-ink); }
+.count { font-size: 12px; color: var(--cs-muted); margin: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 16px; }
+.card { background: white; border: 1px solid var(--cs-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; align-items: flex-start; }
+.code { color: var(--cs-red); font-size: 11px; font-weight: 750; }
+.card h2 { font-size: 18px; margin: 8px 0; line-height: 1.4; }
+.card p { font-size: 12px; color: var(--cs-muted); margin: 0 0 20px; }
+.card nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.card nav a { border: 1px solid var(--cs-border); border-radius: 6px; padding: 6px 9px; font-size: 12px; }
+.card a:hover { color: var(--cs-red); }
+@media(max-width:540px) { .filters { grid-template-columns: 1fr; } }

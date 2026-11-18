@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MainLayout } from '../../../components/layout/MainLayout';
 import { PostCard } from '../../feed/components/PostCard';
@@ -6,16 +6,21 @@ import { courseReviewService } from '../../../services/course-review.service';
 import { feedService } from '../../../services/feed.service';
 import { identityService } from '../../../services/identity.service';
 import { PostItem, VoteType } from '../../../types/feed.types';
-import { CourseItem } from '../../../types/identity.types';
+import { CourseItem, FacultyItem } from '../../../types/identity.types';
+import { PostComposerModal } from '../../feed/components/PostComposerModal';
 import { SubjectQuestionSearch } from '../components/SubjectQuestionSearch';
 
 export const SubjectQaForumPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialCourse = searchParams.get('courseCode') || '';
+  const initialCourse = searchParams.get('courseCode') || searchParams.get('code') || '';
 
   const [courses, setCourses] = useState<CourseItem[]>([]);
+  const [faculties, setFaculties] = useState<FacultyItem[]>([]);
+  const [showComposer, setShowComposer] = useState(false);
+  const [error, setError] = useState('');
+  const requestVersion = useRef(0);
   const [selectedCourseCode, setSelectedCourseCode] = useState(initialCourse);
-  useEffect(() => { setSelectedCourseCode(searchParams.get('courseCode') || ''); }, [searchParams]);
+  useEffect(() => { setSelectedCourseCode(searchParams.get('courseCode') || searchParams.get('code') || ''); }, [searchParams]);
   const [keyword, setKeyword] = useState('');
   const [onlyAccepted, setOnlyAccepted] = useState(false);
   const [questions, setQuestions] = useState<PostItem[]>([]);
@@ -24,26 +29,31 @@ export const SubjectQaForumPage: React.FC = () => {
   useEffect(() => {
     identityService
       .getCatalog()
-      .then((res) => setCourses(res.courses))
-      .catch(() => {});
+      .then((res) => { setCourses(res.courses); setFaculties(res.faculties); })
+      .catch(() => setError('Không thể tải danh mục học phần.'));
   }, []);
 
   const runSearch = useCallback(async () => {
+    const version = ++requestVersion.current;
     setLoading(true);
+    setError('');
     try {
       const data = await courseReviewService.searchSubjectForum({
         courseCode: selectedCourseCode || undefined,
         q: keyword || undefined,
         onlyAccepted,
       });
-      setQuestions(data);
+      if (version === requestVersion.current) setQuestions(data);
+    } catch {
+      if (version === requestVersion.current) { setQuestions([]); setError('Không thể tải câu hỏi. Vui lòng thử lại.'); }
     } finally {
-      setLoading(false);
+      if (version === requestVersion.current) setLoading(false);
     }
   }, [selectedCourseCode, keyword, onlyAccepted]);
 
   useEffect(() => {
     runSearch();
+    return () => { requestVersion.current++; };
   }, [runSearch]);
 
   const handleVote = async (postId: string, voteType: VoteType) => {
@@ -52,11 +62,11 @@ export const SubjectQaForumPage: React.FC = () => {
   };
 
   return (
-    <MainLayout pageClassName="campus-page campus-reviews">
+    <MainLayout pageClassName="campus-page campus-reviews" onAsk={courses.length ? () => setShowComposer(true) : undefined}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>
-            🔎 Diễn đàn Hỏi bài theo Môn (Subject-Specific Q&A Forum)
+            Hỏi đáp học phần
           </h1>
           <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>
             Tra cứu câu hỏi học thuật cũ theo mã học phần, từ khóa lỗi hoặc lời giải đã được xác nhận Accepted Answer.
@@ -72,11 +82,13 @@ export const SubjectQaForumPage: React.FC = () => {
             setSelectedCourseCode(code);
             const next = new URLSearchParams(searchParams);
             if (code) next.set('courseCode', code); else next.delete('courseCode');
+            next.delete('code');
             setSearchParams(next);
           }}
           onKeywordChange={setKeyword}
           onOnlyAcceptedChange={setOnlyAccepted}
         />
+        {error && <p role="alert">{error} <button type="button" onClick={runSearch}>Thử lại</button></p>}
 
         {loading ? (
           <div>Đang tìm kiếm câu hỏi học thuật...</div>
@@ -100,6 +112,10 @@ export const SubjectQaForumPage: React.FC = () => {
             ))}
           </div>
         )}
+        {showComposer && <PostComposerModal defaultScope="COURSE" defaultPostType="QUESTION"
+          defaultCourseId={courses.find(course => course.code === selectedCourseCode)?.id}
+          courses={courses} faculties={faculties} onClose={() => setShowComposer(false)}
+          onSubmit={async payload => { await feedService.createPost(payload); await runSearch(); }} />}
       </div>
     </MainLayout>
   );

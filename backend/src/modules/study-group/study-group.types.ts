@@ -10,7 +10,7 @@ export interface RecruitmentSlotInput {
 }
 
 export interface CreateStudyGroupDTO {
-  courseId: number;
+  courseId: string | number;
   semester: string;
   groupName: string;
   projectTopic?: string;
@@ -20,7 +20,7 @@ export interface CreateStudyGroupDTO {
 }
 
 export interface StudyGroupFilterQuery {
-  courseId?: number;
+  courseId?: string | number;
   targetGrade?: TargetGradeGoal;
   roleName?: string;
   onlyRecruiting?: boolean;

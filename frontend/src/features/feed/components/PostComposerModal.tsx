@@ -7,6 +7,7 @@ import { CourseItem, FacultyItem } from '../../../types/identity.types';
 
 interface PostComposerModalProps {
   defaultScope: FeedScope;
+  defaultPostType?: PostType;
   defaultCourseId?: string;
   faculties: FacultyItem[];
   courses: CourseItem[];
@@ -24,6 +25,7 @@ interface PostComposerModalProps {
 
 export const PostComposerModal: React.FC<PostComposerModalProps> = ({
   defaultScope,
+  defaultPostType = 'QUESTION',
   defaultCourseId,
   faculties,
   courses,
@@ -33,7 +35,7 @@ export const PostComposerModal: React.FC<PostComposerModalProps> = ({
   const dialogRef = useDialog(onClose);
   const { isAnonymousActive, anonymousHandle } = useAnonymousMode();
   const [feedScope, setFeedScope] = useState<FeedScope>(defaultScope);
-  const [postType, setPostType] = useState<PostType>('QUESTION');
+  const [postType, setPostType] = useState<PostType>(defaultPostType);
   const [facultyId, setFacultyId] = useState('');
   const [courseId, setCourseId] = useState(defaultCourseId || '');
   const [title, setTitle] = useState('');

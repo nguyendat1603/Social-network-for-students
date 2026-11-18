@@ -7,7 +7,11 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seed:check": "tsx scripts/seed-demo.ts --check",
+    "seed:demo": "tsx scripts/seed-demo.ts --apply",
+    "test:demo": "tsx scripts/test-demo-data.ts",
+    "test:navigation": "tsx scripts/test-navigation.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.49.1",
